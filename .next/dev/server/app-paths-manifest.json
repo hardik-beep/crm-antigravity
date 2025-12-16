@@ -5,5 +5,6 @@
   "/api/upload-history/route": "app/api/upload-history/route.js",
   "/nexus-purchased/page": "app/nexus-purchased/page.js",
   "/page": "app/page.js",
-  "/protect/page": "app/protect/page.js"
+  "/protect/page": "app/protect/page.js",
+  "/settlement/page": "app/settlement/page.js"
 }
