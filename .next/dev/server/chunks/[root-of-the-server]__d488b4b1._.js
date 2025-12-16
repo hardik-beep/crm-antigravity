@@ -64,14 +64,13 @@ var __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$
 var __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/path [external] (path, cjs)");
 ;
 ;
-const DB_PATH = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'data');
-const DB_FILE = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(DB_PATH, 'db.json');
-// Ensure data directory exists
-if (!__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(DB_PATH)) {
-    __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].mkdirSync(DB_PATH, {
-        recursive: true
-    });
-}
+// Determine if we are in a production environment (like Vercel)
+const IS_PRODUCTION = ("TURBOPACK compile-time value", "development") === 'production';
+// In production, use /tmp which is writable. In development, use local data folder.
+const DATA_DIR = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'data');
+const DB_FILE = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(DATA_DIR, 'db.json');
+// Source file to seed from (committed data)
+const SEED_FILE = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'data', 'db.json');
 const INITIAL_DATA = {
     users: [
         {
@@ -81,17 +80,45 @@ const INITIAL_DATA = {
             name: 'Administrator',
             role: 'admin',
             createdAt: new Date().toISOString()
+        },
+        {
+            id: 'agent-default',
+            username: 'agent',
+            password: 'agent',
+            name: 'Default Agent',
+            role: 'agent',
+            createdAt: new Date().toISOString()
         }
     ],
     sessions: [],
     records: [],
     uploadHistory: []
 };
-function readDB() {
-    if (!__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(DB_FILE)) {
-        __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
-        return INITIAL_DATA;
+function ensureDB() {
+    // Ensure directory exists
+    if (!__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(DATA_DIR)) {
+        __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].mkdirSync(DATA_DIR, {
+            recursive: true
+        });
     }
+    // If DB_FILE doesn't exist in the working directory
+    if (!__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(DB_FILE)) {
+        // Try to copy from seed file (committed data) if it exists
+        if (__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(SEED_FILE)) {
+            try {
+                const seedData = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readFileSync(SEED_FILE, 'utf-8');
+                __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, seedData);
+                return;
+            } catch (error) {
+                console.error("Failed to copy seed file:", error);
+            }
+        }
+        // Fallback to INITIAL_DATA
+        __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
+    }
+}
+function readDB() {
+    ensureDB();
     try {
         const data = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readFileSync(DB_FILE, 'utf-8');
         return JSON.parse(data);
@@ -100,6 +127,7 @@ function readDB() {
     }
 }
 function writeDB(data) {
+    ensureDB();
     __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 const db = {

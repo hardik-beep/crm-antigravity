@@ -1,13 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 
-const DB_PATH = path.join(process.cwd(), 'data');
-const DB_FILE = path.join(DB_PATH, 'db.json');
+// Determine if we are in a production environment (like Vercel)
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
-// Ensure data directory exists
-if (!fs.existsSync(DB_PATH)) {
-    fs.mkdirSync(DB_PATH, { recursive: true });
-}
+// In production, use /tmp which is writable. In development, use local data folder.
+const DATA_DIR = IS_PRODUCTION ? '/tmp' : path.join(process.cwd(), 'data');
+const DB_FILE = path.join(DATA_DIR, 'db.json');
+
+// Source file to seed from (committed data)
+const SEED_FILE = path.join(process.cwd(), 'data', 'db.json');
 
 import type { CRMRecord, UploadHistory } from './types';
 
@@ -44,6 +46,14 @@ const INITIAL_DATA: DBData = {
             name: 'Administrator',
             role: 'admin',
             createdAt: new Date().toISOString(),
+        },
+        {
+            id: 'agent-default',
+            username: 'agent',
+            password: 'agent', // Default agent credentials
+            name: 'Default Agent',
+            role: 'agent',
+            createdAt: new Date().toISOString(),
         }
     ],
     sessions: [],
@@ -51,11 +61,32 @@ const INITIAL_DATA: DBData = {
     uploadHistory: []
 };
 
-function readDB(): DBData {
-    if (!fs.existsSync(DB_FILE)) {
-        fs.writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
-        return INITIAL_DATA;
+function ensureDB() {
+    // Ensure directory exists
+    if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
     }
+
+    // If DB_FILE doesn't exist in the working directory
+    if (!fs.existsSync(DB_FILE)) {
+        // Try to copy from seed file (committed data) if it exists
+        if (fs.existsSync(SEED_FILE)) {
+            try {
+                const seedData = fs.readFileSync(SEED_FILE, 'utf-8');
+                fs.writeFileSync(DB_FILE, seedData);
+                return;
+            } catch (error) {
+                console.error("Failed to copy seed file:", error);
+            }
+        }
+
+        // Fallback to INITIAL_DATA
+        fs.writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
+    }
+}
+
+function readDB(): DBData {
+    ensureDB();
     try {
         const data = fs.readFileSync(DB_FILE, 'utf-8');
         return JSON.parse(data);
@@ -65,6 +96,7 @@ function readDB(): DBData {
 }
 
 function writeDB(data: DBData) {
+    ensureDB();
     fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 
