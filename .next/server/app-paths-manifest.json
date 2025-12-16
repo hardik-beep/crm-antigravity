@@ -1,0 +1,10 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/nexus-purchased/page": "app/nexus-purchased/page.js",
+  "/page": "app/page.js",
+  "/protect/page": "app/protect/page.js",
+  "/settings/page": "app/settings/page.js",
+  "/settlement/page": "app/settlement/page.js",
+  "/upload/page": "app/upload/page.js"
+}

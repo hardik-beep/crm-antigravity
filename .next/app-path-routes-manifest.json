@@ -1,0 +1,10 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/nexus-purchased/page": "/nexus-purchased",
+  "/page": "/",
+  "/protect/page": "/protect",
+  "/settings/page": "/settings",
+  "/settlement/page": "/settlement",
+  "/upload/page": "/upload"
+}

@@ -1,0 +1,54 @@
+"use client"
+
+import { useAuthStore } from "@/lib/auth-store"
+import { useCRMStore } from "@/lib/store"
+import { LoginScreen } from "./login-screen"
+import { useEffect, useState } from "react"
+
+export function AuthWrapper({ children }: { children: React.ReactNode }) {
+    const isAuthenticated = useAuthStore(state => state.isAuthenticated)
+    const user = useAuthStore(state => state.user)
+    const fetchRecords = useCRMStore(state => state.fetchRecords)
+    const fetchUploadHistory = useCRMStore(state => state.fetchUploadHistory)
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    // Heartbeat to keep session active
+    useEffect(() => {
+        if (!isAuthenticated || !user?.id) return
+
+        const sendHeartbeat = () => {
+            fetch('/api/auth/heartbeat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: user.id })
+            }).catch(e => console.error("Heartbeat failed", e))
+        }
+
+        sendHeartbeat() // Send immediately
+        const interval = setInterval(sendHeartbeat, 60000) // Then every 60s
+
+        return () => clearInterval(interval)
+    }, [isAuthenticated, user?.id])
+
+    // Fetch initial data on auth
+    useEffect(() => {
+        if (isAuthenticated) {
+            fetchRecords()
+            fetchUploadHistory()
+        }
+    }, [isAuthenticated, fetchRecords, fetchUploadHistory])
+
+    if (!mounted) {
+        return null // Avoid hydration mismatch
+    }
+
+    if (!isAuthenticated) {
+        return <LoginScreen />
+    }
+
+    return <>{children}</>
+}

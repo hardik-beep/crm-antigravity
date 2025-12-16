@@ -1,0 +1,42 @@
+import { NextResponse } from 'next/server';
+import { db } from '@/lib/db';
+
+export async function GET() {
+    try {
+        const agents = db.getActiveAgents();
+        return NextResponse.json({ agents });
+    } catch (error) {
+        return NextResponse.json({ error: 'Failed to fetch agents' }, { status: 500 });
+    }
+}
+
+export async function POST(req: Request) {
+    try {
+        const body = await req.json();
+        const { username, password, name, role } = body;
+
+        if (!username || !password || !name) {
+            return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+        }
+
+        const existing = db.findUser(username);
+        if (existing) {
+            return NextResponse.json({ error: 'User already exists' }, { status: 409 });
+        }
+
+        const newUser = {
+            id: `user-${Date.now()}`,
+            username,
+            password,
+            name,
+            role: role || 'agent',
+            createdAt: new Date().toISOString()
+        };
+
+        db.addUser(newUser);
+
+        return NextResponse.json({ user: newUser });
+    } catch (error) {
+        return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
+    }
+}
