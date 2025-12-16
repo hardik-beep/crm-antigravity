@@ -671,9 +671,8 @@ export const useCRMStore = create<CRMStore>()(
       name: "crm-storage-indexeddb",
       storage: createJSONStorage(() => storage),
       partialize: (state) => {
-        // Exclude records and uploadHistory from persistence
-        const { records, uploadHistory, ...rest } = state;
-        return rest;
+        // Persist all state including records and uploadHistory to fix "zero data" on refresh
+        return state;
       },
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true)
