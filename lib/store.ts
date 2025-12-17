@@ -172,7 +172,7 @@ export const useCRMStore = create<CRMStore>()(
       dateRangeStart: "",
       dateRangeEnd: "",
       typeFilter: "both",
-      dateFilterType: "30d",
+      dateFilterType: "total", // Default to Total to avoid "missing data" confusion
       npaOnly: false,
       isInitialized: false,
       geminiApiKey: "",

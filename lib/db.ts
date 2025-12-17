@@ -1,12 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 
-// Determine if we are in a production environment (like Vercel)
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+// Determine if we are in a Vercel environment
+const IS_VERCEL = !!process.env.VERCEL;
 
-// In production, use /tmp which is writable. In development, use local data folder.
-const DATA_DIR = IS_PRODUCTION ? '/tmp' : path.join(process.cwd(), 'data');
+// In Vercel, we MUST use /tmp (ephemeral). 
+// In other production environments (VPS, etc.), we prefer the persistent 'data' directory.
+const DATA_DIR = IS_VERCEL ? '/tmp' : path.join(process.cwd(), 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
+
+console.log(`[DB] Using storage path: ${DB_FILE} (Environment: ${IS_VERCEL ? 'Vercel' : 'Standard'})`);
 
 // Source file to seed from (committed data)
 const SEED_FILE = path.join(process.cwd(), 'data', 'db.json');
@@ -64,47 +67,59 @@ const INITIAL_DATA: DBData = {
 function ensureDB() {
     // Ensure directory exists
     if (!fs.existsSync(DATA_DIR)) {
-        fs.mkdirSync(DATA_DIR, { recursive: true });
+        try {
+            fs.mkdirSync(DATA_DIR, { recursive: true });
+        } catch (e) {
+            console.error("[DB] Failed to create data directory:", e);
+        }
     }
 
     // If DB_FILE doesn't exist in the working directory
     if (!fs.existsSync(DB_FILE)) {
-        // Try to copy from seed file (committed data) if it exists
-        if (fs.existsSync(SEED_FILE)) {
+        // Try to copy from seed file (committed data) if it exists and we're using /tmp or a fresh setup
+        // Note: checking SEED_FILE !== DB_FILE to avoid copy-to-self if paths overlap
+        if (fs.existsSync(SEED_FILE) && path.resolve(SEED_FILE) !== path.resolve(DB_FILE)) {
             try {
                 const seedData = fs.readFileSync(SEED_FILE, 'utf-8');
                 fs.writeFileSync(DB_FILE, seedData);
+                console.log("[DB] Seeded database from committed file.");
                 return;
             } catch (error) {
-                console.error("Failed to copy seed file:", error);
+                console.error("[DB] Failed to copy seed file:", error);
             }
         }
 
         // Fallback to INITIAL_DATA
-        fs.writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
+        try {
+            fs.writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
+            console.log("[DB] Created new database with initial data.");
+        } catch (e) {
+            console.error("[DB] Failed to write initial data:", e);
+        }
     }
 }
 
-let cachedData: DBData | null = null;
-
+// Removed persistent memory cache to ensure multi-process consistency (e.g., PM2 cluster)
+// Each read will verify the file state.
 function readDB(): DBData {
     ensureDB();
-    if (cachedData) return cachedData;
 
     try {
         const data = fs.readFileSync(DB_FILE, 'utf-8');
-        cachedData = JSON.parse(data);
-        return cachedData!;
+        return JSON.parse(data);
     } catch (error) {
-        cachedData = JSON.parse(JSON.stringify(INITIAL_DATA));
-        return cachedData!;
+        console.error("[DB] Failed to read database, returning initial data:", error);
+        return JSON.parse(JSON.stringify(INITIAL_DATA));
     }
 }
 
 function writeDB(data: DBData) {
     ensureDB();
-    cachedData = data; // Update cache
-    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+    try {
+        fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+    } catch (error) {
+        console.error("[DB] Failed to write database:", error);
+    }
 }
 
 export const db = {
@@ -135,13 +150,14 @@ export const db = {
         writeDB(data);
     },
     updateHeartbeat: (userId: string) => {
-        // Only update in memory to avoid triggering reload in dev
+        // For heartbeat, we can just read, modify, write. 
+        // Or to save IO, we COULD cache, but strict consistency requires writing.
+        // Given heartbeat is every minute, writing is fine for low traffic.
         const data = readDB();
         const session = data.sessions.find(s => s.userId === userId && s.isActive);
         if (session) {
             session.lastActiveTime = new Date().toISOString();
-            // We do NOT call writeDB(data) here to prevent file watcher from triggering a reload
-            // cachedData is already updated since it's a reference
+            writeDB(data);
         }
     },
     logoutUser: (userId: string) => {

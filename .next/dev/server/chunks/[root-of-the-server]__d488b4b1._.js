@@ -64,11 +64,13 @@ var __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$
 var __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/path [external] (path, cjs)");
 ;
 ;
-// Determine if we are in a production environment (like Vercel)
-const IS_PRODUCTION = ("TURBOPACK compile-time value", "development") === 'production';
-// In production, use /tmp which is writable. In development, use local data folder.
-const DATA_DIR = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'data');
+// Determine if we are in a Vercel environment
+const IS_VERCEL = !!process.env.VERCEL;
+// In Vercel, we MUST use /tmp (ephemeral). 
+// In other production environments (VPS, etc.), we prefer the persistent 'data' directory.
+const DATA_DIR = IS_VERCEL ? '/tmp' : __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'data');
 const DB_FILE = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(DATA_DIR, 'db.json');
+console.log(`[DB] Using storage path: ${DB_FILE} (Environment: ${IS_VERCEL ? 'Vercel' : 'Standard'})`);
 // Source file to seed from (committed data)
 const SEED_FILE = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'data', 'db.json');
 const INITIAL_DATA = {
@@ -97,43 +99,56 @@ const INITIAL_DATA = {
 function ensureDB() {
     // Ensure directory exists
     if (!__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(DATA_DIR)) {
-        __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].mkdirSync(DATA_DIR, {
-            recursive: true
-        });
+        try {
+            __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].mkdirSync(DATA_DIR, {
+                recursive: true
+            });
+        } catch (e) {
+            console.error("[DB] Failed to create data directory:", e);
+        }
     }
     // If DB_FILE doesn't exist in the working directory
     if (!__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(DB_FILE)) {
-        // Try to copy from seed file (committed data) if it exists
-        if (__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(SEED_FILE)) {
+        // Try to copy from seed file (committed data) if it exists and we're using /tmp or a fresh setup
+        // Note: checking SEED_FILE !== DB_FILE to avoid copy-to-self if paths overlap
+        if (__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(SEED_FILE) && __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].resolve(SEED_FILE) !== __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].resolve(DB_FILE)) {
             try {
                 const seedData = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readFileSync(SEED_FILE, 'utf-8');
                 __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, seedData);
+                console.log("[DB] Seeded database from committed file.");
                 return;
             } catch (error) {
-                console.error("Failed to copy seed file:", error);
+                console.error("[DB] Failed to copy seed file:", error);
             }
         }
         // Fallback to INITIAL_DATA
-        __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
+        try {
+            __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
+            console.log("[DB] Created new database with initial data.");
+        } catch (e) {
+            console.error("[DB] Failed to write initial data:", e);
+        }
     }
 }
-let cachedData = null;
+// Removed persistent memory cache to ensure multi-process consistency (e.g., PM2 cluster)
+// Each read will verify the file state.
 function readDB() {
     ensureDB();
-    if (cachedData) return cachedData;
     try {
         const data = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readFileSync(DB_FILE, 'utf-8');
-        cachedData = JSON.parse(data);
-        return cachedData;
+        return JSON.parse(data);
     } catch (error) {
-        cachedData = JSON.parse(JSON.stringify(INITIAL_DATA));
-        return cachedData;
+        console.error("[DB] Failed to read database, returning initial data:", error);
+        return JSON.parse(JSON.stringify(INITIAL_DATA));
     }
 }
 function writeDB(data) {
     ensureDB();
-    cachedData = data; // Update cache
-    __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+    try {
+        __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+    } catch (error) {
+        console.error("[DB] Failed to write database:", error);
+    }
 }
 const db = {
     getUsers: ()=>readDB().users,
@@ -162,13 +177,14 @@ const db = {
         writeDB(data);
     },
     updateHeartbeat: (userId)=>{
-        // Only update in memory to avoid triggering reload in dev
+        // For heartbeat, we can just read, modify, write. 
+        // Or to save IO, we COULD cache, but strict consistency requires writing.
+        // Given heartbeat is every minute, writing is fine for low traffic.
         const data = readDB();
         const session = data.sessions.find((s)=>s.userId === userId && s.isActive);
         if (session) {
             session.lastActiveTime = new Date().toISOString();
-        // We do NOT call writeDB(data) here to prevent file watcher from triggering a reload
-        // cachedData is already updated since it's a reference
+            writeDB(data);
         }
     },
     logoutUser: (userId)=>{
