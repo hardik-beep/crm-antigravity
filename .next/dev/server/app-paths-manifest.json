@@ -1,12 +1,14 @@
 {
+  "/api/admin/users/delete/route": "app/api/admin/users/delete/route.js",
+  "/api/admin/users/route": "app/api/admin/users/route.js",
   "/api/auth/heartbeat/route": "app/api/auth/heartbeat/route.js",
   "/api/records/[id]/route": "app/api/records/[id]/route.js",
-  "/api/records/bulk-delete/route": "app/api/records/bulk-delete/route.js",
   "/api/records/route": "app/api/records/route.js",
   "/api/upload-history/route": "app/api/upload-history/route.js",
   "/nexus-purchased/page": "app/nexus-purchased/page.js",
   "/page": "app/page.js",
   "/protect/page": "app/protect/page.js",
+  "/settings/page": "app/settings/page.js",
   "/settlement/page": "app/settlement/page.js",
   "/upload/page": "app/upload/page.js"
 }

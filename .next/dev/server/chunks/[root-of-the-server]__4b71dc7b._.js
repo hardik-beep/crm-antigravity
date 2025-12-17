@@ -117,17 +117,22 @@ function ensureDB() {
         __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
     }
 }
+let cachedData = null;
 function readDB() {
     ensureDB();
+    if (cachedData) return cachedData;
     try {
         const data = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readFileSync(DB_FILE, 'utf-8');
-        return JSON.parse(data);
+        cachedData = JSON.parse(data);
+        return cachedData;
     } catch (error) {
-        return INITIAL_DATA;
+        cachedData = JSON.parse(JSON.stringify(INITIAL_DATA));
+        return cachedData;
     }
 }
 function writeDB(data) {
     ensureDB();
+    cachedData = data; // Update cache
     __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 const db = {
@@ -157,11 +162,13 @@ const db = {
         writeDB(data);
     },
     updateHeartbeat: (userId)=>{
+        // Only update in memory to avoid triggering reload in dev
         const data = readDB();
         const session = data.sessions.find((s)=>s.userId === userId && s.isActive);
         if (session) {
             session.lastActiveTime = new Date().toISOString();
-            writeDB(data);
+        // We do NOT call writeDB(data) here to prevent file watcher from triggering a reload
+        // cachedData is already updated since it's a reference
         }
     },
     logoutUser: (userId)=>{

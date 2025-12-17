@@ -85,18 +85,25 @@ function ensureDB() {
     }
 }
 
+let cachedData: DBData | null = null;
+
 function readDB(): DBData {
     ensureDB();
+    if (cachedData) return cachedData;
+
     try {
         const data = fs.readFileSync(DB_FILE, 'utf-8');
-        return JSON.parse(data);
+        cachedData = JSON.parse(data);
+        return cachedData!;
     } catch (error) {
-        return INITIAL_DATA;
+        cachedData = JSON.parse(JSON.stringify(INITIAL_DATA));
+        return cachedData!;
     }
 }
 
 function writeDB(data: DBData) {
     ensureDB();
+    cachedData = data; // Update cache
     fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 
@@ -128,11 +135,13 @@ export const db = {
         writeDB(data);
     },
     updateHeartbeat: (userId: string) => {
+        // Only update in memory to avoid triggering reload in dev
         const data = readDB();
         const session = data.sessions.find(s => s.userId === userId && s.isActive);
         if (session) {
             session.lastActiveTime = new Date().toISOString();
-            writeDB(data);
+            // We do NOT call writeDB(data) here to prevent file watcher from triggering a reload
+            // cachedData is already updated since it's a reference
         }
     },
     logoutUser: (userId: string) => {
