@@ -32,6 +32,7 @@ const storage: StateStorage = {
 interface CRMStore {
   records: CRMRecord[]
   uploadHistory: UploadHistory[]
+  deletedRecordIds: string[]
 
   // Filters
   searchQuery: string
@@ -164,6 +165,7 @@ export const useCRMStore = create<CRMStore>()(
     (set, get) => ({
       records: [],
       uploadHistory: [],
+      deletedRecordIds: [],
       searchQuery: "",
       statusFilter: "all",
       partnerFilter: "all",
@@ -186,7 +188,8 @@ export const useCRMStore = create<CRMStore>()(
           const res = await fetch('/api/records', { cache: 'no-store' });
           const data = await res.json();
           if (data.records) {
-            set({ records: data.records });
+            const deletedIds = get().deletedRecordIds || [];
+            set({ records: data.records.filter((r: CRMRecord) => !deletedIds.includes(r.id)) });
           }
         } catch (error) {
           console.error("Failed to fetch records:", error);
@@ -393,6 +396,7 @@ export const useCRMStore = create<CRMStore>()(
       deleteRecord: async (id) => {
         set((state) => ({
           records: state.records.filter((r) => r.id !== id),
+          deletedRecordIds: [...(state.deletedRecordIds || []), id],
         }));
         try {
           await fetch(`/api/records/${id}`, {
@@ -406,7 +410,10 @@ export const useCRMStore = create<CRMStore>()(
         set((state) => {
           const newRecords = state.records.filter((r) => !ids.includes(r.id))
           console.log("Records before:", state.records.length, "Records after:", newRecords.length)
-          return { records: newRecords }
+          return {
+            records: newRecords,
+            deletedRecordIds: [...(state.deletedRecordIds || []), ...ids]
+          }
         })
         try {
           await fetch(`/api/records/bulk-delete`, {
