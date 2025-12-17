@@ -767,9 +767,8 @@ const useCRMStore = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
     name: "crm-storage-indexeddb",
     storage: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$zustand$2f$esm$2f$middleware$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["createJSONStorage"])(()=>storage),
     partialize: (state)=>{
-        // Exclude records and uploadHistory from persistence
-        const { records, uploadHistory, ...rest } = state;
-        return rest;
+        // Persist all state including records and uploadHistory to fix "zero data" on refresh
+        return state;
     },
     onRehydrateStorage: ()=>(state)=>{
             state?.setHasHydrated(true);

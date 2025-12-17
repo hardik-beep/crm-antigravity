@@ -82,449 +82,11 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
 }),
-"[project]/components/sidebar.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
-"use strict";
+"[project]/components/sidebar.tsx [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
 
-__turbopack_context__.s([
-    "Sidebar",
-    ()=>Sidebar
-]);
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/utils.ts [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$dashboard$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutDashboard$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/layout-dashboard.js [app-client] (ecmascript) <export default as LayoutDashboard>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/shield.js [app-client] (ecmascript) <export default as Shield>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$handshake$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Handshake$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/handshake.js [app-client] (ecmascript) <export default as Handshake>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/upload.js [app-client] (ecmascript) <export default as Upload>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/settings.js [app-client] (ecmascript) <export default as Settings>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-right.js [app-client] (ecmascript) <export default as ChevronRight>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$spreadsheet$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileSpreadsheet$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/file-spreadsheet.js [app-client] (ecmascript) <export default as FileSpreadsheet>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$popover$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/popover.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/ui/button.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/log-out.js [app-client] (ecmascript) <export default as LogOut>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/clock.js [app-client] (ecmascript) <export default as Clock>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/user.js [app-client] (ecmascript) <export default as User>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2d$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/auth-store.ts [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$date$2d$fns$2f$format$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/date-fns/format.js [app-client] (ecmascript) <locals>");
-;
-var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature();
-"use client";
-;
-;
-;
-;
-;
-;
-;
-;
-;
-const navigation = [
-    {
-        name: "Dashboard",
-        href: "/",
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$dashboard$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutDashboard$3e$__["LayoutDashboard"]
-    },
-    {
-        name: "Protect",
-        href: "/protect",
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"]
-    },
-    {
-        name: "Settlement",
-        href: "/settlement",
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$handshake$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Handshake$3e$__["Handshake"]
-    },
-    {
-        name: "Nexus Purchased",
-        href: "/nexus-purchased",
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$handshake$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Handshake$3e$__["Handshake"]
-    },
-    {
-        name: "Upload Data",
-        href: "/upload",
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"]
-    },
-    {
-        name: "Settings",
-        href: "/settings",
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings$3e$__["Settings"]
-    }
-];
-function UserProfile() {
-    _s();
-    const { user, logout, punchIn, punchOut, getLastPunch } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2d$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuthStore"])();
-    if (!user) return null;
-    const lastPunch = getLastPunch(user.id);
-    const isPunchedIn = lastPunch?.type === 'in';
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$popover$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Popover"], {
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$popover$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PopoverTrigger"], {
-                asChild: true,
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                    className: "flex w-full items-center gap-3 rounded-lg bg-muted/50 px-3 py-2 hover:bg-muted transition-colors text-left",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 shrink-0",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "text-xs font-medium text-primary",
-                                children: user.name.substring(0, 2).toUpperCase()
-                            }, void 0, false, {
-                                fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 40,
-                                columnNumber: 13
-                            }, this)
-                        }, void 0, false, {
-                            fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 39,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex flex-col min-w-0",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-sm font-medium text-foreground truncate",
-                                    children: user.name
-                                }, void 0, false, {
-                                    fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 45,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-xs text-muted-foreground truncate capitalize",
-                                    children: user.role
-                                }, void 0, false, {
-                                    fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 46,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 44,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/components/sidebar.tsx",
-                    lineNumber: 38,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/components/sidebar.tsx",
-                lineNumber: 37,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$popover$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PopoverContent"], {
-                className: "w-56",
-                align: "start",
-                side: "right",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "space-y-4",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex items-center gap-2 pb-2 border-b",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
-                                        className: "h-4 w-4 text-primary"
-                                    }, void 0, false, {
-                                        fileName: "[project]/components/sidebar.tsx",
-                                        lineNumber: 54,
-                                        columnNumber: 15
-                                    }, this)
-                                }, void 0, false, {
-                                    fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 53,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                            className: "text-sm font-medium",
-                                            children: user.name
-                                        }, void 0, false, {
-                                            fileName: "[project]/components/sidebar.tsx",
-                                            lineNumber: 57,
-                                            columnNumber: 15
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                            className: "text-xs text-muted-foreground",
-                                            children: user.email
-                                        }, void 0, false, {
-                                            fileName: "[project]/components/sidebar.tsx",
-                                            lineNumber: 58,
-                                            columnNumber: 15
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 56,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 52,
-                            columnNumber: 11
-                        }, this),
-                        user.role === 'agent' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "space-y-2",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex items-center justify-between text-xs text-muted-foreground",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            children: "Attendance"
-                                        }, void 0, false, {
-                                            fileName: "[project]/components/sidebar.tsx",
-                                            lineNumber: 65,
-                                            columnNumber: 17
-                                        }, this),
-                                        lastPunch && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$date$2d$fns$2f$format$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["format"])(new Date(lastPunch.timestamp), "h:mm a")
-                                        }, void 0, false, {
-                                            fileName: "[project]/components/sidebar.tsx",
-                                            lineNumber: 67,
-                                            columnNumber: 19
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 64,
-                                    columnNumber: 15
-                                }, this),
-                                isPunchedIn ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                    variant: "outline",
-                                    className: "w-full border-red-200 hover:bg-red-50 hover:text-red-600 text-red-500",
-                                    onClick: punchOut,
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
-                                            className: "w-4 h-4 mr-2"
-                                        }, void 0, false, {
-                                            fileName: "[project]/components/sidebar.tsx",
-                                            lineNumber: 76,
-                                            columnNumber: 19
-                                        }, this),
-                                        "Punch Out"
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 71,
-                                    columnNumber: 17
-                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                    variant: "outline",
-                                    className: "w-full border-green-200 hover:bg-green-50 hover:text-green-600 text-green-500",
-                                    onClick: punchIn,
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
-                                            className: "w-4 h-4 mr-2"
-                                        }, void 0, false, {
-                                            fileName: "[project]/components/sidebar.tsx",
-                                            lineNumber: 85,
-                                            columnNumber: 19
-                                        }, this),
-                                        "Punch In"
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 80,
-                                    columnNumber: 17
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 63,
-                            columnNumber: 13
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                            variant: "ghost",
-                            className: "w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50",
-                            onClick: logout,
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$log$2d$out$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__LogOut$3e$__["LogOut"], {
-                                    className: "w-4 h-4 mr-2"
-                                }, void 0, false, {
-                                    fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 97,
-                                    columnNumber: 13
-                                }, this),
-                                "Log Out"
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 92,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/components/sidebar.tsx",
-                    lineNumber: 51,
-                    columnNumber: 9
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/components/sidebar.tsx",
-                lineNumber: 50,
-                columnNumber: 7
-            }, this)
-        ]
-    }, void 0, true, {
-        fileName: "[project]/components/sidebar.tsx",
-        lineNumber: 36,
-        columnNumber: 5
-    }, this);
-}
-_s(UserProfile, "wklR6/98XwuTGGtcAJTWqJFj/5M=", false, function() {
-    return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2d$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuthStore"]
-    ];
-});
-_c = UserProfile;
-function Sidebar() {
-    _s1();
-    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
-    const user = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2d$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuthStore"])({
-        "Sidebar.useAuthStore[user]": (state)=>state.user
-    }["Sidebar.useAuthStore[user]"]);
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
-        className: "fixed left-0 top-0 z-40 h-screen w-64 border-r border-border bg-card",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "flex h-full flex-col",
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex h-16 items-center gap-3 border-b border-border px-6",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex h-9 w-9 items-center justify-center rounded-lg bg-primary",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$file$2d$spreadsheet$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__FileSpreadsheet$3e$__["FileSpreadsheet"], {
-                                className: "h-5 w-5 text-primary-foreground"
-                            }, void 0, false, {
-                                fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 116,
-                                columnNumber: 13
-                            }, this)
-                        }, void 0, false, {
-                            fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 115,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex flex-col",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-sm font-semibold text-foreground",
-                                    children: "CRM"
-                                }, void 0, false, {
-                                    fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 119,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                    className: "text-xs text-muted-foreground",
-                                    children: "CRM Platform"
-                                }, void 0, false, {
-                                    fileName: "[project]/components/sidebar.tsx",
-                                    lineNumber: 120,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 118,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/components/sidebar.tsx",
-                    lineNumber: 114,
-                    columnNumber: 9
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                    className: "flex-1 space-y-1 px-3 py-4",
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "mb-2 px-3 text-xs font-medium uppercase tracking-wider text-muted-foreground",
-                            children: "Main Menu"
-                        }, void 0, false, {
-                            fileName: "[project]/components/sidebar.tsx",
-                            lineNumber: 126,
-                            columnNumber: 11
-                        }, this),
-                        navigation.map((item)=>{
-                            if (item.name === "Upload Data" && user?.role === "agent") {
-                                return null;
-                            }
-                            const isActive = pathname === item.href;
-                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                href: item.href,
-                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all", isActive ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"),
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(item.icon, {
-                                        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("h-5 w-5 transition-colors", isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground")
-                                    }, void 0, false, {
-                                        fileName: "[project]/components/sidebar.tsx",
-                                        lineNumber: 143,
-                                        columnNumber: 17
-                                    }, this),
-                                    item.name,
-                                    isActive && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
-                                        className: "ml-auto h-4 w-4 text-primary"
-                                    }, void 0, false, {
-                                        fileName: "[project]/components/sidebar.tsx",
-                                        lineNumber: 150,
-                                        columnNumber: 30
-                                    }, this)
-                                ]
-                            }, item.name, true, {
-                                fileName: "[project]/components/sidebar.tsx",
-                                lineNumber: 133,
-                                columnNumber: 15
-                            }, this);
-                        })
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/components/sidebar.tsx",
-                    lineNumber: 125,
-                    columnNumber: 9
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "border-t border-border p-4",
-                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(UserProfile, {}, void 0, false, {
-                        fileName: "[project]/components/sidebar.tsx",
-                        lineNumber: 158,
-                        columnNumber: 11
-                    }, this)
-                }, void 0, false, {
-                    fileName: "[project]/components/sidebar.tsx",
-                    lineNumber: 157,
-                    columnNumber: 9
-                }, this)
-            ]
-        }, void 0, true, {
-            fileName: "[project]/components/sidebar.tsx",
-            lineNumber: 112,
-            columnNumber: 7
-        }, this)
-    }, void 0, false, {
-        fileName: "[project]/components/sidebar.tsx",
-        lineNumber: 111,
-        columnNumber: 5
-    }, this);
-}
-_s1(Sidebar, "Ui7GkWQJwt4PMCp6ZMUGfXILvII=", false, function() {
-    return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2d$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuthStore"]
-    ];
-});
-_c1 = Sidebar;
-var _c, _c1;
-__turbopack_context__.k.register(_c, "UserProfile");
-__turbopack_context__.k.register(_c1, "Sidebar");
-if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
-    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
-}
+const e = new Error("Could not parse module '[project]/components/sidebar.tsx'\n\nExpression expected");
+e.code = 'MODULE_UNPARSABLE';
+throw e;
 }),
 "[project]/components/ui/dialog.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
@@ -3462,6 +3024,8 @@ __turbopack_context__.s([
     ()=>RecordDetailModal
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$store$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/store.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/utils.ts [app-client] (ecmascript)");
@@ -3487,6 +3051,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -3534,7 +3099,7 @@ function DetailRow({ label, value, valueClassName, className }) {
                 children: label
             }, void 0, false, {
                 fileName: "[project]/components/record-detail-modal.tsx",
-                lineNumber: 62,
+                lineNumber: 64,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3542,13 +3107,13 @@ function DetailRow({ label, value, valueClassName, className }) {
                 children: String(value || "-")
             }, void 0, false, {
                 fileName: "[project]/components/record-detail-modal.tsx",
-                lineNumber: 63,
+                lineNumber: 65,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/components/record-detail-modal.tsx",
-        lineNumber: 61,
+        lineNumber: 63,
         columnNumber: 5
     }, this);
 }
@@ -3657,12 +3222,12 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                 children: record.name.split(" ").map((n)=>n[0]).join("").substring(0, 2)
                                             }, void 0, false, {
                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                lineNumber: 168,
+                                                lineNumber: 170,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 167,
+                                            lineNumber: 169,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3672,7 +3237,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                     children: record.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 177,
+                                                    lineNumber: 179,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3684,7 +3249,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                             children: record.type
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 179,
+                                                            lineNumber: 181,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Badge"], {
@@ -3693,35 +3258,35 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                             children: record.partner
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 189,
+                                                            lineNumber: 191,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 178,
+                                                    lineNumber: 180,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 176,
+                                            lineNumber: 178,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 166,
+                                    lineNumber: 168,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                lineNumber: 165,
+                                lineNumber: 167,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/components/record-detail-modal.tsx",
-                            lineNumber: 164,
+                            lineNumber: 166,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3735,7 +3300,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                             children: "Status:"
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 201,
+                                            lineNumber: 203,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -3748,12 +3313,12 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         placeholder: "Select Status"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 207,
+                                                        lineNumber: 209,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 206,
+                                                    lineNumber: 208,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -3764,7 +3329,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "No Action"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 212,
+                                                                lineNumber: 214,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -3772,7 +3337,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Did Not Answer"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 213,
+                                                                lineNumber: 215,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -3780,7 +3345,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Closed (NR)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 214,
+                                                                lineNumber: 216,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -3788,7 +3353,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Rescue"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 215,
+                                                                lineNumber: 217,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -3796,7 +3361,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Closed"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 216,
+                                                                lineNumber: 218,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
@@ -3807,7 +3372,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "No Action"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 220,
+                                                                lineNumber: 222,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -3815,7 +3380,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Did Not Answer"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 221,
+                                                                lineNumber: 223,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -3823,7 +3388,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Closed (NR)"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 222,
+                                                                lineNumber: 224,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -3831,7 +3396,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Settlement Initiated"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 223,
+                                                                lineNumber: 225,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -3839,26 +3404,26 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Settled"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 224,
+                                                                lineNumber: 226,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 209,
+                                                    lineNumber: 211,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 202,
+                                            lineNumber: 204,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 200,
+                                    lineNumber: 202,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3869,7 +3434,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                             children: "Stage:"
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 231,
+                                            lineNumber: 233,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -3882,12 +3447,12 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         placeholder: "Select Stage"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 237,
+                                                        lineNumber: 239,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 236,
+                                                    lineNumber: 238,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -3897,7 +3462,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                             children: "Select"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 240,
+                                                            lineNumber: 242,
                                                             columnNumber: 19
                                                         }, this),
                                                         (isProtect ? protectStages : settlementStages).map((stage)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -3905,373 +3470,405 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: stage
                                                             }, stage, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 242,
+                                                                lineNumber: 244,
                                                                 columnNumber: 21
                                                             }, this))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 239,
+                                                    lineNumber: 241,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 232,
+                                            lineNumber: 234,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 230,
+                                    lineNumber: 232,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/record-detail-modal.tsx",
-                            lineNumber: 199,
+                            lineNumber: 201,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/record-detail-modal.tsx",
-                    lineNumber: 163,
+                    lineNumber: 165,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex-1 overflow-y-auto p-6 space-y-8",
                     children: [
-                        (isProtect || record.type === "settlement" && record.stage === "Part Payment") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "bg-muted/30 p-4 rounded-md border border-border/50 space-y-4",
-                            children: [
-                                record.stage === "Skip" && isProtect && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "flex flex-col gap-2",
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
+                            children: (isProtect || record.type === "settlement" && record.stage === "Part Payment") && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+                                initial: {
+                                    opacity: 0,
+                                    height: 0,
+                                    marginBottom: 0
+                                },
+                                animate: {
+                                    opacity: 1,
+                                    height: "auto",
+                                    marginBottom: 16
+                                },
+                                exit: {
+                                    opacity: 0,
+                                    height: 0,
+                                    marginBottom: 0
+                                },
+                                transition: {
+                                    duration: 0.3,
+                                    ease: "easeInOut"
+                                },
+                                className: "overflow-hidden",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "bg-muted/30 p-4 rounded-md border border-border/50 space-y-4",
                                     children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "text-sm font-medium",
-                                            children: "Skipped EMI to be paid on:"
-                                        }, void 0, false, {
-                                            fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 265,
-                                            columnNumber: 19
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                            type: "date",
-                                            className: "h-9 w-full rounded-md border border-input bg-background px-3 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                                            value: record.skippedEmiDate || "",
-                                            onChange: (e)=>updateRecord(record.id, {
-                                                    skippedEmiDate: e.target.value
-                                                })
-                                        }, void 0, false, {
-                                            fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 266,
-                                            columnNumber: 19
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 264,
-                                    columnNumber: 17
-                                }, this),
-                                record.stage === "Part Payment" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "space-y-3",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex items-center justify-between",
+                                        record.stage === "Skip" && isProtect && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex flex-col gap-2",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: "text-sm font-medium",
-                                                    children: "Number of payment parts"
+                                                    children: "Skipped EMI to be paid on:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 279,
-                                                    columnNumber: 21
+                                                    lineNumber: 275,
+                                                    columnNumber: 23
                                                 }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                                    size: "sm",
-                                                    variant: "outline",
-                                                    className: "h-7 px-2 text-xs gap-1",
-                                                    onClick: ()=>{
-                                                        const currentParts = record.paymentParts || [];
-                                                        updateRecord(record.id, {
-                                                            paymentParts: [
-                                                                ...currentParts,
-                                                                {
-                                                                    id: Date.now().toString(),
-                                                                    amount: 0,
-                                                                    date: ""
-                                                                }
-                                                            ]
-                                                        });
-                                                    },
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
-                                                            className: "h-3 w-3"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 291,
-                                                            columnNumber: 23
-                                                        }, this),
-                                                        " Add Part"
-                                                    ]
-                                                }, void 0, true, {
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                    type: "date",
+                                                    className: "h-9 w-full rounded-md border border-input bg-background px-3 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                                                    value: record.skippedEmiDate || "",
+                                                    onChange: (e)=>updateRecord(record.id, {
+                                                            skippedEmiDate: e.target.value
+                                                        })
+                                                }, void 0, false, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 280,
-                                                    columnNumber: 21
+                                                    lineNumber: 276,
+                                                    columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 278,
-                                            columnNumber: 19
+                                            lineNumber: 274,
+                                            columnNumber: 21
                                         }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "space-y-4",
-                                            children: (record.paymentParts || []).map((part, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex justify-between items-center py-3 border-b border-border/50 last:border-0 group",
+                                        record.stage === "Part Payment" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "space-y-3",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "flex items-center justify-between",
                                                     children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex flex-col gap-2 flex-1 mr-4",
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "text-sm font-medium",
+                                                            children: "Number of payment parts"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                            lineNumber: 289,
+                                                            columnNumber: 25
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                            size: "sm",
+                                                            variant: "outline",
+                                                            className: "h-7 px-2 text-xs gap-1",
+                                                            onClick: ()=>{
+                                                                const currentParts = record.paymentParts || [];
+                                                                updateRecord(record.id, {
+                                                                    paymentParts: [
+                                                                        ...currentParts,
+                                                                        {
+                                                                            id: Date.now().toString(),
+                                                                            amount: 0,
+                                                                            date: ""
+                                                                        }
+                                                                    ]
+                                                                });
+                                                            },
                                                             children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex items-center gap-2",
-                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "bg-background border border-input rounded-md px-3 py-1 flex items-center shadow-sm w-[180px]",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "text-muted-foreground text-sm mr-2",
-                                                                                children: "₹"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                lineNumber: 303,
-                                                                                columnNumber: 31
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                                type: "number",
-                                                                                className: "flex h-8 w-full bg-transparent text-base font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
-                                                                                placeholder: "Amount",
-                                                                                value: part.amount || "",
-                                                                                onChange: (e)=>{
-                                                                                    if (part.isReceived) return;
-                                                                                    const newParts = (record.paymentParts || []).map((p)=>p.id === part.id ? {
-                                                                                            ...p,
-                                                                                            amount: Number(e.target.value)
-                                                                                        } : p);
-                                                                                    updateRecord(record.id, {
-                                                                                        paymentParts: newParts
-                                                                                    });
-                                                                                },
-                                                                                readOnly: !!part.isReceived
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                lineNumber: 304,
-                                                                                columnNumber: 31
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 302,
-                                                                        columnNumber: 29
-                                                                    }, this)
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                                                                    className: "h-3 w-3"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
                                                                     lineNumber: 301,
                                                                     columnNumber: 27
                                                                 }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex items-center gap-1.5 text-sm text-muted-foreground ml-1",
-                                                                    children: [
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            children: part.isReceived ? "Received on" : "Scheduled for"
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/components/record-detail-modal.tsx",
-                                                                            lineNumber: 322,
-                                                                            columnNumber: 29
-                                                                        }, this),
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            className: "relative",
-                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                                type: "date",
-                                                                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("h-6 bg-transparent border-none p-0 text-sm font-medium focus-visible:ring-0 focus-visible:outline-none text-muted-foreground", part.isReceived ? "cursor-default" : "cursor-pointer"),
-                                                                                value: part.date || "",
-                                                                                onChange: (e)=>{
-                                                                                    if (part.isReceived) return;
-                                                                                    const newDate = e.target.value;
-                                                                                    // Log remark if date changes
-                                                                                    if (newDate && newDate !== part.date) {
-                                                                                        addRemark(record.id, {
-                                                                                            text: `Part payment scheduled: ₹${part.amount} for ${newDate}`,
-                                                                                            createdAt: new Date().toISOString(),
-                                                                                            createdBy: "System"
-                                                                                        });
-                                                                                    }
-                                                                                    const newParts = (record.paymentParts || []).map((p)=>p.id === part.id ? {
-                                                                                            ...p,
-                                                                                            date: newDate
-                                                                                        } : p);
-                                                                                    updateRecord(record.id, {
-                                                                                        paymentParts: newParts
-                                                                                    });
-                                                                                },
-                                                                                readOnly: !!part.isReceived
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                lineNumber: 324,
-                                                                                columnNumber: 31
-                                                                            }, this)
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/components/record-detail-modal.tsx",
-                                                                            lineNumber: 323,
-                                                                            columnNumber: 29
-                                                                        }, this)
-                                                                    ]
-                                                                }, void 0, true, {
-                                                                    fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 321,
-                                                                    columnNumber: 27
-                                                                }, this)
+                                                                " Add Part"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 300,
+                                                            lineNumber: 290,
                                                             columnNumber: 25
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex items-center gap-3",
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                    lineNumber: 288,
+                                                    columnNumber: 23
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "space-y-4",
+                                                    children: (record.paymentParts || []).map((part, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex justify-between items-center py-3 border-b border-border/50 last:border-0 group",
                                                             children: [
-                                                                !part.isReceived && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                                                    size: "icon",
-                                                                    variant: "ghost",
-                                                                    className: "h-8 w-8 text-muted-foreground/50 hover:text-destructive transition-opacity",
-                                                                    onClick: ()=>{
-                                                                        const newParts = (record.paymentParts || []).filter((p)=>p.id !== part.id);
-                                                                        updateRecord(record.id, {
-                                                                            paymentParts: newParts
-                                                                        });
-                                                                    },
-                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
-                                                                        className: "h-4 w-4"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 368,
-                                                                        columnNumber: 31
-                                                                    }, this)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 359,
-                                                                    columnNumber: 29
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
-                                                                    value: part.isReceived === true ? "received" : part.isReceived === false ? "pending" : "select",
-                                                                    onValueChange: (val)=>{
-                                                                        let isReceived = undefined;
-                                                                        if (val === "received") isReceived = true;
-                                                                        if (val === "pending") isReceived = false;
-                                                                        const newParts = (record.paymentParts || []).map((p)=>p.id === part.id ? {
-                                                                                ...p,
-                                                                                isReceived
-                                                                            } : p);
-                                                                        updateRecord(record.id, {
-                                                                            paymentParts: newParts
-                                                                        });
-                                                                        if (isReceived === true && part.isReceived !== true) {
-                                                                            addRemark(record.id, {
-                                                                                text: `Part payment received: ₹${part.amount} on ${part.date || "Unknown Date"}`,
-                                                                                createdAt: new Date().toISOString(),
-                                                                                createdBy: "System"
-                                                                            });
-                                                                        } else if (isReceived === false && part.isReceived !== false) {
-                                                                            // Changed to Pending/Scheduled
-                                                                            addRemark(record.id, {
-                                                                                text: `Part payment scheduled: ₹${part.amount} for ${part.date || "Unknown Date"}`,
-                                                                                createdAt: new Date().toISOString(),
-                                                                                createdBy: "System"
-                                                                            });
-                                                                        }
-                                                                    },
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex flex-col gap-2 flex-1 mr-4",
                                                                     children: [
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectTrigger"], {
-                                                                            className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("w-[130px] h-9 font-medium border-0 ring-1 ring-inset focus:ring-2", part.isReceived === true ? "bg-green-50 text-green-700 ring-green-600/20" : part.isReceived === false ? "bg-yellow-50 text-yellow-800 ring-yellow-600/20" : "bg-muted text-muted-foreground ring-border"),
-                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectValue"], {
-                                                                                placeholder: "Select"
-                                                                            }, void 0, false, {
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "flex items-center gap-2",
+                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                className: "bg-background border border-input rounded-md px-3 py-1 flex items-center shadow-sm w-[180px]",
+                                                                                children: [
+                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                        className: "text-muted-foreground text-sm mr-2",
+                                                                                        children: "₹"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                        lineNumber: 313,
+                                                                                        columnNumber: 35
+                                                                                    }, this),
+                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                                        type: "number",
+                                                                                        className: "flex h-8 w-full bg-transparent text-base font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+                                                                                        placeholder: "Amount",
+                                                                                        value: part.amount || "",
+                                                                                        onChange: (e)=>{
+                                                                                            if (part.isReceived) return;
+                                                                                            const newParts = (record.paymentParts || []).map((p)=>p.id === part.id ? {
+                                                                                                    ...p,
+                                                                                                    amount: Number(e.target.value)
+                                                                                                } : p);
+                                                                                            updateRecord(record.id, {
+                                                                                                paymentParts: newParts
+                                                                                            });
+                                                                                        },
+                                                                                        readOnly: !!part.isReceived
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                        lineNumber: 314,
+                                                                                        columnNumber: 35
+                                                                                    }, this)
+                                                                                ]
+                                                                            }, void 0, true, {
                                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                lineNumber: 409,
-                                                                                columnNumber: 31
+                                                                                lineNumber: 312,
+                                                                                columnNumber: 33
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                                            lineNumber: 399,
-                                                                            columnNumber: 29
+                                                                            lineNumber: 311,
+                                                                            columnNumber: 31
                                                                         }, this),
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "flex items-center gap-1.5 text-sm text-muted-foreground ml-1",
                                                                             children: [
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
-                                                                                    value: "select",
-                                                                                    children: "Select"
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    children: part.isReceived ? "Received on" : "Scheduled for"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                    lineNumber: 412,
-                                                                                    columnNumber: 31
+                                                                                    lineNumber: 332,
+                                                                                    columnNumber: 33
                                                                                 }, this),
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
-                                                                                    value: "pending",
-                                                                                    className: "text-yellow-700 focus:text-yellow-800 focus:bg-yellow-50",
-                                                                                    children: "Pending"
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "relative",
+                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                                        type: "date",
+                                                                                        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("h-6 bg-transparent border-none p-0 text-sm font-medium focus-visible:ring-0 focus-visible:outline-none text-muted-foreground", part.isReceived ? "cursor-default" : "cursor-pointer"),
+                                                                                        value: part.date || "",
+                                                                                        onChange: (e)=>{
+                                                                                            if (part.isReceived) return;
+                                                                                            const newDate = e.target.value;
+                                                                                            // Log remark if date changes
+                                                                                            if (newDate && newDate !== part.date) {
+                                                                                                addRemark(record.id, {
+                                                                                                    text: `Part payment scheduled: ₹${part.amount} for ${newDate}`,
+                                                                                                    createdAt: new Date().toISOString(),
+                                                                                                    createdBy: "System"
+                                                                                                });
+                                                                                            }
+                                                                                            const newParts = (record.paymentParts || []).map((p)=>p.id === part.id ? {
+                                                                                                    ...p,
+                                                                                                    date: newDate
+                                                                                                } : p);
+                                                                                            updateRecord(record.id, {
+                                                                                                paymentParts: newParts
+                                                                                            });
+                                                                                        },
+                                                                                        readOnly: !!part.isReceived
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                        lineNumber: 334,
+                                                                                        columnNumber: 35
+                                                                                    }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                    lineNumber: 413,
-                                                                                    columnNumber: 31
-                                                                                }, this),
-                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
-                                                                                    value: "received",
-                                                                                    className: "text-green-700 focus:text-green-800 focus:bg-green-50",
-                                                                                    children: "Received"
-                                                                                }, void 0, false, {
-                                                                                    fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                    lineNumber: 414,
-                                                                                    columnNumber: 31
+                                                                                    lineNumber: 333,
+                                                                                    columnNumber: 33
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                                            lineNumber: 411,
-                                                                            columnNumber: 29
+                                                                            lineNumber: 331,
+                                                                            columnNumber: 31
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 372,
-                                                                    columnNumber: 27
+                                                                    lineNumber: 310,
+                                                                    columnNumber: 29
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex items-center gap-3",
+                                                                    children: [
+                                                                        !part.isReceived && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                                            size: "icon",
+                                                                            variant: "ghost",
+                                                                            className: "h-8 w-8 text-muted-foreground/50 hover:text-destructive transition-opacity",
+                                                                            onClick: ()=>{
+                                                                                const newParts = (record.paymentParts || []).filter((p)=>p.id !== part.id);
+                                                                                updateRecord(record.id, {
+                                                                                    paymentParts: newParts
+                                                                                });
+                                                                            },
+                                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                                                                className: "h-4 w-4"
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                lineNumber: 378,
+                                                                                columnNumber: 35
+                                                                            }, this)
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                                            lineNumber: 369,
+                                                                            columnNumber: 33
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
+                                                                            value: part.isReceived === true ? "received" : part.isReceived === false ? "pending" : "select",
+                                                                            onValueChange: (val)=>{
+                                                                                let isReceived = undefined;
+                                                                                if (val === "received") isReceived = true;
+                                                                                if (val === "pending") isReceived = false;
+                                                                                const newParts = (record.paymentParts || []).map((p)=>p.id === part.id ? {
+                                                                                        ...p,
+                                                                                        isReceived
+                                                                                    } : p);
+                                                                                updateRecord(record.id, {
+                                                                                    paymentParts: newParts
+                                                                                });
+                                                                                if (isReceived === true && part.isReceived !== true) {
+                                                                                    addRemark(record.id, {
+                                                                                        text: `Part payment received: ₹${part.amount} on ${part.date || "Unknown Date"}`,
+                                                                                        createdAt: new Date().toISOString(),
+                                                                                        createdBy: "System"
+                                                                                    });
+                                                                                } else if (isReceived === false && part.isReceived !== false) {
+                                                                                    // Changed to Pending/Scheduled
+                                                                                    addRemark(record.id, {
+                                                                                        text: `Part payment scheduled: ₹${part.amount} for ${part.date || "Unknown Date"}`,
+                                                                                        createdAt: new Date().toISOString(),
+                                                                                        createdBy: "System"
+                                                                                    });
+                                                                                }
+                                                                            },
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectTrigger"], {
+                                                                                    className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("w-[130px] h-9 font-medium border-0 ring-1 ring-inset focus:ring-2", part.isReceived === true ? "bg-green-50 text-green-700 ring-green-600/20" : part.isReceived === false ? "bg-yellow-50 text-yellow-800 ring-yellow-600/20" : "bg-muted text-muted-foreground ring-border"),
+                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectValue"], {
+                                                                                        placeholder: "Select"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                        lineNumber: 419,
+                                                                                        columnNumber: 35
+                                                                                    }, this)
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                    lineNumber: 409,
+                                                                                    columnNumber: 33
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
+                                                                                    children: [
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
+                                                                                            value: "select",
+                                                                                            children: "Select"
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                            lineNumber: 422,
+                                                                                            columnNumber: 35
+                                                                                        }, this),
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
+                                                                                            value: "pending",
+                                                                                            className: "text-yellow-700 focus:text-yellow-800 focus:bg-yellow-50",
+                                                                                            children: "Pending"
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                            lineNumber: 423,
+                                                                                            columnNumber: 35
+                                                                                        }, this),
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
+                                                                                            value: "received",
+                                                                                            className: "text-green-700 focus:text-green-800 focus:bg-green-50",
+                                                                                            children: "Received"
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                            lineNumber: 424,
+                                                                                            columnNumber: 35
+                                                                                        }, this)
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                    lineNumber: 421,
+                                                                                    columnNumber: 33
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                                            lineNumber: 382,
+                                                                            columnNumber: 31
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                                    lineNumber: 366,
+                                                                    columnNumber: 29
                                                                 }, this)
                                                             ]
-                                                        }, void 0, true, {
+                                                        }, part.id, true, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 356,
-                                                            columnNumber: 25
-                                                        }, this)
-                                                    ]
-                                                }, part.id, true, {
+                                                            lineNumber: 307,
+                                                            columnNumber: 27
+                                                        }, this))
+                                                }, void 0, false, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 297,
+                                                    lineNumber: 305,
                                                     columnNumber: 23
-                                                }, this))
-                                        }, void 0, false, {
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 295,
-                                            columnNumber: 19
+                                            lineNumber: 287,
+                                            columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 277,
+                                    lineNumber: 270,
                                     columnNumber: 17
                                 }, this)
-                            ]
-                        }, void 0, true, {
+                            }, void 0, false, {
+                                fileName: "[project]/components/record-detail-modal.tsx",
+                                lineNumber: 263,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false, {
                             fileName: "[project]/components/record-detail-modal.tsx",
-                            lineNumber: 260,
-                            columnNumber: 13
+                            lineNumber: 261,
+                            columnNumber: 11
                         }, this),
                         !isProtect && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
                             className: "bg-muted/10 border-border/50",
@@ -4285,19 +3882,19 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                 className: "h-3 w-3"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                lineNumber: 433,
+                                                lineNumber: 445,
                                                 columnNumber: 19
                                             }, this),
                                             "Settlement Updates"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                        lineNumber: 432,
+                                        lineNumber: 444,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 431,
+                                    lineNumber: 443,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
@@ -4314,7 +3911,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         children: "Lender Contact Info"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 441,
+                                                        lineNumber: 453,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4334,18 +3931,18 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                             className: "h-9 bg-background"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 443,
+                                                            lineNumber: 455,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 442,
+                                                        lineNumber: 454,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                lineNumber: 440,
+                                                lineNumber: 452,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4357,7 +3954,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         children: "Funds Availability"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 459,
+                                                        lineNumber: 471,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -4373,12 +3970,12 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                     placeholder: "Select"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 465,
+                                                                    lineNumber: 477,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 464,
+                                                                lineNumber: 476,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -4388,7 +3985,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                         children: "Select"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 468,
+                                                                        lineNumber: 480,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -4396,7 +3993,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                         children: "Yes"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 469,
+                                                                        lineNumber: 481,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -4404,25 +4001,25 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                         children: "No"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 470,
+                                                                        lineNumber: 482,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 467,
+                                                                lineNumber: 479,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 460,
+                                                        lineNumber: 472,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                lineNumber: 458,
+                                                lineNumber: 470,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4434,7 +4031,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         children: "Settlement Mode"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 476,
+                                                        lineNumber: 488,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -4450,12 +4047,12 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                     placeholder: "Select"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 482,
+                                                                    lineNumber: 494,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 481,
+                                                                lineNumber: 493,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -4465,7 +4062,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                         children: "Select"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 485,
+                                                                        lineNumber: 497,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -4473,7 +4070,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                         children: "One Time"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 486,
+                                                                        lineNumber: 498,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -4481,25 +4078,25 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                         children: "EMI"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 487,
+                                                                        lineNumber: 499,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 484,
+                                                                lineNumber: 496,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 477,
+                                                        lineNumber: 489,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                lineNumber: 475,
+                                                lineNumber: 487,
                                                 columnNumber: 19
                                             }, this),
                                             record.settlementOption === "EMI" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4511,7 +4108,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         children: "Number of EMIs"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 495,
+                                                        lineNumber: 507,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -4527,12 +4124,12 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                     placeholder: "Select"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 501,
+                                                                    lineNumber: 513,
                                                                     columnNumber: 27
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 500,
+                                                                lineNumber: 512,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -4542,7 +4139,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                         children: "2 EMIs"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 504,
+                                                                        lineNumber: 516,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -4550,25 +4147,25 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                         children: "3 EMIs"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 505,
+                                                                        lineNumber: 517,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 503,
+                                                                lineNumber: 515,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 496,
+                                                        lineNumber: 508,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                lineNumber: 494,
+                                                lineNumber: 506,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4580,7 +4177,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         children: "WhatsApp Reachout"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 512,
+                                                        lineNumber: 524,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Select"], {
@@ -4596,12 +4193,12 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                     placeholder: "Select"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 520,
+                                                                    lineNumber: 532,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 519,
+                                                                lineNumber: 531,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectContent"], {
@@ -4611,7 +4208,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                         children: "Select"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 523,
+                                                                        lineNumber: 535,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -4619,7 +4216,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                         children: "Yes"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 524,
+                                                                        lineNumber: 536,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$select$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SelectItem"], {
@@ -4627,42 +4224,42 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                         children: "No"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 525,
+                                                                        lineNumber: 537,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 522,
+                                                                lineNumber: 534,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 515,
+                                                        lineNumber: 527,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                lineNumber: 511,
+                                                lineNumber: 523,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                        lineNumber: 438,
+                                        lineNumber: 450,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 437,
+                                    lineNumber: 449,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/record-detail-modal.tsx",
-                            lineNumber: 430,
+                            lineNumber: 442,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -4675,20 +4272,20 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                             className: "h-4 w-4"
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 539,
+                                            lineNumber: 551,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                             children: "Details"
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 540,
+                                            lineNumber: 552,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 538,
+                                    lineNumber: 550,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4707,7 +4304,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Mobile"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 548,
+                                                                lineNumber: 560,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4715,13 +4312,13 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: record.mobileNumber
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 549,
+                                                                lineNumber: 561,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 547,
+                                                        lineNumber: 559,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4732,7 +4329,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Partner"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 552,
+                                                                lineNumber: 564,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4740,13 +4337,13 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: record.partner
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 553,
+                                                                lineNumber: 565,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 551,
+                                                        lineNumber: 563,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4757,7 +4354,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Form Filled"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 556,
+                                                                lineNumber: 568,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4765,24 +4362,24 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: record.formFilledDate
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 557,
+                                                                lineNumber: 569,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 555,
+                                                        lineNumber: 567,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                lineNumber: 546,
+                                                lineNumber: 558,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 545,
+                                            lineNumber: 557,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -4798,7 +4395,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Source"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 566,
+                                                                lineNumber: 578,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4807,13 +4404,13 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: record.uploadedFrom
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 567,
+                                                                lineNumber: 579,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 565,
+                                                        lineNumber: 577,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4824,7 +4421,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: "Uploaded"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 570,
+                                                                lineNumber: 582,
                                                                 columnNumber: 21
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4832,30 +4429,30 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 children: new Date(record.uploadedAt).toLocaleDateString()
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 571,
+                                                                lineNumber: 583,
                                                                 columnNumber: 21
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 569,
+                                                        lineNumber: 581,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                lineNumber: 564,
+                                                lineNumber: 576,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 563,
+                                            lineNumber: 575,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 543,
+                                    lineNumber: 555,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
@@ -4872,84 +4469,12 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                             children: "PAN Number"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 586,
+                                                            lineNumber: 598,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-sm font-medium font-mono",
                                                             children: protectRecord.panNumber || "-"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 587,
-                                                            columnNumber: 23
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 585,
-                                                    columnNumber: 21
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-xs text-muted-foreground mb-1",
-                                                            children: "Plan"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 590,
-                                                            columnNumber: 23
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-sm font-medium",
-                                                            children: protectRecord.plan
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 591,
-                                                            columnNumber: 23
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 589,
-                                                    columnNumber: 21
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-xs text-muted-foreground mb-1",
-                                                            children: "Institution"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 594,
-                                                            columnNumber: 23
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-sm font-medium",
-                                                            children: protectRecord.institution
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 595,
-                                                            columnNumber: 23
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 593,
-                                                    columnNumber: 21
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-xs text-muted-foreground mb-1",
-                                                            children: "Account No"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 598,
-                                                            columnNumber: 23
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-sm font-medium font-mono break-all",
-                                                            children: protectRecord.accountNumber
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 599,
@@ -4965,7 +4490,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-xs text-muted-foreground mb-1",
-                                                            children: "Account Type"
+                                                            children: "Plan"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 602,
@@ -4973,7 +4498,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-sm font-medium",
-                                                            children: protectRecord.accountType
+                                                            children: protectRecord.plan
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 603,
@@ -4989,7 +4514,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-xs text-muted-foreground mb-1",
-                                                            children: "Date Opened"
+                                                            children: "Institution"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 606,
@@ -4997,7 +4522,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-sm font-medium",
-                                                            children: protectRecord.dateOpened
+                                                            children: protectRecord.institution
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 607,
@@ -5013,19 +4538,16 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-xs text-muted-foreground mb-1",
-                                                            children: "EMI Amount"
+                                                            children: "Account No"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 610,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-sm font-medium font-mono",
-                                                            children: [
-                                                                "₹",
-                                                                protectRecord.emiAmount.toLocaleString()
-                                                            ]
-                                                        }, void 0, true, {
+                                                            className: "text-sm font-medium font-mono break-all",
+                                                            children: protectRecord.accountNumber
+                                                        }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 611,
                                                             columnNumber: 23
@@ -5040,7 +4562,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-xs text-muted-foreground mb-1",
-                                                            children: "EMI Date"
+                                                            children: "Account Type"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 614,
@@ -5048,7 +4570,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-sm font-medium",
-                                                            children: protectRecord.emiDate
+                                                            children: protectRecord.accountType
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 615,
@@ -5064,7 +4586,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-xs text-muted-foreground mb-1",
-                                                            children: "Original DPD"
+                                                            children: "Date Opened"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 618,
@@ -5072,7 +4594,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-sm font-medium",
-                                                            children: protectRecord.dpd
+                                                            children: protectRecord.dateOpened
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 619,
@@ -5088,16 +4610,19 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                             className: "text-xs text-muted-foreground mb-1",
-                                                            children: "Current DPD"
+                                                            children: "EMI Amount"
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 622,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-sm font-medium",
-                                                            children: protectRecord.currentDpd
-                                                        }, void 0, false, {
+                                                            className: "text-sm font-medium font-mono",
+                                                            children: [
+                                                                "₹",
+                                                                protectRecord.emiAmount.toLocaleString()
+                                                            ]
+                                                        }, void 0, true, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
                                                             lineNumber: 623,
                                                             columnNumber: 23
@@ -5107,11 +4632,83 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
                                                     lineNumber: 621,
                                                     columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-xs text-muted-foreground mb-1",
+                                                            children: "EMI Date"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                            lineNumber: 626,
+                                                            columnNumber: 23
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-sm font-medium",
+                                                            children: protectRecord.emiDate
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                            lineNumber: 627,
+                                                            columnNumber: 23
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                    lineNumber: 625,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-xs text-muted-foreground mb-1",
+                                                            children: "Original DPD"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                            lineNumber: 630,
+                                                            columnNumber: 23
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-sm font-medium",
+                                                            children: protectRecord.dpd
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                            lineNumber: 631,
+                                                            columnNumber: 23
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                    lineNumber: 629,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-xs text-muted-foreground mb-1",
+                                                            children: "Current DPD"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                            lineNumber: 634,
+                                                            columnNumber: 23
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-sm font-medium",
+                                                            children: protectRecord.currentDpd
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                            lineNumber: 635,
+                                                            columnNumber: 23
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                    lineNumber: 633,
+                                                    columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 584,
+                                            lineNumber: 596,
                                             columnNumber: 19
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "grid gap-4 py-4",
@@ -5123,7 +4720,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         value: record.createdDate
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 630,
+                                                        lineNumber: 642,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5131,7 +4728,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         value: record.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 632,
+                                                        lineNumber: 644,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5139,7 +4736,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         value: record.mobileNumber
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 634,
+                                                        lineNumber: 646,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5147,7 +4744,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         value: record.debtType
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 636,
+                                                        lineNumber: 648,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5155,7 +4752,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         value: record.lenderName
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 638,
+                                                        lineNumber: 650,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5163,7 +4760,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         value: record.creditCardNo
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 640,
+                                                        lineNumber: 652,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5171,7 +4768,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         value: record.loanAccNo
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 642,
+                                                        lineNumber: 654,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5179,7 +4776,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         value: `₹${(record.loanAmount || 0).toLocaleString()}`
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 644,
+                                                        lineNumber: 656,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5187,7 +4784,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         value: record.dueDate
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 646,
+                                                        lineNumber: 658,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5196,7 +4793,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         valueClassName: record.isEmiBounced ? "text-destructive font-medium" : ""
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 648,
+                                                        lineNumber: 660,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5205,7 +4802,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         valueClassName: record.isLegalNotice ? "text-destructive font-medium" : ""
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 654,
+                                                        lineNumber: 666,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5213,7 +4810,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         value: `₹${(record.recommendedAmt || 0).toLocaleString()}`
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 660,
+                                                        lineNumber: 672,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5221,7 +4818,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         value: `₹${(record.customerWishAmt || 0).toLocaleString()}`
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 662,
+                                                        lineNumber: 674,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DetailRow, {
@@ -5230,34 +4827,34 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                         className: "text-center"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 664,
+                                                        lineNumber: 676,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                lineNumber: 628,
+                                                lineNumber: 640,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 627,
+                                            lineNumber: 639,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/components/record-detail-modal.tsx",
-                                        lineNumber: 582,
+                                        lineNumber: 594,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 581,
+                                    lineNumber: 593,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/record-detail-modal.tsx",
-                            lineNumber: 537,
+                            lineNumber: 549,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -5270,20 +4867,20 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                             className: "h-4 w-4"
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 676,
+                                            lineNumber: 688,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                             children: "Remarks"
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 677,
+                                            lineNumber: 689,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 675,
+                                    lineNumber: 687,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5291,151 +4888,184 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar",
-                                            children: record.remarks.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "text-center py-8 text-muted-foreground text-sm italic",
-                                                children: "No remarks yet. Add one below."
-                                            }, void 0, false, {
-                                                fileName: "[project]/components/record-detail-modal.tsx",
-                                                lineNumber: 683,
-                                                columnNumber: 19
-                                            }, this) : record.remarks.map((remark)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "bg-background rounded-md p-3 border border-border/50 shadow-sm",
-                                                    children: editingRemarkId === remark.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "space-y-2",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$textarea$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Textarea"], {
-                                                                value: editingRemarkText,
-                                                                onChange: (e)=>setEditingRemarkText(e.target.value),
-                                                                className: "min-h-[60px] text-sm"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 691,
-                                                                columnNumber: 27
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "flex justify-end gap-2",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                                                        size: "sm",
-                                                                        variant: "ghost",
-                                                                        onClick: ()=>setEditingRemarkId(null),
-                                                                        className: "h-7 text-xs",
-                                                                        children: "Cancel"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 697,
-                                                                        columnNumber: 29
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                                                        size: "sm",
-                                                                        onClick: ()=>handleUpdateRemark(remark.id),
-                                                                        className: "h-7 text-xs",
-                                                                        children: "Save"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 700,
-                                                                        columnNumber: 29
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 696,
-                                                                columnNumber: 27
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/components/record-detail-modal.tsx",
-                                                        lineNumber: 690,
-                                                        columnNumber: 25
-                                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-sm text-foreground whitespace-pre-wrap break-words leading-relaxed",
-                                                                children: remark.text
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 707,
-                                                                columnNumber: 27
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "flex items-center justify-between mt-2 pt-2 border-t border-dashed border-border/50",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: "text-[10px] text-muted-foreground font-medium",
-                                                                        children: [
-                                                                            remark.createdBy,
-                                                                            " • ",
-                                                                            new Date(remark.createdAt).toLocaleString(),
-                                                                            remark.updatedAt && " (edited)"
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 709,
-                                                                        columnNumber: 29
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "flex",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                                                                size: "icon",
-                                                                                variant: "ghost",
-                                                                                className: "h-5 w-5 hover:bg-muted",
-                                                                                onClick: ()=>startEditRemark(remark),
-                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit2$3e$__["Edit2"], {
-                                                                                    className: "h-3 w-3 text-muted-foreground"
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
+                                                mode: "popLayout",
+                                                initial: false,
+                                                children: record.remarks.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+                                                    initial: {
+                                                        opacity: 0
+                                                    },
+                                                    animate: {
+                                                        opacity: 1
+                                                    },
+                                                    exit: {
+                                                        opacity: 0
+                                                    },
+                                                    className: "text-center py-8 text-muted-foreground text-sm italic",
+                                                    children: "No remarks yet. Add one below."
+                                                }, void 0, false, {
+                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                    lineNumber: 696,
+                                                    columnNumber: 21
+                                                }, this) : record.remarks.map((remark)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
+                                                        layout: true,
+                                                        initial: {
+                                                            opacity: 0,
+                                                            scale: 0.95
+                                                        },
+                                                        animate: {
+                                                            opacity: 1,
+                                                            scale: 1
+                                                        },
+                                                        exit: {
+                                                            opacity: 0,
+                                                            scale: 0.95
+                                                        },
+                                                        transition: {
+                                                            duration: 0.2
+                                                        },
+                                                        className: "bg-background rounded-md p-3 border border-border/50 shadow-sm",
+                                                        children: editingRemarkId === remark.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "space-y-2",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$textarea$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Textarea"], {
+                                                                    value: editingRemarkText,
+                                                                    onChange: (e)=>setEditingRemarkText(e.target.value),
+                                                                    className: "min-h-[60px] text-sm"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                                    lineNumber: 717,
+                                                                    columnNumber: 29
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex justify-end gap-2",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                                            size: "sm",
+                                                                            variant: "ghost",
+                                                                            onClick: ()=>setEditingRemarkId(null),
+                                                                            className: "h-7 text-xs",
+                                                                            children: "Cancel"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                                            lineNumber: 723,
+                                                                            columnNumber: 31
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                                            size: "sm",
+                                                                            onClick: ()=>handleUpdateRemark(remark.id),
+                                                                            className: "h-7 text-xs",
+                                                                            children: "Save"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                                            lineNumber: 726,
+                                                                            columnNumber: 31
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                                    lineNumber: 722,
+                                                                    columnNumber: 29
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                            lineNumber: 716,
+                                                            columnNumber: 27
+                                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                    className: "text-sm text-foreground whitespace-pre-wrap break-words leading-relaxed",
+                                                                    children: remark.text
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                                    lineNumber: 733,
+                                                                    columnNumber: 29
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex items-center justify-between mt-2 pt-2 border-t border-dashed border-border/50",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                            className: "text-[10px] text-muted-foreground font-medium",
+                                                                            children: [
+                                                                                remark.createdBy,
+                                                                                " • ",
+                                                                                new Date(remark.createdAt).toLocaleString(),
+                                                                                remark.updatedAt && " (edited)"
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                                            lineNumber: 735,
+                                                                            columnNumber: 31
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "flex",
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                                                    size: "icon",
+                                                                                    variant: "ghost",
+                                                                                    className: "h-5 w-5 hover:bg-muted",
+                                                                                    onClick: ()=>startEditRemark(remark),
+                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Edit2$3e$__["Edit2"], {
+                                                                                        className: "h-3 w-3 text-muted-foreground"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                        lineNumber: 746,
+                                                                                        columnNumber: 35
+                                                                                    }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                    lineNumber: 720,
+                                                                                    lineNumber: 740,
                                                                                     columnNumber: 33
-                                                                                }, this)
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                lineNumber: 714,
-                                                                                columnNumber: 31
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                                                                size: "icon",
-                                                                                variant: "ghost",
-                                                                                className: "h-5 w-5 hover:bg-destructive/10 hover:text-destructive",
-                                                                                onClick: ()=>handleDeleteRemark(remark.id),
-                                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
-                                                                                    className: "h-3 w-3"
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                                                    size: "icon",
+                                                                                    variant: "ghost",
+                                                                                    className: "h-5 w-5 hover:bg-destructive/10 hover:text-destructive",
+                                                                                    onClick: ()=>handleDeleteRemark(remark.id),
+                                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                                                                        className: "h-3 w-3"
+                                                                                    }, void 0, false, {
+                                                                                        fileName: "[project]/components/record-detail-modal.tsx",
+                                                                                        lineNumber: 754,
+                                                                                        columnNumber: 35
+                                                                                    }, this)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                    lineNumber: 728,
+                                                                                    lineNumber: 748,
                                                                                     columnNumber: 33
                                                                                 }, this)
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                lineNumber: 722,
-                                                                                columnNumber: 31
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/components/record-detail-modal.tsx",
-                                                                        lineNumber: 713,
-                                                                        columnNumber: 29
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 708,
-                                                                columnNumber: 27
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                                            lineNumber: 739,
+                                                                            columnNumber: 31
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/components/record-detail-modal.tsx",
+                                                                    lineNumber: 734,
+                                                                    columnNumber: 29
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/components/record-detail-modal.tsx",
+                                                            lineNumber: 732,
+                                                            columnNumber: 27
+                                                        }, this)
+                                                    }, remark.id, false, {
                                                         fileName: "[project]/components/record-detail-modal.tsx",
                                                         lineNumber: 706,
-                                                        columnNumber: 25
-                                                    }, this)
-                                                }, remark.id, false, {
-                                                    fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 688,
-                                                    columnNumber: 21
-                                                }, this))
+                                                        columnNumber: 23
+                                                    }, this))
+                                            }, void 0, false, {
+                                                fileName: "[project]/components/record-detail-modal.tsx",
+                                                lineNumber: 694,
+                                                columnNumber: 17
+                                            }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 681,
+                                            lineNumber: 693,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5448,7 +5078,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                     className: "min-h-[80px] bg-background text-sm resize-none focus-visible:ring-1 pr-10"
                                                 }, void 0, false, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 741,
+                                                    lineNumber: 768,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5461,7 +5091,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                     className: "h-4 w-4 text-muted-foreground shrink-0"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 751,
+                                                                    lineNumber: 778,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -5469,7 +5099,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                     children: "Follow-up:"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 752,
+                                                                    lineNumber: 779,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -5479,13 +5109,13 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                     onChange: (e)=>setRemarkDate(e.target.value)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 753,
+                                                                    lineNumber: 780,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 750,
+                                                            lineNumber: 777,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5503,20 +5133,20 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                             className: "h-4 w-4 animate-spin mr-1.5"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                                            lineNumber: 770,
+                                                                            lineNumber: 797,
                                                                             columnNumber: 25
                                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__["Sparkles"], {
                                                                             className: "h-4 w-4 mr-1.5"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                                            lineNumber: 772,
+                                                                            lineNumber: 799,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         "Magic Fix"
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 761,
+                                                                    lineNumber: 788,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$separator$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Separator"], {
@@ -5524,7 +5154,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                     className: "h-6 mx-1"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 776,
+                                                                    lineNumber: 803,
                                                                     columnNumber: 21
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -5537,44 +5167,44 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                             className: "h-3 w-3 mr-1.5"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                                            lineNumber: 778,
+                                                                            lineNumber: 805,
                                                                             columnNumber: 23
                                                                         }, this),
                                                                         " Add Remark"
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 777,
+                                                                    lineNumber: 804,
                                                                     columnNumber: 21
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 760,
+                                                            lineNumber: 787,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 749,
+                                                    lineNumber: 776,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 740,
+                                            lineNumber: 767,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 680,
+                                    lineNumber: 692,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/record-detail-modal.tsx",
-                            lineNumber: 674,
+                            lineNumber: 686,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -5587,20 +5217,20 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                             className: "h-4 w-4"
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 789,
+                                            lineNumber: 816,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                             children: "Activity Log"
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 790,
+                                            lineNumber: 817,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 788,
+                                    lineNumber: 815,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5610,7 +5240,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                             className: "absolute left-[11px] top-2 bottom-2 w-px bg-border/60"
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 794,
+                                            lineNumber: 821,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5624,12 +5254,12 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                 className: "w-1.5 h-1.5 rounded-full bg-primary"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                lineNumber: 799,
+                                                                lineNumber: 826,
                                                                 columnNumber: 23
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 798,
+                                                            lineNumber: 825,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5642,7 +5272,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                             children: entry.action
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                                            lineNumber: 803,
+                                                                            lineNumber: 830,
                                                                             columnNumber: 25
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
@@ -5654,18 +5284,18 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                                 className: "h-3 w-3"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/components/record-detail-modal.tsx",
-                                                                                lineNumber: 810,
+                                                                                lineNumber: 837,
                                                                                 columnNumber: 27
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                                            lineNumber: 804,
+                                                                            lineNumber: 831,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 802,
+                                                                    lineNumber: 829,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5673,7 +5303,7 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                     children: entry.details
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 813,
+                                                                    lineNumber: 840,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -5685,42 +5315,42 @@ function RecordDetailModal({ recordId, open, onClose }) {
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                                    lineNumber: 814,
+                                                                    lineNumber: 841,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                                            lineNumber: 801,
+                                                            lineNumber: 828,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, entry.id, true, {
                                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                                    lineNumber: 797,
+                                                    lineNumber: 824,
                                                     columnNumber: 19
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/components/record-detail-modal.tsx",
-                                            lineNumber: 795,
+                                            lineNumber: 822,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/components/record-detail-modal.tsx",
-                                    lineNumber: 793,
+                                    lineNumber: 820,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/components/record-detail-modal.tsx",
-                            lineNumber: 787,
+                            lineNumber: 814,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/components/record-detail-modal.tsx",
-                    lineNumber: 255,
+                    lineNumber: 257,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -5731,23 +5361,23 @@ function RecordDetailModal({ recordId, open, onClose }) {
                         children: "Update"
                     }, void 0, false, {
                         fileName: "[project]/components/record-detail-modal.tsx",
-                        lineNumber: 828,
+                        lineNumber: 855,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/components/record-detail-modal.tsx",
-                    lineNumber: 827,
+                    lineNumber: 854,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/components/record-detail-modal.tsx",
-            lineNumber: 161,
+            lineNumber: 163,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/components/record-detail-modal.tsx",
-        lineNumber: 160,
+        lineNumber: 162,
         columnNumber: 5
     }, this);
 }

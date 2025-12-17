@@ -2,6 +2,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useCRMStore } from "@/lib/store"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
@@ -206,49 +207,67 @@ export function AddRecordModal({ open, onClose, defaultType }: AddRecordModalPro
                         </Select>
                     </div>
 
-                    {type === "protect" ? (
-                        <>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="institution" className="text-right">Lender</Label>
-                                <Input id="institution" value={institution} onChange={e => setInstitution(e.target.value)} className="col-span-3" />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="accountNumber" className="text-right">Acc No</Label>
-                                <Input id="accountNumber" value={accountNumber} onChange={e => setAccountNumber(e.target.value)} className="col-span-3" />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="plan" className="text-right">Plan</Label>
-                                <Input id="plan" value={plan} onChange={e => setPlan(e.target.value)} className="col-span-3" />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="emiAmount" className="text-right">EMI Amt</Label>
-                                <Input id="emiAmount" type="number" value={emiAmount} onChange={e => setEmiAmount(e.target.value)} className="col-span-3" />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="dpd" className="text-right">DPD</Label>
-                                <Input id="dpd" value={dpd} onChange={e => setDpd(e.target.value)} className="col-span-3" />
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="lenderName" className="text-right">Lender</Label>
-                                <Input id="lenderName" value={lenderName} onChange={e => setLenderName(e.target.value)} className="col-span-3" />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="loanAccNo" className="text-right">Loan Acc</Label>
-                                <Input id="loanAccNo" value={loanAccNo} onChange={e => setLoanAccNo(e.target.value)} className="col-span-3" />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="loanAmount" className="text-right">Amount</Label>
-                                <Input id="loanAmount" type="number" value={loanAmount} onChange={e => setLoanAmount(e.target.value)} className="col-span-3" />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                                <Label htmlFor="debtType" className="text-right">Debt Type</Label>
-                                <Input id="debtType" value={debtType} onChange={e => setDebtType(e.target.value)} className="col-span-3" />
-                            </div>
-                        </>
-                    )}
+                    <div className="overflow-hidden">
+                        <AnimatePresence mode="wait">
+                            {type === "protect" ? (
+                                <motion.div
+                                    key="protect"
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="space-y-4"
+                                >
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="institution" className="text-right">Lender</Label>
+                                        <Input id="institution" value={institution} onChange={e => setInstitution(e.target.value)} className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="accountNumber" className="text-right">Acc No</Label>
+                                        <Input id="accountNumber" value={accountNumber} onChange={e => setAccountNumber(e.target.value)} className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="plan" className="text-right">Plan</Label>
+                                        <Input id="plan" value={plan} onChange={e => setPlan(e.target.value)} className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="emiAmount" className="text-right">EMI Amt</Label>
+                                        <Input id="emiAmount" type="number" value={emiAmount} onChange={e => setEmiAmount(e.target.value)} className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="dpd" className="text-right">DPD</Label>
+                                        <Input id="dpd" value={dpd} onChange={e => setDpd(e.target.value)} className="col-span-3" />
+                                    </div>
+                                </motion.div>
+                            ) : (
+                                <motion.div
+                                    key="settlement"
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: "auto" }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className="space-y-4"
+                                >
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="lenderName" className="text-right">Lender</Label>
+                                        <Input id="lenderName" value={lenderName} onChange={e => setLenderName(e.target.value)} className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="loanAccNo" className="text-right">Loan Acc</Label>
+                                        <Input id="loanAccNo" value={loanAccNo} onChange={e => setLoanAccNo(e.target.value)} className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="loanAmount" className="text-right">Amount</Label>
+                                        <Input id="loanAmount" type="number" value={loanAmount} onChange={e => setLoanAmount(e.target.value)} className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="debtType" className="text-right">Debt Type</Label>
+                                        <Input id="debtType" value={debtType} onChange={e => setDebtType(e.target.value)} className="col-span-3" />
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
 
                     <DialogFooter>
                         <Button type="submit" disabled={isSubmitting}>

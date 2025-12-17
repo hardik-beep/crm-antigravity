@@ -1,5 +1,7 @@
 "use client"
 
+import { motion, AnimatePresence } from "framer-motion"
+
 import { useState } from "react"
 import type { CRMRecord, ProtectRecord, SettlementRecord, Status, Remark } from "@/lib/types"
 import { useCRMStore } from "@/lib/store"
@@ -256,175 +258,185 @@ export function RecordDetailModal({ recordId, open, onClose }: { recordId: strin
 
           {/* Settlement Actions - Editable Fields (Moved Here) */}
           {/* Conditional Inputs based on Stage */}
-          {(isProtect || (record.type === "settlement" && record.stage === "Part Payment")) && (
-            <div className="bg-muted/30 p-4 rounded-md border border-border/50 space-y-4">
+          <AnimatePresence>
+            {(isProtect || (record.type === "settlement" && record.stage === "Part Payment")) && (
+              <motion.div
+                initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                animate={{ opacity: 1, height: "auto", marginBottom: 16 }}
+                exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="bg-muted/30 p-4 rounded-md border border-border/50 space-y-4">
 
-              {/* SKIP Logic (Protect Only) */}
-              {record.stage === "Skip" && isProtect && (
-                <div className="flex flex-col gap-2">
-                  <span className="text-sm font-medium">Skipped EMI to be paid on:</span>
-                  <input
-                    type="date"
-                    className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                    value={(record as ProtectRecord).skippedEmiDate || ""}
-                    onChange={(e) => updateRecord(record.id, { skippedEmiDate: e.target.value })}
-                  />
-                </div>
-              )}
+                  {/* SKIP Logic (Protect Only) */}
+                  {record.stage === "Skip" && isProtect && (
+                    <div className="flex flex-col gap-2">
+                      <span className="text-sm font-medium">Skipped EMI to be paid on:</span>
+                      <input
+                        type="date"
+                        className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        value={(record as ProtectRecord).skippedEmiDate || ""}
+                        onChange={(e) => updateRecord(record.id, { skippedEmiDate: e.target.value })}
+                      />
+                    </div>
+                  )}
 
-              {/* PART PAYMENT Logic */}
-              {record.stage === "Part Payment" && (
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">Number of payment parts</span>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="h-7 px-2 text-xs gap-1"
-                      onClick={() => {
-                        const currentParts = (record as any).paymentParts || []
-                        updateRecord(record.id, {
-                          paymentParts: [...currentParts, { id: Date.now().toString(), amount: 0, date: "" }]
-                        })
-                      }}
-                    >
-                      <Plus className="h-3 w-3" /> Add Part
-                    </Button>
-                  </div>
+                  {/* PART PAYMENT Logic */}
+                  {record.stage === "Part Payment" && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium">Number of payment parts</span>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="h-7 px-2 text-xs gap-1"
+                          onClick={() => {
+                            const currentParts = (record as any).paymentParts || []
+                            updateRecord(record.id, {
+                              paymentParts: [...currentParts, { id: Date.now().toString(), amount: 0, date: "" }]
+                            })
+                          }}
+                        >
+                          <Plus className="h-3 w-3" /> Add Part
+                        </Button>
+                      </div>
 
-                  <div className="space-y-4">
-                    {((record as any).paymentParts || []).map((part: any, index: number) => (
-                      <div key={part.id} className="flex justify-between items-center py-3 border-b border-border/50 last:border-0 group">
+                      <div className="space-y-4">
+                        {((record as any).paymentParts || []).map((part: any, index: number) => (
+                          <div key={part.id} className="flex justify-between items-center py-3 border-b border-border/50 last:border-0 group">
 
-                        {/* Left Side: Amount & Date */}
-                        <div className="flex flex-col gap-2 flex-1 mr-4">
-                          <div className="flex items-center gap-2">
-                            <div className="bg-background border border-input rounded-md px-3 py-1 flex items-center shadow-sm w-[180px]">
-                              <span className="text-muted-foreground text-sm mr-2">₹</span>
-                              <input
-                                type="number"
-                                className="flex h-8 w-full bg-transparent text-base font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-                                placeholder="Amount"
-                                value={part.amount || ""}
-                                onChange={(e) => {
-                                  if (part.isReceived) return
+                            {/* Left Side: Amount & Date */}
+                            <div className="flex flex-col gap-2 flex-1 mr-4">
+                              <div className="flex items-center gap-2">
+                                <div className="bg-background border border-input rounded-md px-3 py-1 flex items-center shadow-sm w-[180px]">
+                                  <span className="text-muted-foreground text-sm mr-2">₹</span>
+                                  <input
+                                    type="number"
+                                    className="flex h-8 w-full bg-transparent text-base font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                                    placeholder="Amount"
+                                    value={part.amount || ""}
+                                    onChange={(e) => {
+                                      if (part.isReceived) return
+                                      const newParts = ((record as any).paymentParts || []).map((p: any) =>
+                                        p.id === part.id ? { ...p, amount: Number(e.target.value) } : p
+                                      )
+                                      updateRecord(record.id, { paymentParts: newParts })
+                                    }}
+                                    readOnly={!!part.isReceived}
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="flex items-center gap-1.5 text-sm text-muted-foreground ml-1">
+                                <span>{part.isReceived ? "Received on" : "Scheduled for"}</span>
+                                <div className="relative">
+                                  <input
+                                    type="date"
+                                    className={cn(
+                                      "h-6 bg-transparent border-none p-0 text-sm font-medium focus-visible:ring-0 focus-visible:outline-none text-muted-foreground",
+                                      part.isReceived ? "cursor-default" : "cursor-pointer"
+                                    )}
+                                    value={part.date || ""}
+                                    onChange={(e) => {
+                                      if (part.isReceived) return
+                                      const newDate = e.target.value
+
+                                      // Log remark if date changes
+                                      if (newDate && newDate !== part.date) {
+                                        addRemark(record.id, {
+                                          text: `Part payment scheduled: ₹${part.amount} for ${newDate}`,
+                                          createdAt: new Date().toISOString(),
+                                          createdBy: "System",
+                                        })
+                                      }
+
+                                      const newParts = ((record as any).paymentParts || []).map((p: any) =>
+                                        p.id === part.id ? { ...p, date: newDate } : p
+                                      )
+                                      updateRecord(record.id, { paymentParts: newParts })
+                                    }}
+                                    readOnly={!!part.isReceived}
+                                  />
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Right Side: Status Badge & Delete */}
+                            <div className="flex items-center gap-3">
+                              {/* Delete (Visible for pending) */}
+                              {!part.isReceived && (
+                                <Button
+                                  size="icon"
+                                  variant="ghost"
+                                  className="h-8 w-8 text-muted-foreground/50 hover:text-destructive transition-opacity"
+                                  onClick={() => {
+                                    const newParts = ((record as any).paymentParts || []).filter((p: any) => p.id !== part.id)
+                                    updateRecord(record.id, { paymentParts: newParts })
+                                  }}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              )}
+
+                              <Select
+                                value={part.isReceived === true ? "received" : part.isReceived === false ? "pending" : "select"}
+                                onValueChange={(val) => {
+                                  let isReceived: boolean | undefined = undefined;
+                                  if (val === "received") isReceived = true;
+                                  if (val === "pending") isReceived = false;
                                   const newParts = ((record as any).paymentParts || []).map((p: any) =>
-                                    p.id === part.id ? { ...p, amount: Number(e.target.value) } : p
+                                    p.id === part.id ? { ...p, isReceived } : p
                                   )
                                   updateRecord(record.id, { paymentParts: newParts })
-                                }}
-                                readOnly={!!part.isReceived}
-                              />
-                            </div>
-                          </div>
 
-                          <div className="flex items-center gap-1.5 text-sm text-muted-foreground ml-1">
-                            <span>{part.isReceived ? "Received on" : "Scheduled for"}</span>
-                            <div className="relative">
-                              <input
-                                type="date"
-                                className={cn(
-                                  "h-6 bg-transparent border-none p-0 text-sm font-medium focus-visible:ring-0 focus-visible:outline-none text-muted-foreground",
-                                  part.isReceived ? "cursor-default" : "cursor-pointer"
-                                )}
-                                value={part.date || ""}
-                                onChange={(e) => {
-                                  if (part.isReceived) return
-                                  const newDate = e.target.value
-
-                                  // Log remark if date changes
-                                  if (newDate && newDate !== part.date) {
+                                  if (isReceived === true && part.isReceived !== true) {
                                     addRemark(record.id, {
-                                      text: `Part payment scheduled: ₹${part.amount} for ${newDate}`,
+                                      text: `Part payment received: ₹${part.amount} on ${part.date || "Unknown Date"}`,
+                                      createdAt: new Date().toISOString(),
+                                      createdBy: "System",
+                                    })
+                                  } else if (isReceived === false && part.isReceived !== false) {
+                                    // Changed to Pending/Scheduled
+                                    addRemark(record.id, {
+                                      text: `Part payment scheduled: ₹${part.amount} for ${part.date || "Unknown Date"}`,
                                       createdAt: new Date().toISOString(),
                                       createdBy: "System",
                                     })
                                   }
-
-                                  const newParts = ((record as any).paymentParts || []).map((p: any) =>
-                                    p.id === part.id ? { ...p, date: newDate } : p
-                                  )
-                                  updateRecord(record.id, { paymentParts: newParts })
                                 }}
-                                readOnly={!!part.isReceived}
-                              />
+                              >
+                                <SelectTrigger
+                                  className={cn(
+                                    "w-[130px] h-9 font-medium border-0 ring-1 ring-inset focus:ring-2",
+                                    part.isReceived === true
+                                      ? "bg-green-50 text-green-700 ring-green-600/20"
+                                      : part.isReceived === false
+                                        ? "bg-yellow-50 text-yellow-800 ring-yellow-600/20"
+                                        : "bg-muted text-muted-foreground ring-border"
+                                  )}
+                                >
+                                  <SelectValue placeholder="Select" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="select">Select</SelectItem>
+                                  <SelectItem value="pending" className="text-yellow-700 focus:text-yellow-800 focus:bg-yellow-50">Pending</SelectItem>
+                                  <SelectItem value="received" className="text-green-700 focus:text-green-800 focus:bg-green-50">Received</SelectItem>
+                                </SelectContent>
+                              </Select>
                             </div>
                           </div>
-                        </div>
-
-                        {/* Right Side: Status Badge & Delete */}
-                        <div className="flex items-center gap-3">
-                          {/* Delete (Visible for pending) */}
-                          {!part.isReceived && (
-                            <Button
-                              size="icon"
-                              variant="ghost"
-                              className="h-8 w-8 text-muted-foreground/50 hover:text-destructive transition-opacity"
-                              onClick={() => {
-                                const newParts = ((record as any).paymentParts || []).filter((p: any) => p.id !== part.id)
-                                updateRecord(record.id, { paymentParts: newParts })
-                              }}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          )}
-
-                          <Select
-                            value={part.isReceived === true ? "received" : part.isReceived === false ? "pending" : "select"}
-                            onValueChange={(val) => {
-                              let isReceived: boolean | undefined = undefined;
-                              if (val === "received") isReceived = true;
-                              if (val === "pending") isReceived = false;
-                              const newParts = ((record as any).paymentParts || []).map((p: any) =>
-                                p.id === part.id ? { ...p, isReceived } : p
-                              )
-                              updateRecord(record.id, { paymentParts: newParts })
-
-                              if (isReceived === true && part.isReceived !== true) {
-                                addRemark(record.id, {
-                                  text: `Part payment received: ₹${part.amount} on ${part.date || "Unknown Date"}`,
-                                  createdAt: new Date().toISOString(),
-                                  createdBy: "System",
-                                })
-                              } else if (isReceived === false && part.isReceived !== false) {
-                                // Changed to Pending/Scheduled
-                                addRemark(record.id, {
-                                  text: `Part payment scheduled: ₹${part.amount} for ${part.date || "Unknown Date"}`,
-                                  createdAt: new Date().toISOString(),
-                                  createdBy: "System",
-                                })
-                              }
-                            }}
-                          >
-                            <SelectTrigger
-                              className={cn(
-                                "w-[130px] h-9 font-medium border-0 ring-1 ring-inset focus:ring-2",
-                                part.isReceived === true
-                                  ? "bg-green-50 text-green-700 ring-green-600/20"
-                                  : part.isReceived === false
-                                    ? "bg-yellow-50 text-yellow-800 ring-yellow-600/20"
-                                    : "bg-muted text-muted-foreground ring-border"
-                              )}
-                            >
-                              <SelectValue placeholder="Select" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="select">Select</SelectItem>
-                              <SelectItem value="pending" className="text-yellow-700 focus:text-yellow-800 focus:bg-yellow-50">Pending</SelectItem>
-                              <SelectItem value="received" className="text-green-700 focus:text-green-800 focus:bg-green-50">Received</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  )}
+
+
+
                 </div>
-              )}
-
-
-
-            </div>
-          )}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {!isProtect && (
             <Card className="bg-muted/10 border-border/50">
@@ -679,61 +691,76 @@ export function RecordDetailModal({ recordId, open, onClose }: { recordId: strin
 
             <div className="bg-muted/20 border border-border rounded-lg p-4 space-y-4">
               <div className="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                {record.remarks.length === 0 ? (
-                  <div className="text-center py-8 text-muted-foreground text-sm italic">
-                    No remarks yet. Add one below.
-                  </div>
-                ) : (
-                  record.remarks.map((remark) => (
-                    <div key={remark.id} className="bg-background rounded-md p-3 border border-border/50 shadow-sm">
-                      {editingRemarkId === remark.id ? (
-                        <div className="space-y-2">
-                          <Textarea
-                            value={editingRemarkText}
-                            onChange={(e) => setEditingRemarkText(e.target.value)}
-                            className="min-h-[60px] text-sm"
-                          />
-                          <div className="flex justify-end gap-2">
-                            <Button size="sm" variant="ghost" onClick={() => setEditingRemarkId(null)} className="h-7 text-xs">
-                              Cancel
-                            </Button>
-                            <Button size="sm" onClick={() => handleUpdateRemark(remark.id)} className="h-7 text-xs">
-                              Save
-                            </Button>
-                          </div>
-                        </div>
-                      ) : (
-                        <div>
-                          <p className="text-sm text-foreground whitespace-pre-wrap break-words leading-relaxed">{remark.text}</p>
-                          <div className="flex items-center justify-between mt-2 pt-2 border-t border-dashed border-border/50">
-                            <span className="text-[10px] text-muted-foreground font-medium">
-                              {remark.createdBy} • {new Date(remark.createdAt).toLocaleString()}
-                              {remark.updatedAt && " (edited)"}
-                            </span>
-                            <div className="flex">
-                              <Button
-                                size="icon"
-                                variant="ghost"
-                                className="h-5 w-5 hover:bg-muted"
-                                onClick={() => startEditRemark(remark)}
-                              >
-                                <Edit2 className="h-3 w-3 text-muted-foreground" />
+                <AnimatePresence mode="popLayout" initial={false}>
+                  {record.remarks.length === 0 ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="text-center py-8 text-muted-foreground text-sm italic"
+                    >
+                      No remarks yet. Add one below.
+                    </motion.div>
+                  ) : (
+                    record.remarks.map((remark) => (
+                      <motion.div
+                        key={remark.id}
+                        layout
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="bg-background rounded-md p-3 border border-border/50 shadow-sm"
+                      >
+                        {editingRemarkId === remark.id ? (
+                          <div className="space-y-2">
+                            <Textarea
+                              value={editingRemarkText}
+                              onChange={(e) => setEditingRemarkText(e.target.value)}
+                              className="min-h-[60px] text-sm"
+                            />
+                            <div className="flex justify-end gap-2">
+                              <Button size="sm" variant="ghost" onClick={() => setEditingRemarkId(null)} className="h-7 text-xs">
+                                Cancel
                               </Button>
-                              <Button
-                                size="icon"
-                                variant="ghost"
-                                className="h-5 w-5 hover:bg-destructive/10 hover:text-destructive"
-                                onClick={() => handleDeleteRemark(remark.id)}
-                              >
-                                <Trash2 className="h-3 w-3" />
+                              <Button size="sm" onClick={() => handleUpdateRemark(remark.id)} className="h-7 text-xs">
+                                Save
                               </Button>
                             </div>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                  ))
-                )}
+                        ) : (
+                          <div>
+                            <p className="text-sm text-foreground whitespace-pre-wrap break-words leading-relaxed">{remark.text}</p>
+                            <div className="flex items-center justify-between mt-2 pt-2 border-t border-dashed border-border/50">
+                              <span className="text-[10px] text-muted-foreground font-medium">
+                                {remark.createdBy} • {new Date(remark.createdAt).toLocaleString()}
+                                {remark.updatedAt && " (edited)"}
+                              </span>
+                              <div className="flex">
+                                <Button
+                                  size="icon"
+                                  variant="ghost"
+                                  className="h-5 w-5 hover:bg-muted"
+                                  onClick={() => startEditRemark(remark)}
+                                >
+                                  <Edit2 className="h-3 w-3 text-muted-foreground" />
+                                </Button>
+                                <Button
+                                  size="icon"
+                                  variant="ghost"
+                                  className="h-5 w-5 hover:bg-destructive/10 hover:text-destructive"
+                                  onClick={() => handleDeleteRemark(remark.id)}
+                                >
+                                  <Trash2 className="h-3 w-3" />
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </motion.div>
+                    ))
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Add Remark Input */}

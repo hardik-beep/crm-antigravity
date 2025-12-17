@@ -31,6 +31,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { DataTableRow } from "@/components/data-table-row"
+import { AnimatePresence } from "framer-motion"
 
 const statusStyles: Record<Status, string> = {
   new: "bg-blue-500/10 text-blue-500 border-blue-500/20",
@@ -394,8 +396,8 @@ export function DataTable({
           <div className="overflow-x-auto">
             <Table className={cn("table-fixed", type === "nexus" ? "min-w-[1200px]" : "min-w-[3200px]")}>
               <TableHeader>
-                <TableRow className="bg-muted hover:bg-muted">
-                  <TableHead className="w-[40px] sticky left-0 bg-muted z-20">
+                <TableRow className="bg-muted hover:bg-muted font-medium">
+                  <TableHead className="w-[40px] sticky left-0 top-0 bg-muted z-30 shadow-sm">
                     <Checkbox
                       checked={paginatedRecords.length > 0 && paginatedRecords.every(r => selectedRecords.has(r.id))}
                       onCheckedChange={toggleSelectAll}
@@ -548,246 +550,19 @@ export function DataTable({
                     </TableCell>
                   </TableRow>
                 ) : (
-                  paginatedRecords.map((record) => (
-                    <TableRow
-                      key={record.id}
-                      className="hover:bg-muted/20 cursor-pointer"
-                      onClick={() => onViewRecord(record)}
-                    >
-                      <TableCell onClick={(e) => e.stopPropagation()} className="sticky left-0 bg-background z-10 border-r border-border/50">
-                        <Checkbox
-                          checked={selectedRecords.has(record.id)}
-                          onCheckedChange={() => toggleSelectRecord(record.id)}
-                          aria-label={`Select ${record.name}`}
-                        />
-                      </TableCell>
-                      {type === "nexus" ? (
-                        <>
-                          <TableCell className="text-xs font-mono whitespace-nowrap">
-                            {(record as any).userId || "-"}
-                          </TableCell>
-                          <TableCell className="text-xs font-medium w-[150px] truncate" title={record.name}>{record.name}</TableCell>
-                          <TableCell className="text-xs whitespace-nowrap font-mono truncate">{record.mobileNumber}</TableCell>
-                          <TableCell className="text-xs truncate max-w-[200px]" title={(record as any).email}>
-                            {(record as any).email || "-"}
-                          </TableCell>
-                          <TableCell className="text-xs whitespace-nowrap">
-                            {(record as any).nexusPurchaseDate}
-                          </TableCell>
-                          <TableCell className="text-xs whitespace-nowrap">
-                            {record.formFilledDate ? (
-                              <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">
-                                Yes
-                              </Badge>
-                            ) : (
-                              <Badge variant="outline" className="bg-red-500/10 text-red-500 border-red-500/20">
-                                No
-                              </Badge>
-                            )}
-                          </TableCell>
-
-                          <TableCell>
-                            <Badge variant="outline" className={cn("text-xs whitespace-nowrap", statusStyles[record.status])}>
-                              {statusLabels[record.status]}
-                            </Badge>
-                          </TableCell>
-                        </>
-                      ) : type === "protect" ? (
-                        <>
-                          <TableCell className="text-xs whitespace-nowrap">
-                            {(() => {
-                              const dateVal = (record as ProtectRecord).formFilledDate
-                              if (!dateVal) return "-"
-                              try {
-                                const d = new Date(dateVal.replace(" ", "T"))
-                                if (isNaN(d.getTime())) return dateVal
-                                return d.toLocaleDateString("en-GB", {
-                                  day: "2-digit",
-                                  month: "short",
-                                  year: "numeric",
-                                  hour: "2-digit",
-                                  minute: "2-digit",
-                                  hour12: true
-                                })
-                              } catch (e) {
-                                return dateVal
-                              }
-                            })()}
-                          </TableCell>
-                          <TableCell className="text-xs font-medium w-[150px] truncate" title={record.name}>{record.name}</TableCell>
-                          <TableCell className="text-xs whitespace-nowrap font-mono truncate">{record.mobileNumber}</TableCell>
-                          <TableCell className="text-xs whitespace-nowrap font-mono truncate">{(record as ProtectRecord).panNumber || "-"}</TableCell>
-                          <TableCell className="text-xs whitespace-nowrap truncate" title={(record as ProtectRecord).plan}>{(record as ProtectRecord).plan}</TableCell>
-                          <TableCell className="text-xs w-[150px] truncate" title={(record as ProtectRecord).institution}>
-                            {(record as ProtectRecord).institution}
-                          </TableCell>
-                          <TableCell className="text-xs whitespace-nowrap truncate">{(record as ProtectRecord).accountType}</TableCell>
-                          <TableCell className="text-xs whitespace-nowrap font-mono truncate" title={(record as ProtectRecord).accountNumber}>
-                            {(record as ProtectRecord).accountNumber}
-                          </TableCell>
-                          <TableCell className="text-xs whitespace-nowrap">{(record as ProtectRecord).dateOpened}</TableCell>
-                          <TableCell className="text-xs whitespace-nowrap">{(record as ProtectRecord).emiDate}</TableCell>
-                          <TableCell className="text-xs whitespace-nowrap text-right font-mono">
-                            ₹{(record as ProtectRecord).emiAmount.toLocaleString()}
-                          </TableCell>
-                          <TableCell className="text-xs whitespace-nowrap text-center font-mono">
-                            {(record as ProtectRecord).dpd}
-                          </TableCell>
-                          <TableCell className="text-xs whitespace-nowrap text-center font-mono">
-                            {(record as ProtectRecord).currentDpd}
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant="outline" className={cn("text-xs whitespace-nowrap", statusStyles[record.status])}>
-                              {statusLabels[record.status] || record.status}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="text-xs whitespace-nowrap truncate" title={record.stage || "-"}>{record.stage || "-"}</TableCell>
-                          <TableCell className="text-xs font-mono">
-                            {(() => {
-                              if (record.stage === 'Skip') return "-"
-
-                              const parts = (record as ProtectRecord).paymentParts || []
-                              const receivedParts = parts.filter(p => p.isReceived)
-                              const pendingParts = parts.filter(p => !p.isReceived)
-
-                              const receivedSum = receivedParts.reduce((sum, p) => sum + (Number(p.amount) || 0), 0)
-                              const pendingSum = pendingParts.reduce((sum, p) => sum + (Number(p.amount) || 0), 0)
-
-                              if (receivedSum > 0 || pendingSum > 0) {
-                                return (
-                                  <div className="flex flex-col gap-1 items-start my-1">
-                                    {receivedSum > 0 && (
-                                      <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 text-[10px] h-4 px-1 font-normal whitespace-nowrap">
-                                        Recvd: ₹{receivedSum.toLocaleString()}
-                                      </Badge>
-                                    )}
-                                    {pendingSum > 0 && (
-                                      <Badge variant="outline" className="bg-orange-50 text-orange-700 border-orange-200 text-[10px] h-4 px-1 font-normal whitespace-nowrap">
-                                        Due: ₹{pendingSum.toLocaleString()}
-                                      </Badge>
-                                    )}
-                                  </div>
-                                )
-                              }
-
-                              return (record as ProtectRecord).partPaymentAmount ? `₹${(record as ProtectRecord).partPaymentAmount?.toLocaleString()}` : "-"
-                            })()}
-                          </TableCell>
-                          <TableCell className="text-xs whitespace-pre-wrap break-words py-2" title={record.remarks?.length ? record.remarks[record.remarks.length - 1].text : "-"}>
-                            {record.remarks?.length ? record.remarks[record.remarks.length - 1].text : "-"}
-                          </TableCell>
-                          <TableCell className="sticky right-0 bg-background z-10 border-l border-border/50">
-                            <ActionButtons
-                              record={record}
-                              onView={onViewRecord}
-                              onDelete={setRecordToDelete}
-                            />
-                          </TableCell>
-                        </>
-                      ) : (
-                        <>
-                          {/* 1. Created */}
-                          <TableCell className="text-xs whitespace-nowrap">{(record as SettlementRecord).createdDate}</TableCell>
-                          {/* 2. User */}
-                          <TableCell className="text-xs font-medium w-[150px] truncate" title={record.name}>{record.name}</TableCell>
-                          {/* 3. Mobile No */}
-                          <TableCell className="text-xs whitespace-nowrap font-mono truncate">{record.mobileNumber}</TableCell>
-                          {/* 4. Debt type */}
-                          <TableCell className="text-xs whitespace-nowrap truncate">{(record as SettlementRecord).debtType}</TableCell>
-                          {/* 5. Creditor Name */}
-                          <TableCell className="text-xs w-[150px] truncate" title={(record as SettlementRecord).lenderName}>{(record as SettlementRecord).lenderName}</TableCell>
-                          {/* 6. Credit card no */}
-                          <TableCell className="text-xs whitespace-nowrap font-mono truncate">{(record as SettlementRecord).creditCardNo}</TableCell>
-                          {/* 7. Loan acc no */}
-                          <TableCell className="text-xs whitespace-nowrap font-mono truncate">{(record as SettlementRecord).loanAccNo}</TableCell>
-                          {/* 8. Loan Amount (was Due amt) */}
-                          <TableCell className="text-xs whitespace-nowrap text-right font-mono">₹{((record as SettlementRecord).loanAmount || 0).toLocaleString()}</TableCell>
-                          {/* 9. Due date */}
-                          <TableCell className="text-xs whitespace-nowrap">{(record as SettlementRecord).dueDate}</TableCell>
-                          {/* 10. Is emi bounced */}
-                          <TableCell className="text-center">
-                            {(record as SettlementRecord).isEmiBounced ? <Badge variant="destructive" className="h-5 text-[10px]">Yes</Badge> : <span className="text-xs text-muted-foreground">No</span>}
-                          </TableCell>
-                          {/* 11. Is legal notice */}
-                          <TableCell className="text-center">
-                            {(record as SettlementRecord).isLegalNotice ? <Badge variant="destructive" className="h-5 text-[10px]">Yes</Badge> : <span className="text-xs text-muted-foreground">No</span>}
-                          </TableCell>
-                          {/* 12. Recommended amt */}
-                          <TableCell className="text-xs whitespace-nowrap text-right font-mono">₹{(record as SettlementRecord).recommendedAmt.toLocaleString()}</TableCell>
-                          {/* 13. Customer wish amt */}
-                          <TableCell className="text-xs whitespace-nowrap text-right font-mono">₹{(record as SettlementRecord).customerWishAmt.toLocaleString()}</TableCell>
-                          {/* 14. DPD */}
-                          <TableCell className="text-xs whitespace-nowrap text-center font-mono">{(record as SettlementRecord).dpd}</TableCell>
-
-                          {/* 14a. Status */}
-                          <TableCell>
-                            <Badge variant="outline" className={cn("text-xs whitespace-nowrap", statusStyles[record.status])}>
-                              {statusLabels[record.status] || record.status}
-                            </Badge>
-                          </TableCell>
-                          {/* 14b. Stage */}
-                          <TableCell className="text-xs whitespace-nowrap truncate" title={record.stage || "-"}>{record.stage || "-"}</TableCell>
-
-                          {/* 15. Lender Contact */}
-                          <TableCell className="text-xs">
-                            {(record as SettlementRecord).lenderContact || "-"}
-                          </TableCell>
-
-                          {/* 16. Funds Available */}
-                          <TableCell className="text-xs">
-                            {(record as SettlementRecord).fundsAvailable === true ? (
-                              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">Yes</Badge>
-                            ) : (record as SettlementRecord).fundsAvailable === false ? (
-                              <span className="text-muted-foreground">No</span>
-                            ) : (
-                              <span className="text-muted-foreground">-</span>
-                            )}
-                          </TableCell>
-
-                          {/* 17. Settlement Mode */}
-                          <TableCell className="text-xs">
-                            {(record as SettlementRecord).settlementOption || <span className="text-muted-foreground">-</span>}
-                          </TableCell>
-
-                          {/* 18. Number of EMIs (Conditional) */}
-                          <TableCell className="text-xs">
-                            {(record as SettlementRecord).emiMonths ? (
-                              <Badge variant="secondary" className="font-mono text-[10px]">
-                                {(record as SettlementRecord).emiMonths} EMIs
-                              </Badge>
-                            ) : (
-                              <span className="text-muted-foreground">-</span>
-                            )}
-                          </TableCell>
-
-                          {/* 19. Remarks */}
-                          <TableCell className="text-xs whitespace-pre-wrap break-words py-2" title={record.remarks?.length ? record.remarks[record.remarks.length - 1].text : "-"}>
-                            {record.remarks?.length ? record.remarks[record.remarks.length - 1].text : "-"}
-                          </TableCell>
-
-                          {/* 20. WhatsApp Reachout */}
-                          <TableCell className="text-xs">
-                            {(record as SettlementRecord).whatsappReachout === true ? (
-                              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">Yes</Badge>
-                            ) : (record as SettlementRecord).whatsappReachout === false ? (
-                              <span className="text-muted-foreground">No</span>
-                            ) : (
-                              <span className="text-muted-foreground">-</span>
-                            )}
-                          </TableCell>
-
-                          {/* 20. Action */}
-                          <TableCell className="sticky right-0 bg-background z-10 border-l border-border/50">
-                            <ActionButtons
-                              record={record}
-                              onView={onViewRecord}
-                              onDelete={setRecordToDelete}
-                            />
-                          </TableCell>
-                        </>
-                      )}
-                    </TableRow>
-                  ))
+                  <AnimatePresence mode="popLayout" initial={false}>
+                    {paginatedRecords.map((record) => (
+                      <DataTableRow
+                        key={record.id}
+                        record={record}
+                        type={type}
+                        isSelected={selectedRecords.has(record.id)}
+                        onSelect={(id) => toggleSelectRecord(id)}
+                        onView={onViewRecord}
+                        onDelete={setRecordToDelete}
+                      />
+                    ))}
+                  </AnimatePresence>
                 )}
               </TableBody>
             </Table>
@@ -908,45 +683,5 @@ export function DataTable({
         </AlertDialogContent>
       </AlertDialog>
     </Card >
-  )
-}
-
-function ActionButtons({
-  record,
-  onView,
-  onDelete,
-}: {
-  record: CRMRecord
-  onView: (r: CRMRecord) => void
-  onDelete: (id: string) => void
-}) {
-  const user = useAuthStore(state => state.user)
-  return (
-    <div className="flex items-center gap-1">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-7 w-7"
-        onClick={(e: React.MouseEvent) => {
-          e.stopPropagation()
-          onView(record)
-        }}
-      >
-        <Eye className="h-4 w-4" />
-      </Button>
-      {user?.role !== 'agent' && (
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-7 w-7 text-destructive hover:text-destructive hover:bg-destructive/10"
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation()
-            onDelete(record.id)
-          }}
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
-      )}
-    </div>
   )
 }

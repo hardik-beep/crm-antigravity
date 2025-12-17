@@ -5,15 +5,27 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { LayoutDashboard, Shield, Handshake, Upload, Settings, ChevronRight, FileSpreadsheet } from "lucide-react"
 
+import { LogOut, Clock, User as UserIcon } from "lucide-react"
+import { useAuthStore } from "@/lib/auth-store"
+import { format } from "date-fns"
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
-import { LogOut, Clock, User as UserIcon } from "lucide-react"
-import { useAuthStore } from "@/lib/auth-store"
-import { format } from "date-fns"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
@@ -35,8 +47,8 @@ function UserProfile() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button className="flex w-full items-center gap-3 rounded-lg bg-muted/50 px-3 py-2 hover:bg-muted transition-colors text-left">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 shrink-0">
+        <button className="flex w-full items-center gap-3 rounded-lg bg-muted/50 px-3 py-2 hover:bg-muted transition-colors text-left group">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 shrink-0 group-hover:scale-105 transition-transform">
             <span className="text-xs font-medium text-primary">
               {user.name.substring(0, 2).toUpperCase()}
             </span>
@@ -70,7 +82,7 @@ function UserProfile() {
               {isPunchedIn ? (
                 <Button
                   variant="outline"
-                  className="w-full border-red-200 hover:bg-red-50 hover:text-red-600 text-red-500"
+                  className="w-full border-red-200 hover:bg-red-50 hover:text-red-600 text-red-500 transition-all active:scale-95"
                   onClick={punchOut}
                 >
                   <Clock className="w-4 h-4 mr-2" />
@@ -79,7 +91,7 @@ function UserProfile() {
               ) : (
                 <Button
                   variant="outline"
-                  className="w-full border-green-200 hover:bg-green-50 hover:text-green-600 text-green-500"
+                  className="w-full border-green-200 hover:bg-green-50 hover:text-green-600 text-green-500 transition-all active:scale-95"
                   onClick={punchIn}
                 >
                   <Clock className="w-4 h-4 mr-2" />
@@ -89,14 +101,31 @@ function UserProfile() {
             </div>
           )}
 
-          <Button
-            variant="ghost"
-            className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50"
-            onClick={logout}
-          >
-            <LogOut className="w-4 h-4 mr-2" />
-            Log Out
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                variant="ghost"
+                className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-50 transition-colors"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Log Out
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Log out?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Are you sure you want to log out of your account?
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={logout} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+                  Log Out
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </PopoverContent>
     </Popover>

@@ -64,14 +64,13 @@ var __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$
 var __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__ = __turbopack_context__.i("[externals]/path [external] (path, cjs)");
 ;
 ;
-const DB_PATH = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'data');
-const DB_FILE = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(DB_PATH, 'db.json');
-// Ensure data directory exists
-if (!__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(DB_PATH)) {
-    __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].mkdirSync(DB_PATH, {
-        recursive: true
-    });
-}
+// Determine if we are in a production environment (like Vercel)
+const IS_PRODUCTION = ("TURBOPACK compile-time value", "development") === 'production';
+// In production, use /tmp which is writable. In development, use local data folder.
+const DATA_DIR = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'data');
+const DB_FILE = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(DATA_DIR, 'db.json');
+// Source file to seed from (committed data)
+const SEED_FILE = __TURBOPACK__imported__module__$5b$externals$5d2f$path__$5b$external$5d$__$28$path$2c$__cjs$29$__["default"].join(process.cwd(), 'data', 'db.json');
 const INITIAL_DATA = {
     users: [
         {
@@ -81,17 +80,45 @@ const INITIAL_DATA = {
             name: 'Administrator',
             role: 'admin',
             createdAt: new Date().toISOString()
+        },
+        {
+            id: 'agent-default',
+            username: 'agent',
+            password: 'agent',
+            name: 'Default Agent',
+            role: 'agent',
+            createdAt: new Date().toISOString()
         }
     ],
     sessions: [],
     records: [],
     uploadHistory: []
 };
-function readDB() {
-    if (!__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(DB_FILE)) {
-        __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
-        return INITIAL_DATA;
+function ensureDB() {
+    // Ensure directory exists
+    if (!__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(DATA_DIR)) {
+        __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].mkdirSync(DATA_DIR, {
+            recursive: true
+        });
     }
+    // If DB_FILE doesn't exist in the working directory
+    if (!__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(DB_FILE)) {
+        // Try to copy from seed file (committed data) if it exists
+        if (__TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].existsSync(SEED_FILE)) {
+            try {
+                const seedData = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readFileSync(SEED_FILE, 'utf-8');
+                __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, seedData);
+                return;
+            } catch (error) {
+                console.error("Failed to copy seed file:", error);
+            }
+        }
+        // Fallback to INITIAL_DATA
+        __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
+    }
+}
+function readDB() {
+    ensureDB();
     try {
         const data = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readFileSync(DB_FILE, 'utf-8');
         return JSON.parse(data);
@@ -100,6 +127,7 @@ function readDB() {
     }
 }
 function writeDB(data) {
+    ensureDB();
     __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 const db = {
@@ -216,8 +244,35 @@ async function POST(req) {
         const body = await req.json();
         const username = String(body.username || '').trim();
         const password = String(body.password || '').trim();
-        const user = __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].findUser(username);
-        if (!user || user.password !== password) {
+        // 1. Try to find user in DB
+        let user = __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].findUser(username);
+        let passwordMatch = user && user.password === password;
+        // 2. Fallback: Check hardcoded defaults if DB fails or user not found
+        // This ensures admin/agent always works even if file system is read-only or empty
+        if (!user) {
+            if (username === 'admin' && password === 'admin123') {
+                user = {
+                    id: 'admin-1',
+                    username: 'admin',
+                    password: 'admin123',
+                    name: 'Administrator',
+                    role: 'admin',
+                    createdAt: new Date().toISOString()
+                };
+                passwordMatch = true;
+            } else if (username === 'agent' && password === 'agent') {
+                user = {
+                    id: 'agent-default',
+                    username: 'agent',
+                    password: 'agent',
+                    name: 'Default Agent',
+                    role: 'agent',
+                    createdAt: new Date().toISOString()
+                };
+                passwordMatch = true;
+            }
+        }
+        if (!user || !passwordMatch) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
                 error: 'Invalid credentials'
             }, {
@@ -225,18 +280,24 @@ async function POST(req) {
             });
         }
         // Create session
-        __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].createSession({
-            sessionId: `sess_${Date.now()}_${Math.random()}`,
-            userId: user.id,
-            punchInTime: new Date().toISOString(),
-            lastActiveTime: new Date().toISOString(),
-            isActive: true
-        });
+        try {
+            __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$db$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["db"].createSession({
+                sessionId: `sess_${Date.now()}_${Math.random()}`,
+                userId: user.id,
+                punchInTime: new Date().toISOString(),
+                lastActiveTime: new Date().toISOString(),
+                isActive: true
+            });
+        } catch (e) {
+            // Ignore session creation error on read-only systems
+            console.error("Session creation failed (likely read-only FS):", e);
+        }
         const { password: _, ...userWithoutPass } = user;
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             user: userWithoutPass
         });
     } catch (error) {
+        console.error("Login error:", error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: 'Login failed'
         }, {

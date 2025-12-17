@@ -4,6 +4,8 @@ import { useAuthStore } from "@/lib/auth-store"
 import { useCRMStore } from "@/lib/store"
 import { LoginScreen } from "./login-screen"
 import { useEffect, useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { fadeIn } from "@/lib/animations"
 
 export function AuthWrapper({ children }: { children: React.ReactNode }) {
     const isAuthenticated = useAuthStore(state => state.isAuthenticated)
@@ -46,9 +48,22 @@ export function AuthWrapper({ children }: { children: React.ReactNode }) {
         return null // Avoid hydration mismatch
     }
 
-    if (!isAuthenticated) {
-        return <LoginScreen />
-    }
-
-    return <>{children}</>
+    return (
+        <AnimatePresence mode="wait">
+            {!isAuthenticated ? (
+                <LoginScreen key="login" />
+            ) : (
+                <motion.div
+                    key="app"
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    variants={fadeIn}
+                    className="contents" // Use contents to avoid breaking layout
+                >
+                    {children}
+                </motion.div>
+            )}
+        </AnimatePresence>
+    )
 }
