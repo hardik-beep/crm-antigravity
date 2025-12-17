@@ -112,7 +112,18 @@ export function MetricsRow({
                 />
             )}
 
-
+            {/* NPA Today */}
+            {!hideNpa && (
+                <MetricTile
+                    title="Cases NPA Today"
+                    value={stats.casesNPAToday}
+                    icon={AlertTriangle}
+                    iconClassName="text-red-500 bg-red-500/10"
+                    className="h-full"
+                    onClick={onNpaClick}
+                    isActive={isNpaFilterActive}
+                />
+            )}
 
             {/* Total Protect */}
             {!hideProtect && (

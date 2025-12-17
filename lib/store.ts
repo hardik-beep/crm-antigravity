@@ -240,7 +240,7 @@ export const useCRMStore = create<CRMStore>()(
           await fetch(`/api/records/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updates)
+            body: JSON.stringify({ ...updates, updatedAt: new Date().toISOString() })
           });
         } catch (e) { console.error("Sync failed", e) }
       },
@@ -254,7 +254,12 @@ export const useCRMStore = create<CRMStore>()(
             timestamp: new Date().toISOString(),
             user: "Current User",
           }
-          const updatedRecord = { ...record, status, activityLog: [...record.activityLog, { ...entry, id: `log-${Date.now()}` }] } as CRMRecord;
+          const updatedRecord = {
+            ...record,
+            status,
+            updatedAt: new Date().toISOString(),
+            activityLog: [...record.activityLog, { ...entry, id: `log-${Date.now()}` }]
+          } as CRMRecord;
 
           set((state) => ({
             records: state.records.map((r) => r.id === id ? updatedRecord : r),
@@ -279,7 +284,12 @@ export const useCRMStore = create<CRMStore>()(
             timestamp: new Date().toISOString(),
             user: "Current User",
           }
-          const updatedRecord = { ...record, stage, activityLog: [...record.activityLog, { ...entry, id: `log-${Date.now()}` }] } as CRMRecord;
+          const updatedRecord = {
+            ...record,
+            stage,
+            updatedAt: new Date().toISOString(),
+            activityLog: [...record.activityLog, { ...entry, id: `log-${Date.now()}` }]
+          } as CRMRecord;
 
           set((state) => ({
             records: state.records.map((r) => r.id === id ? updatedRecord : r),
@@ -304,7 +314,12 @@ export const useCRMStore = create<CRMStore>()(
             timestamp: new Date().toISOString(),
             user: "Current User",
           }
-          const updatedRecord = { ...record, partPaymentAmount: amount, activityLog: [...record.activityLog, { ...entry, id: `log-${Date.now()}` }] } as CRMRecord;
+          const updatedRecord = {
+            ...record,
+            partPaymentAmount: amount,
+            updatedAt: new Date().toISOString(),
+            activityLog: [...record.activityLog, { ...entry, id: `log-${Date.now()}` }]
+          } as CRMRecord;
 
           set((state) => ({
             records: state.records.map((r) => r.id === id ? updatedRecord : r),
@@ -445,7 +460,11 @@ export const useCRMStore = create<CRMStore>()(
       deleteActivityLog: async (recordId, logId) => {
         const record = get().records.find((r) => r.id === recordId);
         if (record) {
-          const updatedRecord = { ...record, activityLog: record.activityLog.filter((log) => log.id !== logId) } as CRMRecord;
+          const updatedRecord = {
+            ...record,
+            activityLog: record.activityLog.filter((log) => log.id !== logId),
+            updatedAt: new Date().toISOString()
+          } as CRMRecord;
           set((state) => ({
             records: state.records.map((r) => r.id === recordId ? updatedRecord : r)
           }));
@@ -483,7 +502,10 @@ export const useCRMStore = create<CRMStore>()(
               searchQuery === "" ||
               r.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
               r.mobileNumber.includes(searchQuery) ||
-              r.accountNumber.includes(searchQuery)
+              r.accountNumber.includes(searchQuery) ||
+              r.status.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              r.partner.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              r.institution.toLowerCase().includes(searchQuery.toLowerCase())
 
             // Custom Stage Filtering for Protect Page
             let matchesStatus = true
@@ -527,7 +549,9 @@ export const useCRMStore = create<CRMStore>()(
               searchQuery === "" ||
               r.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
               r.mobileNumber.includes(searchQuery) ||
-              r.loanAccNo.includes(searchQuery)
+              r.loanAccNo.includes(searchQuery) ||
+              r.status.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              r.lenderName.toLowerCase().includes(searchQuery.toLowerCase())
             const matchesStatus = statusFilter === "all" || r.status === statusFilter
             const matchesPartner = partnerFilter === "all" || r.partner === partnerFilter
             const matchesLender = get().lenderFilter === "all" || r.lenderName === get().lenderFilter
@@ -564,13 +588,17 @@ export const useCRMStore = create<CRMStore>()(
             matchesSearch = searchQuery === "" ||
               pr.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
               pr.mobileNumber.includes(searchQuery) ||
-              pr.accountNumber.includes(searchQuery)
+              pr.accountNumber.includes(searchQuery) ||
+              pr.status.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              pr.institution.toLowerCase().includes(searchQuery.toLowerCase())
           } else if (r.type === "settlement") {
             const sr = r as SettlementRecord
             matchesSearch = searchQuery === "" ||
               sr.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
               sr.mobileNumber.includes(searchQuery) ||
-              sr.loanAccNo.includes(searchQuery)
+              sr.loanAccNo.includes(searchQuery) ||
+              sr.status.toLowerCase().includes(searchQuery.toLowerCase()) ||
+              sr.lenderName.toLowerCase().includes(searchQuery.toLowerCase())
           } else if (r.type === "nexus") {
             const nr = r as NexusRecord
             matchesSearch = searchQuery === "" ||

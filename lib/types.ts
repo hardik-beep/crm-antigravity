@@ -32,6 +32,7 @@ export interface ProtectRecord {
   stage: string
   uploadedFrom: string
   uploadedAt: string
+  updatedAt?: string
   remarks: Remark[]
   activityLog: ActivityLogEntry[]
 }
@@ -83,6 +84,7 @@ export interface SettlementRecord {
   paymentParts?: { id: string; amount: number; date: string; isReceived?: boolean }[]
   uploadedFrom: string
   uploadedAt: string
+  updatedAt?: string
   remarks: Remark[]
   activityLog: ActivityLogEntry[]
 }
@@ -102,6 +104,7 @@ export interface NexusRecord {
   stage: string
   uploadedFrom: string
   uploadedAt: string
+  updatedAt?: string
   remarks: Remark[]
   activityLog: ActivityLogEntry[]
 }

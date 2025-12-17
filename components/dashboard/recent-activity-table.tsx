@@ -94,7 +94,37 @@ export function RecentActivityTable({ records, onView, title = "Recent Activity"
     // Sort by filter criteria priority? Or just standard date?
     // User wants "Todo list", so maybe no specific sort needed if filtered. 
     // Keeping existing sort for consistency (Latest Created First).
+    // Sort by filter criteria: Priority to Today's Tasks, then by date
     const sortedRecords = [...records].sort((a, b) => {
+        // Calculate today in local timezone
+        const now = new Date()
+        const year = now.getFullYear()
+        const month = String(now.getMonth() + 1).padStart(2, '0')
+        const day = String(now.getDate()).padStart(2, '0')
+        const today = `${year}-${month}-${day}`
+
+        const isUrgent = (r: CRMRecord) => {
+            if (r.type === "protect") {
+                const pr = r as any
+                if (pr.paymentParts?.some((p: any) => p.date === today && !p.isReceived)) return true
+                if (pr.skippedEmiDate === today) return true
+                if (pr.nextFollowUpDate === today) return true
+            } else if (r.type === "settlement") {
+                const sr = r as any
+                if (sr.paymentParts?.some((p: any) => p.date === today && !p.isReceived)) return true
+                if (sr.nextFollowUpDate === today) return true
+                if (sr.dueDate === today) return true
+            }
+            return false
+        }
+
+        const aUrgent = isUrgent(a)
+        const bUrgent = isUrgent(b)
+
+        if (aUrgent && !bUrgent) return -1
+        if (!aUrgent && bUrgent) return 1
+
+        // Secondary sort by date
         const dateA = new Date((a as any).nexusPurchaseDate || a.formFilledDate || a.uploadedAt).getTime()
         const dateB = new Date((b as any).nexusPurchaseDate || b.formFilledDate || b.uploadedAt).getTime()
         return dateB - dateA
