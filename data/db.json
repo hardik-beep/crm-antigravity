@@ -63,14 +63,14 @@
       "sessionId": "sess_1765972460348_0.13567155289513733",
       "userId": "admin-1",
       "punchInTime": "2025-12-17T11:54:20.348Z",
-      "lastActiveTime": "2025-12-17T12:00:54.831Z",
+      "lastActiveTime": "2025-12-17T12:02:54.821Z",
       "isActive": true
     },
     {
       "sessionId": "sess_1765972488314_0.5028873444435624",
       "userId": "agent-default",
       "punchInTime": "2025-12-17T11:54:48.314Z",
-      "lastActiveTime": "2025-12-17T12:01:22.815Z",
+      "lastActiveTime": "2025-12-17T12:03:51.813Z",
       "isActive": true
     }
   ],

@@ -183,7 +183,7 @@ export const useCRMStore = create<CRMStore>()(
 
       fetchRecords: async () => {
         try {
-          const res = await fetch('/api/records');
+          const res = await fetch('/api/records', { cache: 'no-store' });
           const data = await res.json();
           if (data.records) {
             set({ records: data.records });
@@ -195,7 +195,7 @@ export const useCRMStore = create<CRMStore>()(
 
       fetchUploadHistory: async () => {
         try {
-          const res = await fetch('/api/upload-history');
+          const res = await fetch('/api/upload-history', { cache: 'no-store' });
           const data = await res.json();
           if (data.history) {
             set({ uploadHistory: data.history });

@@ -36,11 +36,20 @@ export function AuthWrapper({ children }: { children: React.ReactNode }) {
         return () => clearInterval(interval)
     }, [isAuthenticated, user?.id])
 
-    // Fetch initial data on auth
+    // Fetch data on auth and poll for updates
     useEffect(() => {
         if (isAuthenticated) {
+            // Initial fetch
             fetchRecords()
             fetchUploadHistory()
+
+            // Poll every 5 seconds to keep data in sync
+            const interval = setInterval(() => {
+                fetchRecords()
+                fetchUploadHistory()
+            }, 5000)
+
+            return () => clearInterval(interval)
         }
     }, [isAuthenticated, fetchRecords, fetchUploadHistory])
 
