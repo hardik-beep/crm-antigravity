@@ -88,7 +88,7 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-background">
       <Sidebar />
       <main className="ml-64">
-        <Header title="Dashboard" subtitle="Overview of your loan settlement operations" />
+        <Header title="Dashboard" subtitle="Operations Dashboard" />
 
         <div className="p-6 space-y-8">
           {/* Filters */}

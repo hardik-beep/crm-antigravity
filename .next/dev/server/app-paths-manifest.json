@@ -1,6 +1,9 @@
 {
   "/api/auth/heartbeat/route": "app/api/auth/heartbeat/route.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
   "/api/records/route": "app/api/records/route.js",
   "/api/upload-history/route": "app/api/upload-history/route.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/protect/page": "app/protect/page.js",
+  "/settlement/page": "app/settlement/page.js"
 }

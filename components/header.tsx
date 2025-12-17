@@ -1,6 +1,6 @@
-import { Bell, Search, HelpCircle, Sun, Moon, CheckCircle2, FileText, Upload, Shield, Gavel, FileSpreadsheet } from "lucide-react"
+import { Bell, HelpCircle, Sun, Moon, CheckCircle2, FileText, Upload, Shield, Gavel, FileSpreadsheet } from "lucide-react"
 import { useTheme } from "next-themes"
-import { Input } from "@/components/ui/input"
+
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
@@ -37,10 +37,7 @@ export function Header({ title, subtitle }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="relative w-64">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input placeholder="Search..." className="pl-9 bg-secondary border-border" />
-        </div>
+
 
         <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
           <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
