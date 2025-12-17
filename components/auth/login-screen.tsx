@@ -128,9 +128,7 @@ export function LoginScreen() {
                                     </motion.div>
                                 )}
                             </AnimatePresence>
-                            <div className="text-xs text-center text-muted-foreground bg-muted/50 p-2 rounded border border-muted">
-                                <p>Default Admin: admin / admin123</p>
-                            </div>
+
                         </CardContent>
                         <CardFooter className="pb-8">
                             <Button
