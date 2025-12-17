@@ -29,6 +29,7 @@ export function FilterBar() {
     const [isCalendarOpen, setIsCalendarOpen] = useState(false)
 
     const dateFilters = [
+        { label: "Total", value: "total" },
         { label: "Today", value: "today" },
         { label: "7 Days", value: "7d" },
         { label: "30 Days", value: "30d" },
@@ -50,6 +51,9 @@ export function FilterBar() {
         let end = endOfDay(now)
 
         switch (value) {
+            case "total":
+                setDateRange("", "")
+                break
             case "today":
                 start = startOfDay(now)
                 setDateRange(start.toISOString(), end.toISOString())
@@ -80,7 +84,7 @@ export function FilterBar() {
     // Refresh date range on mount prevents stale dates from persistence
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
-        if (["today", "7d", "30d", "1y"].includes(dateFilterType)) {
+        if (["total", "today", "7d", "30d", "1y"].includes(dateFilterType)) {
             applyDateFilter(dateFilterType)
         }
     }, [])
@@ -162,11 +166,17 @@ export function FilterBar() {
                             <Button
                                 variant={dateFilterType === filter.value ? "default" : "outline"}
                                 size="sm"
-                                onClick={() => handleDateFilterChange(filter.value)}
+                                onClick={() => {
+                                    if (dateFilterType === filter.value && filter.value !== 'total') {
+                                        handleDateFilterChange("total")
+                                    } else {
+                                        handleDateFilterChange(filter.value)
+                                    }
+                                }}
                                 className="rounded-full h-8"
                             >
                                 {filter.label}
-                                {dateFilterType === filter.value && <X className="ml-2 h-3 w-3" />}
+                                {dateFilterType === filter.value && filter.value !== 'total' && <X className="ml-2 h-3 w-3" />}
                             </Button>
                         )}
                     </div>

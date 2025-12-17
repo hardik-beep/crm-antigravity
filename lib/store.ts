@@ -42,7 +42,7 @@ interface CRMStore {
   dateRangeStart: string
   dateRangeEnd: string
   typeFilter: "protect" | "settlement" | "nexus" | "both"
-  dateFilterType: "today" | "7d" | "30d" | "1y" | "custom"
+  dateFilterType: "total" | "today" | "7d" | "30d" | "1y" | "custom"
   npaOnly: boolean
   isInitialized: boolean
   geminiApiKey: string
@@ -76,7 +76,7 @@ interface CRMStore {
   setDpdGroupFilter: (group: string) => void
   setDateRange: (start: string, end: string) => void
   setTypeFilter: (type: "protect" | "settlement" | "nexus" | "both") => void
-  setDateFilterType: (type: "today" | "7d" | "30d" | "1y" | "custom") => void
+  setDateFilterType: (type: "total" | "today" | "7d" | "30d" | "1y" | "custom") => void
   setNpaOnly: (val: boolean) => void
 
   // Getters
