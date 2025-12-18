@@ -38,9 +38,14 @@ export async function POST(req: Request) {
             createdAt: new Date().toISOString()
         };
 
-        await db.addUser(newUser);
+        const createdUser: any = await db.addUser(newUser);
 
-        return NextResponse.json({ user: newUser });
+        return NextResponse.json({
+            user: {
+                ...newUser,
+                id: createdUser._id.toString()
+            }
+        });
     } catch (error) {
         console.error("Error creating user:", error);
         return NextResponse.json({
