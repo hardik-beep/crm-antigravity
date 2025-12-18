@@ -231,7 +231,15 @@ export const db = {
                 data
             };
         });
-        await CRMRecordModel.insertMany(toInsert);
+        try {
+            await CRMRecordModel.insertMany(toInsert, { ordered: false });
+        } catch (e: any) {
+            console.error("DB Insert Error:", e);
+            if (e.writeErrors) {
+                e.writeErrors.forEach((err: any) => console.error(`Write Error at index ${err.index}: ${err.errmsg}`));
+            }
+            throw e;
+        }
     },
 
     // Upload History
