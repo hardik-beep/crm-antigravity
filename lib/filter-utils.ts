@@ -3,12 +3,14 @@ import type { CRMRecord, ProtectRecord, SettlementRecord } from "./types"
 export interface FilterOptions {
     searchQuery: string
     statusFilter: string
+    stageFilter?: string
     partnerFilter: string
     dateRangeStart: string
     dateRangeEnd: string
     partPaymentFilter?: string
     lenderFilter?: string
     dpdFilter?: string
+    paymentDueToday?: boolean
 }
 
 function parseDateSafe(dateStr: string): Date | null {
@@ -30,7 +32,7 @@ function parseDateSafe(dateStr: string): Date | null {
 }
 
 export function filterRecords(records: CRMRecord[], options: FilterOptions): CRMRecord[] {
-    const { searchQuery, statusFilter, partnerFilter, dateRangeStart, dateRangeEnd, partPaymentFilter, lenderFilter } = options
+    const { searchQuery, statusFilter, partnerFilter, dateRangeStart, dateRangeEnd, partPaymentFilter, lenderFilter, stageFilter, paymentDueToday } = options
 
     return records.filter((r) => {
         // Search Filter
@@ -160,6 +162,19 @@ export function filterRecords(records: CRMRecord[], options: FilterOptions): CRM
             // For now, only applying to settlement as requested. Protect logic for DPD is different/not requested here.
         }
 
-        return matchesSearch && matchesStatus && matchesPartner && matchesDate && matchesPartPayment && matchesLender && matchesDpd
+        // Stage Filter
+        let matchesStage = true
+        if (stageFilter && stageFilter !== "all") {
+            matchesStage = (r as any).stage === stageFilter
+        }
+
+        // Payment Due Today
+        let matchesPaymentDue = true
+        if (paymentDueToday) {
+            const today = new Date().toISOString().split('T')[0]
+            matchesPaymentDue = (r as any).paymentParts?.some((p: any) => p.date === today)
+        }
+
+        return matchesSearch && matchesStatus && matchesPartner && matchesDate && matchesPartPayment && matchesLender && matchesDpd && matchesStage && matchesPaymentDue
     })
 }

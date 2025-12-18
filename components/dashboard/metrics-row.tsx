@@ -120,8 +120,6 @@ export function MetricsRow({
                     icon={AlertTriangle}
                     iconClassName="text-red-500 bg-red-500/10"
                     className="h-full"
-                    onClick={onNpaClick}
-                    isActive={isNpaFilterActive}
                 />
             )}
 

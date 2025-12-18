@@ -6,9 +6,14 @@ import type { SettlementRecord } from "@/lib/types"
 
 interface SettlementMetricsProps {
     records: SettlementRecord[]
+    onStatusClick?: (status: string) => void
+    onStageClick?: (stage: string) => void
+    onTotalClick?: () => void
+    activeStatus?: string
+    activeStage?: string
 }
 
-export function SettlementMetrics({ records }: SettlementMetricsProps) {
+export function SettlementMetrics({ records, onStatusClick, onStageClick, onTotalClick, activeStatus, activeStage }: SettlementMetricsProps) {
     // Calculate total
     const totalRecords = records.length
 
@@ -41,7 +46,10 @@ export function SettlementMetrics({ records }: SettlementMetricsProps) {
 
     return (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6">
-            <Card className="bg-primary/5 border-primary/20">
+            <Card
+                className={`bg-primary/5 border-primary/20 cursor-pointer hover:shadow-md transition-all ${(!activeStatus && !activeStage) ? "ring-2 ring-primary" : ""}`}
+                onClick={() => onTotalClick?.()}
+            >
                 <CardContent className="p-4 flex flex-col justify-between h-full">
                     <div className="flex justify-between items-start">
                         <div>
@@ -80,8 +88,13 @@ export function SettlementMetrics({ records }: SettlementMetricsProps) {
                         break;
                 }
 
+                const isActive = activeStatus === status
                 return (
-                    <Card key={`status-${status}`} className={`${bgClass.replace('/10', '/5')} border-muted/20`}>
+                    <Card
+                        key={`status-${status}`}
+                        className={`${bgClass.replace('/10', '/5')} border-muted/20 cursor-pointer hover:shadow-md transition-all ${isActive ? "ring-2 ring-primary" : ""}`}
+                        onClick={() => onStatusClick?.(status)}
+                    >
                         <CardContent className="p-4 flex flex-col justify-between h-full">
                             <div className="flex justify-between items-start">
                                 <div>
@@ -125,8 +138,13 @@ export function SettlementMetrics({ records }: SettlementMetricsProps) {
                     bgClass = "bg-blue-500/10"
                 }
 
+                const isActive = activeStage === stage
                 return (
-                    <Card key={`stage-${stage}`} className={`${bgClass.replace('/10', '/5')} border-muted/20`}>
+                    <Card
+                        key={`stage-${stage}`}
+                        className={`${bgClass.replace('/10', '/5')} border-muted/20 cursor-pointer hover:shadow-md transition-all ${isActive ? "ring-2 ring-primary" : ""}`}
+                        onClick={() => onStageClick?.(stage)}
+                    >
                         <CardContent className="p-4 flex flex-col justify-between h-full">
                             <div className="flex justify-between items-start">
                                 <div>

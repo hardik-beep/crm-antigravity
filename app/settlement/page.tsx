@@ -32,6 +32,7 @@ export default function SettlementPage() {
   const [partnerFilter, setPartnerFilter] = useState("all")
   const [lenderFilter, setLenderFilter] = useState("all")
   const [dpdFilter, setDpdFilter] = useState("all") // New state
+  const [stageFilter, setStageFilter] = useState("all")
   const [dateRangeStart, setDateRangeStart] = useState("")
   const [dateRangeEnd, setDateRangeEnd] = useState("")
 
@@ -60,9 +61,10 @@ export default function SettlementPage() {
       lenderFilter, // Pass lender filter
       dpdFilter, // Pass DPD filter
       dateRangeStart,
-      dateRangeEnd
+      dateRangeEnd,
+      stageFilter
     })
-  }, [settlementRecords, searchQuery, statusFilter, partnerFilter, lenderFilter, dpdFilter, dateRangeStart, dateRangeEnd])
+  }, [settlementRecords, searchQuery, statusFilter, partnerFilter, lenderFilter, dpdFilter, dateRangeStart, dateRangeEnd, stageFilter])
 
   const handleViewRecord = (record: CRMRecord) => {
     setSelectedRecord(record)
@@ -72,6 +74,21 @@ export default function SettlementPage() {
   const handleSetDateRange = (start: string, end: string) => {
     setDateRangeStart(start)
     setDateRangeEnd(end)
+  }
+
+  const handleStatusClick = (status: string) => {
+    setStatusFilter(prev => prev === status ? "all" : status)
+    setStageFilter("all")
+  }
+
+  const handleStageClick = (stage: string) => {
+    setStageFilter(prev => prev === stage ? "all" : stage)
+    setStatusFilter("all")
+  }
+
+  const handleTotalClick = () => {
+    setStatusFilter("all")
+    setStageFilter("all")
   }
 
   if (!isClient) {
@@ -95,7 +112,14 @@ export default function SettlementPage() {
             </Button>
           </div>
 
-          <SettlementMetrics records={filteredRecords as any} />
+          <SettlementMetrics
+            records={filteredRecords as any}
+            onStatusClick={handleStatusClick}
+            onStageClick={handleStageClick}
+            onTotalClick={handleTotalClick}
+            activeStatus={statusFilter !== "all" ? statusFilter : undefined}
+            activeStage={stageFilter !== "all" ? stageFilter : undefined}
+          />
 
           <DataTable
             title="Settlement Records"

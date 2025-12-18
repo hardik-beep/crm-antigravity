@@ -6,9 +6,16 @@ import type { ProtectRecord } from "@/lib/types"
 
 interface ProtectMetricsProps {
     records: ProtectRecord[]
+    onStatusClick?: (status: string) => void
+    onStageClick?: (stage: string) => void
+    onPartPaymentClick?: () => void
+    onTotalClick?: () => void
+    activeStatus?: string
+    activeStage?: string
+    isPartPaymentActive?: boolean
 }
 
-export function ProtectMetrics({ records }: ProtectMetricsProps) {
+export function ProtectMetrics({ records, onStatusClick, onStageClick, onPartPaymentClick, onTotalClick, activeStatus, activeStage, isPartPaymentActive }: ProtectMetricsProps) {
     // Calculate total
     const totalRecords = records.length
 
@@ -55,7 +62,10 @@ export function ProtectMetrics({ records }: ProtectMetricsProps) {
     return (
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-6">
             {/* Total Records */}
-            <Card className="bg-primary/5 border-primary/20">
+            <Card
+                className={`bg-primary/5 border-primary/20 cursor-pointer hover:shadow-md transition-all ${(!activeStatus && !activeStage && !isPartPaymentActive) ? "ring-2 ring-primary" : ""}`}
+                onClick={() => onTotalClick?.()}
+            >
                 <CardContent className="p-4 flex flex-col justify-between h-full">
                     <div className="flex justify-between items-start">
                         <div>
@@ -94,8 +104,13 @@ export function ProtectMetrics({ records }: ProtectMetricsProps) {
                         break;
                 }
 
+                const isActive = activeStatus === status
                 return (
-                    <Card key={`status-${status}`} className={`${bgClass.replace('/10', '/5')} border-muted/20`}>
+                    <Card
+                        key={`status-${status}`}
+                        className={`${bgClass.replace('/10', '/5')} border-muted/20 cursor-pointer hover:shadow-md transition-all ${isActive ? "ring-2 ring-primary" : ""}`}
+                        onClick={() => onStatusClick?.(status)}
+                    >
                         <CardContent className="p-4 flex flex-col justify-between h-full">
                             <div className="flex justify-between items-start">
                                 <div>
@@ -115,7 +130,10 @@ export function ProtectMetrics({ records }: ProtectMetricsProps) {
 
 
             {/* Part Payment (Today) */}
-            <Card className="bg-green-500/5 border-green-500/20">
+            <Card
+                className={`bg-green-500/5 border-green-500/20 cursor-pointer hover:shadow-md transition-all ${isPartPaymentActive ? "ring-2 ring-primary" : ""}`}
+                onClick={() => onPartPaymentClick?.()}
+            >
                 <CardContent className="p-4 flex flex-col justify-between h-full">
                     <div className="flex justify-between items-start">
                         <div>
@@ -150,8 +168,13 @@ export function ProtectMetrics({ records }: ProtectMetricsProps) {
                     bgClass = "bg-blue-500/10"
                 }
 
+                const isActive = activeStage === stage
                 return (
-                    <Card key={stage} className={`${bgClass.replace('/10', '/5')} border-muted/20`}>
+                    <Card
+                        key={stage}
+                        className={`${bgClass.replace('/10', '/5')} border-muted/20 cursor-pointer hover:shadow-md transition-all ${isActive ? "ring-2 ring-primary" : ""}`}
+                        onClick={() => onStageClick?.(stage)}
+                    >
                         <CardContent className="p-4 flex flex-col justify-between h-full">
                             <div className="flex justify-between items-start">
                                 <div>

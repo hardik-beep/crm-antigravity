@@ -33,6 +33,8 @@ export default function ProtectPage() {
   const [dateRangeStart, setDateRangeStart] = useState("")
   const [dateRangeEnd, setDateRangeEnd] = useState("")
 
+  const [stageFilter, setStageFilter] = useState("all")
+  const [paymentDueToday, setPaymentDueToday] = useState(false)
   const [partPaymentFilter, setPartPaymentFilter] = useState("all")
 
   const [selectedRecord, setSelectedRecord] = useState<CRMRecord | null>(null)
@@ -85,7 +87,9 @@ export default function ProtectPage() {
       lenderFilter: lenderFilter === "all" ? undefined : lenderFilter,
       dateRangeStart,
       dateRangeEnd,
-      partPaymentFilter
+      partPaymentFilter,
+      stageFilter,
+      paymentDueToday
     })
 
     if (dateRangeStart || dateRangeEnd) {
@@ -98,7 +102,7 @@ export default function ProtectPage() {
       const dateB = new Date((b as any).formFilledDate || 0).getTime()
       return dateB - dateA
     })
-  }, [protectRecords, searchQuery, statusFilter, partnerFilter, dateRangeStart, dateRangeEnd, partPaymentFilter, lenderFilter])
+  }, [protectRecords, searchQuery, statusFilter, stageFilter, partnerFilter, dateRangeStart, dateRangeEnd, partPaymentFilter, lenderFilter, paymentDueToday])
 
   const handleViewRecord = (record: CRMRecord) => {
     setSelectedRecord(record)
@@ -108,6 +112,30 @@ export default function ProtectPage() {
   const handleSetDateRange = (start: string, end: string) => {
     setDateRangeStart(start)
     setDateRangeEnd(end)
+  }
+
+  const handleStatusClick = (status: string) => {
+    setStatusFilter(prev => prev === status ? "all" : status)
+    setStageFilter("all")
+    setPaymentDueToday(false)
+  }
+
+  const handleStageClick = (stage: string) => {
+    setStageFilter(prev => prev === stage ? "all" : stage)
+    setStatusFilter("all")
+    setPaymentDueToday(false)
+  }
+
+  const handlePartPaymentClick = () => {
+    setPaymentDueToday(prev => !prev)
+    setStatusFilter("all")
+    setStageFilter("all")
+  }
+
+  const handleTotalClick = () => {
+    setStatusFilter("all")
+    setStageFilter("all")
+    setPaymentDueToday(false)
   }
 
   if (!isClient) {
@@ -131,7 +159,16 @@ export default function ProtectPage() {
             </Button>
           </div>
 
-          <ProtectMetrics records={filteredRecords as any} />
+          <ProtectMetrics
+            records={filteredRecords as any}
+            onStatusClick={handleStatusClick}
+            onStageClick={handleStageClick}
+            onPartPaymentClick={handlePartPaymentClick}
+            onTotalClick={handleTotalClick}
+            activeStatus={statusFilter !== "all" ? statusFilter : undefined}
+            activeStage={stageFilter !== "all" ? stageFilter : undefined}
+            isPartPaymentActive={paymentDueToday}
+          />
 
           <DataTable
             title="Protect Records"
