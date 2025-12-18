@@ -8,7 +8,7 @@ interface DPDPieChartProps {
   data: { group: DPDGroup; count: number }[]
 }
 
-const COLORS = ["#22c55e", "#eab308", "#f97316", "#ef4444", "#dc2626"]
+const COLORS = ["#dbeafe", "#93c5fd", "#60a5fa", "#3b82f6", "#1e40af"] // Blue shades for Protect DPD
 
 export function DPDPieChart({ data }: DPDPieChartProps) {
   const chartData = data.map((d, i) => ({
@@ -41,7 +41,7 @@ export function DPDPieChart({ data }: DPDPieChartProps) {
                   outerRadius={80}
                   paddingAngle={2}
                   dataKey="value"
-                  label={({ name, percent }) => (percent > 0 ? `${(percent * 100).toFixed(0)}%` : "")}
+                  label={({ name, percent }) => ((percent || 0) > 0 ? `${((percent || 0) * 100).toFixed(0)}%` : "")}
                   labelLine={false}
                 >
                   {chartData.map((entry, index) => (

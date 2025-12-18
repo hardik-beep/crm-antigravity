@@ -8,8 +8,8 @@ interface DailyRequestsChartProps {
 }
 
 export function DailyRequestsChart({ data }: DailyRequestsChartProps) {
-  // Get last 14 days
-  const chartData = data.slice(-14).map((d) => ({
+  // Show all available data
+  const chartData = data.map((d) => ({
     ...d,
     dateLabel: new Date(d.date).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
   }))

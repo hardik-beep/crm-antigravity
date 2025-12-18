@@ -514,26 +514,50 @@ export function calculateDashboardStats(
     }
   })
 
-  // Daily requests for last 30 days
+  // Daily requests - Dynamic Range
   const dailyMap = new Map<string, { count: number; protect: number; settlement: number }>()
-  const today = new Date()
-  for (let i = 29; i >= 0; i--) {
-    const d = new Date(today)
-    d.setDate(d.getDate() - i)
-    const key = d.toISOString().split("T")[0]
-    dailyMap.set(key, { count: 0, protect: 0, settlement: 0 })
-  }
 
   records.forEach((r) => {
-    if (!r.formFilledDate) return
-    const date = r.formFilledDate.split("T")[0]
-    if (dailyMap.has(date)) {
-      const entry = dailyMap.get(date)!
-      entry.count++
-      if (r.type === "protect") entry.protect++
-      else if (r.type === "settlement") entry.settlement++
+    let dateStr = ""
+    if (r.type === "protect") {
+      dateStr = r.formFilledDate
+    } else if (r.type === "settlement") {
+      dateStr = (r as SettlementRecord).createdDate || r.formFilledDate
     }
+
+    if (!dateStr) return
+
+    // Normalize to YYYY-MM-DD
+    const date = dateStr.split("T")[0]
+
+    // Validate date format (simple check)
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return
+
+    if (!dailyMap.has(date)) {
+      dailyMap.set(date, { count: 0, protect: 0, settlement: 0 })
+    }
+
+    const entry = dailyMap.get(date)!
+    entry.count++
+    if (r.type === "protect") entry.protect++
+    else if (r.type === "settlement") entry.settlement++
   })
+
+  // Fill in gaps? User asked for "whole view of total requests... of all dates the data is uploaded".
+  // Usually this means continuous timeline. Let's find min/max and fill gaps.
+  const dates = Array.from(dailyMap.keys()).sort()
+
+  if (dates.length > 0) {
+    const minDate = new Date(dates[0])
+    const maxDate = new Date() // Up to today
+
+    for (let d = new Date(minDate); d <= maxDate; d.setDate(d.getDate() + 1)) {
+      const dateKey = d.toISOString().split("T")[0]
+      if (!dailyMap.has(dateKey)) {
+        dailyMap.set(dateKey, { count: 0, protect: 0, settlement: 0 })
+      }
+    }
+  }
 
   // Calculate Cases NPA Today
   let casesNPAToday = 0
@@ -606,7 +630,9 @@ export function calculateDashboardStats(
     snapmintProtect: protectRecords.filter((r) => r.partner.toLowerCase() === "snapmint").length,
     snapmintSettlement: settlementRecords.filter((r) => r.partner.toLowerCase() === "snapmint").length,
     dpdDistribution: Object.entries(dpdGroups).map(([group, count]) => ({ group: group as any, count })),
-    dailyRequests: Array.from(dailyMap.entries()).map(([date, data]) => ({ date, ...data })),
+    dailyRequests: Array.from(dailyMap.entries())
+      .map(([date, data]) => ({ date, ...data }))
+      .sort((a, b) => a.date.localeCompare(b.date)),
     recentUploads: uploadHistory.slice(0, 5),
     newRequestsToday: newRequests.length,
     newProtectToday: newProtect.length,

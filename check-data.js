@@ -14,7 +14,7 @@ const CRMRecordSchema = new mongoose.Schema({
     id: { type: String, required: true, unique: true },
     type: { type: String, required: true },
     data: { type: mongoose.Schema.Types.Mixed },
-});
+}, { strict: false });
 const RecordModel = mongoose.models.CRMRecord || mongoose.model('CRMRecord', CRMRecordSchema);
 
 async function check() {
@@ -27,8 +27,12 @@ async function check() {
         console.log(`Total Records in DB: ${count}`);
 
         if (count > 0) {
-            const sample = await RecordModel.findOne({});
-            console.log('Sample Record:', JSON.stringify(sample, null, 2));
+            console.log('\n--- Recent 5 Records ---');
+            const recent = await RecordModel.find({}).sort({ updatedAt: -1 }).limit(5);
+            recent.forEach(r => {
+                console.log(`[${r.type}] ${r.name || 'Unnamed'} (ID: ${r.id}) - Status: ${r.status}`);
+            });
+            console.log('------------------------\n');
         }
 
     } catch (err) {
