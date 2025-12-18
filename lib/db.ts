@@ -27,7 +27,7 @@ async function connect() {
     const conn = await dbConnect();
     if (!conn) {
         console.error("[DB] MongoDB URI is missing. Cannot connect to database.");
-        return false;
+        throw new Error("Database connection failed. Check MONGODB_URI.");
     }
     return true;
 }

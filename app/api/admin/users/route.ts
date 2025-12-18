@@ -6,7 +6,11 @@ export async function GET() {
         const agents = await db.getActiveAgents();
         return NextResponse.json({ agents });
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to fetch agents' }, { status: 500 });
+        console.error("Error fetching agents:", error);
+        return NextResponse.json({
+            error: 'Failed to fetch agents',
+            details: error instanceof Error ? error.message : String(error)
+        }, { status: 500 });
     }
 }
 
@@ -37,6 +41,10 @@ export async function POST(req: Request) {
 
         return NextResponse.json({ user: newUser });
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
+        console.error("Error creating user:", error);
+        return NextResponse.json({
+            error: 'Failed to create user',
+            details: error instanceof Error ? error.message : String(error)
+        }, { status: 500 });
     }
 }
