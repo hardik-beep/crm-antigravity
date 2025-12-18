@@ -38,6 +38,7 @@ interface DBData {
     sessions: DBSession[];
     records: CRMRecord[];
     uploadHistory: UploadHistory[];
+    lastModified: string;
 }
 
 const INITIAL_DATA: DBData = {
@@ -61,7 +62,8 @@ const INITIAL_DATA: DBData = {
     ],
     sessions: [],
     records: [],
-    uploadHistory: []
+    uploadHistory: [],
+    lastModified: new Date().toISOString()
 };
 
 function ensureDB() {
@@ -91,7 +93,7 @@ function ensureDB() {
 
         // Fallback to INITIAL_DATA
         try {
-            fs.writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
+            fs.writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA));
             console.log("[DB] Created new database with initial data.");
         } catch (e) {
             console.error("[DB] Failed to write initial data:", e);
@@ -106,7 +108,9 @@ function readDB(): DBData {
 
     try {
         const data = fs.readFileSync(DB_FILE, 'utf-8');
-        return JSON.parse(data);
+        const parsed = JSON.parse(data);
+        if (!parsed.lastModified) parsed.lastModified = new Date(0).toISOString();
+        return parsed;
     } catch (error) {
         console.error("[DB] Failed to read database, returning initial data:", error);
         return JSON.parse(JSON.stringify(INITIAL_DATA));
@@ -116,7 +120,8 @@ function readDB(): DBData {
 function writeDB(data: DBData) {
     ensureDB();
     try {
-        fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+        data.lastModified = new Date().toISOString();
+        fs.writeFileSync(DB_FILE, JSON.stringify(data));
     } catch (error) {
         console.error("[DB] Failed to write database:", error);
     }
@@ -136,6 +141,7 @@ export const db = {
         writeDB(data);
     },
     findUser: (username: string) => readDB().users.find(u => u.username === username),
+    getLastModified: () => readDB().lastModified,
 
     getSessions: () => readDB().sessions,
     createSession: (session: DBSession) => {

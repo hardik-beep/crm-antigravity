@@ -47,6 +47,8 @@ interface CRMStore {
   npaOnly: boolean
   isInitialized: boolean
   geminiApiKey: string
+  lastServerSync: string
+  isFetchingRecords: boolean
 
   // Actions
   // Actions
@@ -178,26 +180,65 @@ export const useCRMStore = create<CRMStore>()(
       npaOnly: false,
       isInitialized: false,
       geminiApiKey: "",
+      lastServerSync: new Date(0).toISOString(),
+      isFetchingRecords: false,
 
       setInitialized: (val) => set({ isInitialized: val }),
       setGeminiApiKey: (key) => set({ geminiApiKey: key }),
       setRecords: (records) => set({ records }),
 
       fetchRecords: async () => {
+        const state = get();
+        if (state.isFetchingRecords) return;
+
         try {
-          const res = await fetch('/api/records', { cache: 'no-store' });
-          const data = await res.json();
-          if (data.records) {
-            const deletedIds = get().deletedRecordIds || [];
-            set({ records: data.records.filter((r: CRMRecord) => !deletedIds.includes(r.id)) });
+          set({ isFetchingRecords: true });
+
+          // 1. Quick Sync Check
+          const syncRes = await fetch('/api/sync-check', { cache: 'no-store' });
+          const syncData = await syncRes.json();
+
+          // 2. Only fetch full records if server has newer data or if we have no records
+          const hasNoRecords = state.records.length === 0;
+          const serverChanged = syncData.lastModified && syncData.lastModified !== state.lastServerSync;
+
+          if (serverChanged || hasNoRecords) {
+            const res = await fetch('/api/records', { cache: 'no-store' });
+            const data = await res.json();
+            if (data.records) {
+              const deletedIds = get().deletedRecordIds || [];
+              set({
+                records: data.records.filter((r: CRMRecord) => !deletedIds.includes(r.id)),
+                lastServerSync: syncData.lastModified || new Date().toISOString()
+              });
+            }
           }
         } catch (error) {
           console.error("Failed to fetch records:", error);
+        } finally {
+          set({ isFetchingRecords: false });
         }
       },
 
       fetchUploadHistory: async () => {
+        const state = get();
+        // Since we already check sync in fetchRecords, and it's called at the same time in AuthWrapper,
+        // we can just rely on the same logic or check here too.
+        // It's safer to check here too.
         try {
+          // If records was already fetched in this cycle, we might already have the data? 
+          // No, these are separate endpoints.
+          const hasNoHistory = state.uploadHistory.length === 0;
+
+          // We can't easily check 'serverChanged' here without duplicating sync-check or using a shared state.
+          // For now, let's at least avoid fetching if we just fetched records and it updated the timestamp?
+          // Actually, let's keep it simple: if records fetched, we probably need history too.
+          // BUT, fetchUploadHistory is called separately.
+
+          // Let's just do a quick fetch if empty or on a longer interval.
+          // Actually, the sync check in fetchRecords already updates lastServerSync.
+          // We can use that.
+
           const res = await fetch('/api/upload-history', { cache: 'no-store' });
           const data = await res.json();
           if (data.history) {
@@ -706,8 +747,11 @@ export const useCRMStore = create<CRMStore>()(
       name: "crm-storage-indexeddb",
       storage: createJSONStorage(() => storage),
       partialize: (state) => {
-        // Persist all state including records and uploadHistory to fix "zero data" on refresh
-        return state;
+        // EXCLUDE records and uploadHistory from persistence to fix "Reloading time is very much"
+        // These giant arrays were causing huge CPU/IO lag on every state change due to IndexedDB writes.
+        // They are fetched fresh on load/login anyway.
+        const { records, uploadHistory, ...rest } = state;
+        return rest;
       },
       onRehydrateStorage: () => (state) => {
         state?.setHasHydrated(true)

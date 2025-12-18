@@ -94,7 +94,8 @@ const INITIAL_DATA = {
     ],
     sessions: [],
     records: [],
-    uploadHistory: []
+    uploadHistory: [],
+    lastModified: new Date().toISOString()
 };
 function ensureDB() {
     // Ensure directory exists
@@ -123,7 +124,7 @@ function ensureDB() {
         }
         // Fallback to INITIAL_DATA
         try {
-            __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA, null, 2));
+            __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA));
             console.log("[DB] Created new database with initial data.");
         } catch (e) {
             console.error("[DB] Failed to write initial data:", e);
@@ -136,7 +137,9 @@ function readDB() {
     ensureDB();
     try {
         const data = __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].readFileSync(DB_FILE, 'utf-8');
-        return JSON.parse(data);
+        const parsed = JSON.parse(data);
+        if (!parsed.lastModified) parsed.lastModified = new Date(0).toISOString();
+        return parsed;
     } catch (error) {
         console.error("[DB] Failed to read database, returning initial data:", error);
         return JSON.parse(JSON.stringify(INITIAL_DATA));
@@ -145,7 +148,8 @@ function readDB() {
 function writeDB(data) {
     ensureDB();
     try {
-        __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+        data.lastModified = new Date().toISOString();
+        __TURBOPACK__imported__module__$5b$externals$5d2f$fs__$5b$external$5d$__$28$fs$2c$__cjs$29$__["default"].writeFileSync(DB_FILE, JSON.stringify(data));
     } catch (error) {
         console.error("[DB] Failed to write database:", error);
     }
@@ -164,6 +168,7 @@ const db = {
         writeDB(data);
     },
     findUser: (username)=>readDB().users.find((u)=>u.username === username),
+    getLastModified: ()=>readDB().lastModified,
     getSessions: ()=>readDB().sessions,
     createSession: (session)=>{
         const data = readDB();

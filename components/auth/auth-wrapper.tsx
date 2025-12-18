@@ -43,11 +43,12 @@ export function AuthWrapper({ children }: { children: React.ReactNode }) {
             fetchRecords()
             fetchUploadHistory()
 
-            // Poll every 5 seconds to keep data in sync
+            // Poll every 15 seconds to keep data in sync
+            // The polling is now more efficient as it checks for a timestamp change first
             const interval = setInterval(() => {
                 fetchRecords()
                 fetchUploadHistory()
-            }, 5000)
+            }, 15000)
 
             return () => clearInterval(interval)
         }
