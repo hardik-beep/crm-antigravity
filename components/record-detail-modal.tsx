@@ -7,6 +7,7 @@ import type { CRMRecord, ProtectRecord, SettlementRecord, Status, Remark } from 
 import { useCRMStore } from "@/lib/store"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
+import { useAuthStore } from "@/lib/auth-store"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -75,6 +76,7 @@ export function RecordDetailModal({ recordId, open, onClose }: { recordId: strin
   const [editingRemarkId, setEditingRemarkId] = useState<string | null>(null)
   const [editingRemarkText, setEditingRemarkText] = useState("")
 
+  const { user } = useAuthStore()
   const record = records.find((r) => r.id === recordId) || null
 
   if (!record) return null
@@ -745,14 +747,16 @@ export function RecordDetailModal({ recordId, open, onClose }: { recordId: strin
                                 >
                                   <Edit2 className="h-3 w-3 text-muted-foreground" />
                                 </Button>
-                                <Button
-                                  size="icon"
-                                  variant="ghost"
-                                  className="h-5 w-5 hover:bg-destructive/10 hover:text-destructive"
-                                  onClick={() => handleDeleteRemark(remark.id)}
-                                >
-                                  <Trash2 className="h-3 w-3" />
-                                </Button>
+                                {user?.role === 'admin' && (
+                                  <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    className="h-5 w-5 hover:bg-destructive/10 hover:text-destructive"
+                                    onClick={() => handleDeleteRemark(remark.id)}
+                                  >
+                                    <Trash2 className="h-3 w-3" />
+                                  </Button>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -822,24 +826,27 @@ export function RecordDetailModal({ recordId, open, onClose }: { recordId: strin
               <div className="space-y-6">
                 {record.activityLog.slice().reverse().map((entry) => (
                   <div key={entry.id} className="relative pl-8">
-                    <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-background border border-border flex items-center justify-center z-10">
+                    <div className="absolute left-0 top-1 w-6 h-6 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center z-10">
                       <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                     </div>
-                    <div>
+                    <div className="bg-muted/30 p-3 rounded-lg border border-border/50">
                       <div className="flex justify-between items-start w-full gap-4">
-                        <p className="text-sm font-medium text-foreground">{entry.action}</p>
-                        <Button
-                          size="icon"
-                          variant="ghost"
-                          className="h-4 w-4 text-muted-foreground hover:text-destructive -mt-1"
-                          onClick={() => deleteActivityLog(record.id, entry.id)}
-                        >
-                          <Trash2 className="h-3 w-3" />
-                        </Button>
+                        <p className="text-sm font-semibold text-foreground">{entry.action}</p>
+                        {user?.role === 'admin' && (
+                          <Button
+                            size="icon"
+                            variant="ghost"
+                            className="h-4 w-4 text-muted-foreground hover:text-destructive -mt-1"
+                            onClick={() => deleteActivityLog(record.id, entry.id)}
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        )}
                       </div>
-                      <p className="text-xs text-muted-foreground mt-0.5">{entry.details}</p>
-                      <p className="text-[10px] text-muted-foreground mt-1 font-mono opacity-70">
-                        {new Date(entry.timestamp).toLocaleString()} • {entry.user}
+                      <p className="text-xs text-muted-foreground mt-0.5 leading-relaxed">{entry.details}</p>
+                      <p className="text-[10px] text-muted-foreground mt-2 font-medium opacity-70 flex items-center gap-2">
+                        <span className="bg-primary/5 px-1.5 py-0.5 rounded border border-primary/10 text-primary">@{entry.user}</span>
+                        <span>{new Date(entry.timestamp).toLocaleString()}</span>
                       </p>
                     </div>
                   </div>

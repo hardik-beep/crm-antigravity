@@ -154,7 +154,7 @@ export function Sidebar() {
         <nav className="flex-1 space-y-1 px-3 py-4">
           <div className="mb-2 px-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">Main Menu</div>
           {navigation.map((item) => {
-            if (item.name === "Upload Data" && user?.role === "agent") {
+            if ((item.name === "Upload Data" || item.name === "Settings") && user?.role === "agent") {
               return null
             }
             const isActive = pathname === item.href

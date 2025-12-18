@@ -10,6 +10,8 @@ import { RecordDetailModal } from "@/components/record-detail-modal"
 import { useCRMStore } from "@/lib/store"
 import { sampleProtectRecords, sampleSettlementRecords, calculateDashboardStats } from "@/lib/sample-data"
 import type { CRMRecord } from "@/lib/types"
+import { DailyRequestsChart } from "@/components/charts/daily-requests-chart"
+import { DPDPieChart } from "@/components/charts/dpd-pie-chart"
 
 export default function DashboardPage() {
   const {
@@ -49,19 +51,19 @@ export default function DashboardPage() {
     if (record.type === "protect") {
       const r = record as any
       // Check part payments
-      const hasPartPaymentDue = r.paymentParts?.some((p: any) => p.date === today && !p.isReceived)
-      // Check skipped EMI (ensure generic text match if formats vary, but assume YYYY-MM-DD)
-      const hasSkippedEmiDue = r.skippedEmiDate === today
+      const hasPartPaymentDue = r.paymentParts?.some((p: any) => p.date && p.date <= today && !p.isReceived)
+      // Check skipped EMI
+      const hasSkippedEmiDue = r.skippedEmiDate && r.skippedEmiDate <= today
       // Check follow up
-      const hasFollowUp = r.nextFollowUpDate === today
+      const hasFollowUp = r.nextFollowUpDate && r.nextFollowUpDate <= today
 
       return hasPartPaymentDue || hasSkippedEmiDue || hasFollowUp
     } else if (record.type === "settlement") {
       const r = record as any
       // Check part payments
-      const hasPartPaymentDue = r.paymentParts?.some((p: any) => p.date === today && !p.isReceived)
+      const hasPartPaymentDue = r.paymentParts?.some((p: any) => p.date && p.date <= today && !p.isReceived)
       // Check manually set follow-up date
-      const hasFollowUp = r.nextFollowUpDate === today
+      const hasFollowUp = r.nextFollowUpDate && r.nextFollowUpDate <= today
       return hasPartPaymentDue || hasFollowUp
     }
     return false
@@ -107,6 +109,12 @@ export default function DashboardPage() {
               hideProtect={typeFilter === "settlement"}
               requestsTitle={typeFilter === "protect" ? "All Protect Requests" : typeFilter === "settlement" ? "All Settlement Requests" : "All Requests"}
             />
+          </section>
+
+          {/* Performance Overview (Charts) */}
+          <section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <DailyRequestsChart data={stats.dailyRequests} />
+            <DPDPieChart data={stats.dpdDistribution} />
           </section>
 
           {/* Today's Follow-ups */}

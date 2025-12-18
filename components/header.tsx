@@ -26,14 +26,25 @@ export function Header({ title, subtitle }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-background/95 px-6 backdrop-blur">
-      <div>
+      <div className="flex flex-col">
         <h1
           className="text-xl font-semibold text-foreground tracking-tight"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           {title}
         </h1>
-        {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
+        <div className="flex items-center gap-2">
+          {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
+          <div className="flex items-center gap-1.5 ml-1">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            <span className="text-[10px] text-muted-foreground uppercase font-medium tracking-wider">
+              Live Sync
+            </span>
+          </div>
+        </div>
       </div>
 
       <div className="flex items-center gap-4">

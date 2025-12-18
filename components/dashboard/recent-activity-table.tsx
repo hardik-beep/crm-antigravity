@@ -3,7 +3,7 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Phone, MessageCircle, Eye, ArrowRight } from "lucide-react"
+import { Phone, MessageCircle, Eye, ArrowRight, AlertTriangle } from "lucide-react"
 import { format } from "date-fns"
 import { useState } from "react"
 import type { CRMRecord } from "@/lib/types"
@@ -178,8 +178,15 @@ export function RecentActivityTable({ records, onView, title = "Recent Activity"
                                             <div className={cn("w-2 h-2 rounded-full shrink-0",
                                                 record.type === 'protect' ? "bg-blue-500" : "bg-orange-500"
                                             )} />
-                                            <div className="text-sm text-muted-foreground">
-                                                {getTaskDescription(record)}
+                                            <div className="flex flex-col">
+                                                <div className="text-sm text-foreground font-medium">
+                                                    {getTaskDescription(record)}
+                                                </div>
+                                                {(record as any).nextFollowUpDate && new Date((record as any).nextFollowUpDate) < new Date(new Date().setHours(0, 0, 0, 0)) && (
+                                                    <span className="text-[10px] text-red-500 font-bold uppercase tracking-wider mt-0.5 flex items-center gap-1">
+                                                        <AlertTriangle className="h-3 w-3" /> Overdue
+                                                    </span>
+                                                )}
                                             </div>
                                         </div>
                                     </TableCell>
