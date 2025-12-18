@@ -8,7 +8,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Missing userId' }, { status: 400 });
         }
 
-        db.logoutUser(userId);
+        await db.logoutUser(userId);
         return NextResponse.json({ success: true });
     } catch (error) {
         return NextResponse.json({ error: 'Failed to logout user' }, { status: 500 });

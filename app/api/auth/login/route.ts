@@ -8,7 +8,7 @@ export async function POST(req: Request) {
         const password = String(body.password || '').trim();
 
         // 1. Try to find user in DB
-        let user: any = db.findUser(username);
+        let user: any = await db.findUser(username);
         let passwordMatch = user && user.password === password;
 
         // 2. Fallback: Check hardcoded defaults if DB fails or user not found
@@ -43,9 +43,9 @@ export async function POST(req: Request) {
 
         // Create session
         try {
-            db.createSession({
+            await db.createSession({
                 sessionId: `sess_${Date.now()}_${Math.random()}`,
-                userId: user.id,
+                userId: user.id || user._id?.toString(),
                 punchInTime: new Date().toISOString(),
                 lastActiveTime: new Date().toISOString(),
                 isActive: true

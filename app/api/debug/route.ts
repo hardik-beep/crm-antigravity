@@ -4,9 +4,10 @@ import { db } from '@/lib/db';
 
 export async function GET() {
     try {
-        const user = db.findUser('admin');
-        const count = db.getUsers().length;
-        const records = db.getRecords().length;
+        const user = await db.findUser('admin');
+        const users = await db.getUsers();
+        const count = users.length;
+        const records = (await db.getRecords()).length;
         return NextResponse.json({
             status: 'ok',
             userFound: !!user,

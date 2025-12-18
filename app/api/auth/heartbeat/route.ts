@@ -8,7 +8,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Missing userId' }, { status: 400 });
         }
 
-        db.updateHeartbeat(userId);
+        await db.updateHeartbeat(userId);
         return NextResponse.json({ success: true });
     } catch (error) {
         return NextResponse.json({ error: 'Heartbeat failed' }, { status: 500 });

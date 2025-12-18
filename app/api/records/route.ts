@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
     try {
-        const records = db.getRecords();
+        const records = await db.getRecords();
         return NextResponse.json({ records });
     } catch (error) {
         return NextResponse.json({ error: 'Failed to fetch records' }, { status: 500 });
@@ -21,12 +21,12 @@ export async function POST(req: Request) {
 
         if (Array.isArray(records)) {
             // Appending multiple records
-            const currentRecords = db.getRecords();
-            db.saveRecords([...currentRecords, ...records]);
+            const currentRecords = await db.getRecords();
+            await db.saveRecords([...currentRecords, ...records]);
             return NextResponse.json({ success: true, count: records.length });
         } else {
             // Single record
-            db.addRecord(body);
+            await db.addRecord(body);
             return NextResponse.json({ success: true });
         }
     } catch (error) {

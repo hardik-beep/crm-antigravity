@@ -6,9 +6,9 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
     try {
-        const lastModified = db.getLastModified();
-        const records = db.getRecords();
-        const uploadHistory = db.getUploadHistory();
+        const lastModified = await db.getLastModified();
+        const records = await db.getRecords();
+        const uploadHistory = await db.getUploadHistory();
         return NextResponse.json({
             lastModified,
             recordCount: records.length,

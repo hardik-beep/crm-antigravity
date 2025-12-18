@@ -1,24 +1,13 @@
-import fs from 'fs';
-import path from 'path';
-
-// Determine if we are in a Vercel environment
-const IS_VERCEL = !!process.env.VERCEL;
-
-// In Vercel, we MUST use /tmp (ephemeral). 
-// In other production environments (VPS, etc.), we prefer the persistent 'data' directory.
-const DATA_DIR = IS_VERCEL ? '/tmp' : path.join(process.cwd(), 'data');
-const DB_FILE = path.join(DATA_DIR, 'db.json');
-
-console.log(`[DB] Using storage path: ${DB_FILE} (Environment: ${IS_VERCEL ? 'Vercel' : 'Standard'})`);
-
-// Source file to seed from (committed data)
-const SEED_FILE = path.join(process.cwd(), 'data', 'db.json');
-
-import type { CRMRecord, UploadHistory } from './types';
+import dbConnect from './mongodb';
+import User from './models/User';
+import Session from './models/Session';
+import CRMRecordModel from './models/Record';
+import UploadHistory from './models/UploadHistory';
+import type { CRMRecord, UploadHistory as UploadHistoryType } from './types';
 
 export interface DBUser {
     id: string;
-    username: string; // ID/Email
+    username: string;
     password: string;
     name: string;
     role: 'admin' | 'agent';
@@ -33,200 +22,234 @@ export interface DBSession {
     isActive: boolean;
 }
 
-interface DBData {
-    users: DBUser[];
-    sessions: DBSession[];
-    records: CRMRecord[];
-    uploadHistory: UploadHistory[];
-    lastModified: string;
+// Helper to ensure connection
+async function connect() {
+    const conn = await dbConnect();
+    if (!conn) {
+        console.error("[DB] MongoDB URI is missing. Cannot connect to database.");
+        return false;
+    }
+    return true;
 }
 
-const INITIAL_DATA: DBData = {
-    users: [
-        {
-            id: 'admin-1',
+// Initial data for fresh DB
+async function seedInitialData() {
+    const adminExists = await User.findOne({ role: 'admin' });
+    if (!adminExists) {
+        await User.create({
             username: 'admin',
-            password: 'admin123', // Default credentials
+            password: 'admin123',
             name: 'Administrator',
             role: 'admin',
-            createdAt: new Date().toISOString(),
-        },
-        {
-            id: 'agent-default',
+            createdAt: new Date(),
+        });
+        await User.create({
             username: 'agent',
-            password: 'agent', // Default agent credentials
+            password: 'agent',
             name: 'Default Agent',
             role: 'agent',
-            createdAt: new Date().toISOString(),
-        }
-    ],
-    sessions: [],
-    records: [],
-    uploadHistory: [],
-    lastModified: new Date(0).toISOString()
-};
-
-function ensureDB() {
-    // Ensure directory exists
-    if (!fs.existsSync(DATA_DIR)) {
-        try {
-            fs.mkdirSync(DATA_DIR, { recursive: true });
-        } catch (e) {
-            console.error("[DB] Failed to create data directory:", e);
-        }
-    }
-
-    // If DB_FILE doesn't exist in the working directory
-    if (!fs.existsSync(DB_FILE)) {
-        // Try to copy from seed file (committed data) if it exists and we're using /tmp or a fresh setup
-        // Note: checking SEED_FILE !== DB_FILE to avoid copy-to-self if paths overlap
-        if (fs.existsSync(SEED_FILE) && path.resolve(SEED_FILE) !== path.resolve(DB_FILE)) {
-            try {
-                const seedData = fs.readFileSync(SEED_FILE, 'utf-8');
-                fs.writeFileSync(DB_FILE, seedData);
-                console.log("[DB] Seeded database from committed file.");
-                return;
-            } catch (error) {
-                console.error("[DB] Failed to copy seed file:", error);
-            }
-        }
-
-        // Fallback to INITIAL_DATA
-        try {
-            fs.writeFileSync(DB_FILE, JSON.stringify(INITIAL_DATA));
-            console.log("[DB] Created new database with initial data.");
-        } catch (e) {
-            console.error("[DB] Failed to write initial data:", e);
-        }
-    }
-}
-
-// Removed persistent memory cache to ensure multi-process consistency (e.g., PM2 cluster)
-// Each read will verify the file state.
-function readDB(): DBData {
-    ensureDB();
-
-    try {
-        const data = fs.readFileSync(DB_FILE, 'utf-8');
-        const parsed = JSON.parse(data);
-        if (!parsed.lastModified) parsed.lastModified = new Date(0).toISOString();
-        return parsed;
-    } catch (error) {
-        console.error("[DB] Failed to read database, returning initial data:", error);
-        return JSON.parse(JSON.stringify(INITIAL_DATA));
-    }
-}
-
-function writeDB(data: DBData) {
-    ensureDB();
-    try {
-        data.lastModified = new Date().toISOString();
-        fs.writeFileSync(DB_FILE, JSON.stringify(data));
-    } catch (error) {
-        console.error("[DB] Failed to write database:", error);
+            createdAt: new Date(),
+        });
+        console.log('[DB] Seeded initial admin and agent users.');
     }
 }
 
 export const db = {
-    getUsers: () => readDB().users,
-    addUser: (user: DBUser) => {
-        const data = readDB();
-        data.users.push(user);
-        writeDB(data);
+    getUsers: async () => {
+        await connect();
+        await seedInitialData();
+        const users = await User.find({});
+        return users.map(u => ({
+            id: u._id.toString(),
+            username: u.username,
+            password: u.password,
+            name: u.name,
+            role: u.role,
+            createdAt: u.createdAt.toISOString(),
+        }));
     },
-    deleteUser: (userId: string) => {
-        const data = readDB();
-        data.users = data.users.filter(u => u.id !== userId);
-        data.sessions = data.sessions.filter(s => s.userId !== userId);
-        writeDB(data);
-    },
-    findUser: (username: string) => readDB().users.find(u => u.username === username),
-    getLastModified: () => readDB().lastModified,
-
-    getSessions: () => readDB().sessions,
-    createSession: (session: DBSession) => {
-        const data = readDB();
-        // Deactivate previous sessions for this user
-        data.sessions.forEach(s => {
-            if (s.userId === session.userId && s.isActive) {
-                s.isActive = false;
-            }
+    addUser: async (user: DBUser) => {
+        await connect();
+        await User.create({
+            username: user.username,
+            password: user.password,
+            name: user.name,
+            role: user.role,
+            createdAt: new Date(),
         });
-        data.sessions.push(session);
-        writeDB(data);
     },
-    updateHeartbeat: (userId: string) => {
-        // For heartbeat, we can just read, modify, write. 
-        // Or to save IO, we COULD cache, but strict consistency requires writing.
-        // Given heartbeat is every minute, writing is fine for low traffic.
-        const data = readDB();
-        const session = data.sessions.find(s => s.userId === userId && s.isActive);
-        if (session) {
-            session.lastActiveTime = new Date().toISOString();
-            writeDB(data);
-        }
+    deleteUser: async (userId: string) => {
+        await connect();
+        await User.findByIdAndDelete(userId);
+        await Session.deleteMany({ userId });
     },
-    logoutUser: (userId: string) => {
-        const data = readDB();
-        const session = data.sessions.find(s => s.userId === userId && s.isActive);
-        if (session) {
-            session.isActive = false;
-            writeDB(data);
-        }
+    findUser: async (username: string) => {
+        await connect();
+        await seedInitialData();
+        const u = await User.findOne({ username });
+        if (!u) return null;
+        return {
+            id: u._id.toString(),
+            username: u.username,
+            password: u.password,
+            name: u.name,
+            role: u.role,
+            createdAt: u.createdAt.toISOString(),
+        };
+    },
+    getLastModified: async () => {
+        // We can use a special setting or just return now for now
+        // This was used for sync checking in JSON. 
+        // With MongoDB, the app might not need this as much if it fetches fresh data.
+        return new Date().toISOString();
+    },
+
+    getSessions: async () => {
+        await connect();
+        const sessions = await Session.find({});
+        return sessions.map(s => ({
+            sessionId: s.sessionId,
+            userId: s.userId,
+            punchInTime: s.punchInTime.toISOString(),
+            lastActiveTime: s.lastActiveTime.toISOString(),
+            isActive: s.isActive,
+        }));
+    },
+    createSession: async (session: DBSession) => {
+        await connect();
+        // Deactivate previous sessions for this user
+        await Session.updateMany({ userId: session.userId, isActive: true }, { isActive: false });
+        await Session.create({
+            sessionId: session.sessionId,
+            userId: session.userId,
+            punchInTime: new Date(session.punchInTime),
+            lastActiveTime: new Date(session.lastActiveTime),
+            isActive: true,
+        });
+    },
+    updateHeartbeat: async (userId: string) => {
+        await connect();
+        await Session.findOneAndUpdate(
+            { userId, isActive: true },
+            { lastActiveTime: new Date() }
+        );
+    },
+    logoutUser: async (userId: string) => {
+        await connect();
+        await Session.updateMany({ userId, isActive: true }, { isActive: false });
     },
 
     // Records management
-    getRecords: () => readDB().records || [],
-    saveRecords: (records: CRMRecord[]) => {
-        const data = readDB();
-        data.records = records;
-        writeDB(data);
+    getRecords: async () => {
+        await connect();
+        const records = await CRMRecordModel.find({});
+        return records.map(r => {
+            const { data, ...rest } = r.toObject();
+            return {
+                ...rest,
+                ...data,
+                id: r.id, // Ensure we use the 'id' field from our schema, not _id
+            };
+        }) as CRMRecord[];
     },
-    addRecord: (record: CRMRecord) => {
-        const data = readDB();
-        if (!data.records) data.records = [];
-        data.records.push(record);
-        writeDB(data);
+    saveRecords: async (records: CRMRecord[]) => {
+        await connect();
+        // This is a bulk overwrite in the current logic.
+        // For MongoDB, it's better to update individual records or use bulkWrite.
+        // But to maintain exact current behavior:
+        await CRMRecordModel.deleteMany({});
+        const toInsert = records.map(r => {
+            const { id, type, partner, name, mobileNumber, status, stage, uploadedFrom, uploadedAt, updatedAt, remarks, activityLog, ...data } = r;
+            return {
+                id, type, partner, name, mobileNumber, status, stage, uploadedFrom,
+                uploadedAt: uploadedAt ? new Date(uploadedAt) : new Date(),
+                updatedAt: updatedAt ? new Date(updatedAt) : new Date(),
+                remarks, activityLog,
+                data
+            };
+        });
+        await CRMRecordModel.insertMany(toInsert);
     },
-    updateRecord: (record: CRMRecord) => {
-        const data = readDB();
-        if (!data.records) data.records = [];
-        data.records = data.records.map(r => r.id === record.id ? record : r);
-        writeDB(data);
+    addRecord: async (record: CRMRecord) => {
+        await connect();
+        const { id, type, partner, name, mobileNumber, status, stage, uploadedFrom, uploadedAt, updatedAt, remarks, activityLog, ...data } = record;
+        await CRMRecordModel.create({
+            id, type, partner, name, mobileNumber, status, stage, uploadedFrom,
+            uploadedAt: uploadedAt ? new Date(uploadedAt) : new Date(),
+            updatedAt: updatedAt ? new Date(updatedAt) : new Date(),
+            remarks, activityLog,
+            data
+        });
     },
-    deleteRecord: (id: string) => {
-        const data = readDB();
-        if (!data.records) data.records = [];
-        data.records = data.records.filter(r => r.id !== id);
-        writeDB(data);
+    updateRecord: async (record: CRMRecord) => {
+        await connect();
+        const { id, type, partner, name, mobileNumber, status, stage, uploadedFrom, uploadedAt, updatedAt, remarks, activityLog, ...data } = record;
+        await CRMRecordModel.findOneAndUpdate(
+            { id },
+            {
+                type, partner, name, mobileNumber, status, stage, uploadedFrom,
+                updatedAt: new Date(),
+                remarks, activityLog,
+                data
+            },
+            { upsert: true }
+        );
     },
-    deleteRecords: (ids: string[]) => {
-        const data = readDB();
-        if (!data.records) data.records = [];
-        data.records = data.records.filter(r => !ids.includes(r.id));
-        writeDB(data);
+    deleteRecord: async (id: string) => {
+        await connect();
+        await CRMRecordModel.deleteOne({ id });
+    },
+    deleteRecords: async (ids: string[]) => {
+        await connect();
+        await CRMRecordModel.deleteMany({ id: { $in: ids } });
     },
 
     // Upload History
-    getUploadHistory: () => readDB().uploadHistory || [],
-    addUploadHistory: (history: UploadHistory) => {
-        const data = readDB();
-        if (!data.uploadHistory) data.uploadHistory = [];
-        data.uploadHistory.unshift(history);
-        writeDB(data);
+    getUploadHistory: async () => {
+        await connect();
+        const histories = await UploadHistory.find({}).sort({ uploadedAt: -1 });
+        return histories.map(h => ({
+            id: h.id,
+            fileName: h.fileName,
+            uploadedAt: h.uploadedAt.toISOString(),
+            recordType: h.recordType as any,
+            partner: h.partner as any,
+            totalRows: h.totalRows,
+            validRows: h.validRows,
+            invalidRows: h.invalidRows,
+        }));
+    },
+    addUploadHistory: async (history: UploadHistoryType) => {
+        await connect();
+        await UploadHistory.create({
+            id: history.id,
+            fileName: history.fileName,
+            uploadedAt: history.uploadedAt ? new Date(history.uploadedAt) : new Date(),
+            recordType: history.recordType,
+            partner: history.partner,
+            totalRows: history.totalRows,
+            validRows: history.validRows,
+            invalidRows: history.invalidRows,
+        });
     },
     // Get active sessions populated with user details
-    getActiveAgents: () => {
-        const data = readDB();
-        return data.users.map(user => {
-            const activeSession = data.sessions.find(s => s.userId === user.id && s.isActive);
+    getActiveAgents: async () => {
+        await connect();
+        const users = await User.find({});
+        const sessions = await Session.find({ isActive: true });
+
+        return users.map(user => {
+            const activeSession = sessions.find(s => s.userId === user._id.toString());
             return {
-                ...user,
-                // Don't return password
+                id: user._id.toString(),
+                username: user.username,
                 password: '***',
+                name: user.name,
+                role: user.role as 'admin' | 'agent',
+                createdAt: user.createdAt.toISOString(),
                 isLoggedIn: !!activeSession,
-                punchInTime: activeSession?.punchInTime || null,
-                lastActiveTime: activeSession?.lastActiveTime || null,
+                punchInTime: activeSession?.punchInTime?.toISOString() || null,
+                lastActiveTime: activeSession?.lastActiveTime?.toISOString() || null,
             };
         });
     }

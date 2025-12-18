@@ -3,7 +3,7 @@ import { db } from '@/lib/db';
 
 export async function GET() {
     try {
-        const agents = db.getActiveAgents();
+        const agents = await db.getActiveAgents();
         return NextResponse.json({ agents });
     } catch (error) {
         return NextResponse.json({ error: 'Failed to fetch agents' }, { status: 500 });
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
         }
 
-        const existing = db.findUser(username);
+        const existing = await db.findUser(username);
         if (existing) {
             return NextResponse.json({ error: 'User already exists' }, { status: 409 });
         }
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
             createdAt: new Date().toISOString()
         };
 
-        db.addUser(newUser);
+        await db.addUser(newUser);
 
         return NextResponse.json({ user: newUser });
     } catch (error) {

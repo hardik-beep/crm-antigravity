@@ -8,7 +8,7 @@ export async function POST(req: Request) {
         if (!Array.isArray(ids)) {
             return NextResponse.json({ error: 'Invalid IDs format' }, { status: 400 });
         }
-        db.deleteRecords(ids);
+        await db.deleteRecords(ids);
         return NextResponse.json({ success: true, count: ids.length });
     } catch (error) {
         return NextResponse.json({ error: 'Failed to delete records' }, { status: 500 });

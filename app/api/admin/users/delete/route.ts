@@ -8,7 +8,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Missing userId' }, { status: 400 });
         }
 
-        db.deleteUser(userId);
+        await db.deleteUser(userId);
         return NextResponse.json({ success: true });
     } catch (error) {
         return NextResponse.json({ error: 'Failed to delete user' }, { status: 500 });

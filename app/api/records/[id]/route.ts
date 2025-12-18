@@ -9,7 +9,7 @@ export async function PUT(
     try {
         const { id } = await params;
         const updates = await req.json();
-        const records = db.getRecords();
+        const records = await db.getRecords();
         const record = records.find(r => r.id === id);
 
         if (!record) {
@@ -17,7 +17,7 @@ export async function PUT(
         }
 
         const updatedRecord = { ...record, ...updates };
-        db.updateRecord(updatedRecord);
+        await db.updateRecord(updatedRecord);
 
         return NextResponse.json({ success: true, record: updatedRecord });
     } catch (error) {
@@ -31,7 +31,7 @@ export async function DELETE(
 ) {
     try {
         const { id } = await params;
-        db.deleteRecord(id);
+        await db.deleteRecord(id);
         return NextResponse.json({ success: true });
     } catch (error) {
         return NextResponse.json({ error: 'Failed to delete record' }, { status: 500 });
