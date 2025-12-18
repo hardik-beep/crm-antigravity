@@ -528,7 +528,7 @@ export function calculateDashboardStats(
     if (!dateStr) return
 
     // Normalize to YYYY-MM-DD
-    const date = dateStr.split("T")[0]
+    const date = dateStr.replace("T", " ").split(" ")[0]
 
     // Validate date format (simple check)
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return

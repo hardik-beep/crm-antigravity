@@ -227,7 +227,7 @@ export function parseProtectRow(row: Record<string, unknown>, fileName: string, 
     ),
     dpd, // Store as string
     currentDpd, // Store as string
-    dpdGroup: "Unknown", // No longer calculated/used
+    dpdGroup: getDPDGroup(normalizeNumber(dpd)),
     status: "No Action Taken", // Default status
     stage: "New", // Default stage
     uploadedFrom: fileName,
