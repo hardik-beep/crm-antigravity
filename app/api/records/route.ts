@@ -40,6 +40,6 @@ export async function POST(req: Request) {
         }
     } catch (error) {
         console.error("POST /api/records error:", error);
-        return NextResponse.json({ error: 'Failed to save records' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to save records', details: error instanceof Error ? error.message : String(error) }, { status: 500 });
     }
 }

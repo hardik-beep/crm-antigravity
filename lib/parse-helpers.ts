@@ -229,7 +229,7 @@ export function parseProtectRow(row: Record<string, unknown>, fileName: string, 
     currentDpd, // Store as string
     dpdGroup: "Unknown", // No longer calculated/used
     status: "No Action Taken", // Default status
-    stage: "", // Default stage (Select)
+    stage: "New", // Default stage
     uploadedFrom: fileName,
     uploadedAt: new Date().toISOString(),
     remarks: [],

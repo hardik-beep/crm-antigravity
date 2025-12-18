@@ -1,6 +1,5 @@
 {
   "/api/auth/heartbeat/route": "app/api/auth/heartbeat/route.js",
-  "/api/records/[id]/route": "app/api/records/[id]/route.js",
   "/api/records/route": "app/api/records/route.js",
   "/api/sync-check/route": "app/api/sync-check/route.js",
   "/api/upload-history/route": "app/api/upload-history/route.js",
