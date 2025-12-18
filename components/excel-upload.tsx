@@ -116,7 +116,7 @@ export function ExcelUpload() {
     maxFiles: 1,
   })
 
-  const handleImport = () => {
+  const handleImport = async () => {
     try {
       const validRows = parsedData.filter((r) => r.valid)
       const partnerToPass = selectedPartner === "auto" ? undefined : selectedPartner
@@ -136,15 +136,14 @@ export function ExcelUpload() {
         fileName,
         uploadedAt: new Date().toISOString(),
         recordType: detectedType,
-        partner: selectedPartner === "auto" ? "sayyam" : selectedPartner, // Default for history
+        partner: selectedPartner === "auto" ? "sayyam" : selectedPartner,
         totalRows: parsedData.length,
         validRows: validRows.length,
         invalidRows: parsedData.length - validRows.length,
       }
 
-      addRecords(newRecords, uploadRecord)
+      await addRecords(newRecords, uploadRecord)
 
-      // Reset all filters to ensure new records are visible
       setDateFilterType("custom")
       setDateRange("", "")
       setStatusFilter("all")
@@ -158,7 +157,6 @@ export function ExcelUpload() {
       setColumns([])
       setFileName("")
 
-      // Scroll to top to show success message
       window.scrollTo({ top: 0, behavior: 'smooth' })
 
     } catch (error: any) {

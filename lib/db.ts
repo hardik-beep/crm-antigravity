@@ -103,10 +103,23 @@ export const db = {
         };
     },
     getLastModified: async () => {
-        // We can use a special setting or just return now for now
-        // This was used for sync checking in JSON. 
-        // With MongoDB, the app might not need this as much if it fetches fresh data.
-        return new Date().toISOString();
+        await connect();
+        const lastRecord = await CRMRecordModel.findOne({}, { updatedAt: 1 }).sort({ updatedAt: -1 });
+        const lastUpload = await UploadHistory.findOne({}, { uploadedAt: 1 }).sort({ uploadedAt: -1 });
+
+        const recordTime = lastRecord?.updatedAt ? new Date(lastRecord.updatedAt).getTime() : 0;
+        const uploadTime = lastUpload?.uploadedAt ? new Date(lastUpload.uploadedAt).getTime() : 0;
+
+        const maxTime = Math.max(recordTime, uploadTime);
+        return maxTime > 0 ? new Date(maxTime).toISOString() : new Date(0).toISOString();
+    },
+    getRecordCount: async () => {
+        await connect();
+        return await CRMRecordModel.countDocuments();
+    },
+    getUploadCount: async () => {
+        await connect();
+        return await UploadHistory.countDocuments();
     },
 
     getSessions: async () => {
@@ -221,18 +234,20 @@ export const db = {
     },
     addManyRecords: async (records: CRMRecord[]) => {
         await connect();
+        const insertionTime = new Date();
         const toInsert = records.map(r => {
             const { id, type, partner, name, mobileNumber, status, stage, uploadedFrom, uploadedAt, updatedAt, remarks, activityLog, ...data } = r;
             return {
                 id, type, partner, name, mobileNumber, status, stage, uploadedFrom,
-                uploadedAt: uploadedAt ? new Date(uploadedAt) : new Date(),
-                updatedAt: updatedAt ? new Date(updatedAt) : new Date(),
+                uploadedAt: uploadedAt ? new Date(uploadedAt) : insertionTime,
+                updatedAt: insertionTime,
                 remarks, activityLog,
                 data
             };
         });
         try {
             await CRMRecordModel.insertMany(toInsert, { ordered: false });
+            return insertionTime.toISOString();
         } catch (e: any) {
             console.error("DB Insert Error:", e);
             if (e.writeErrors) {

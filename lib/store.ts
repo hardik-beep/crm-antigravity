@@ -198,15 +198,23 @@ export const useCRMStore = create<CRMStore>()(
           const syncRes = await fetch('/api/sync-check', { cache: 'no-store' });
           const syncData = await syncRes.json();
 
-          // 2. Only fetch full records if server has NEWER data or if we have no records but server has some
+          // 2. Robust Sync Check
           const hasNoRecords = state.records.length === 0;
+          const localCount = state.records.length;
+          const serverCount = syncData.recordCount;
+
           const serverDate = syncData.lastModified ? new Date(syncData.lastModified).getTime() : 0;
           const clientDate = state.lastServerSync ? new Date(state.lastServerSync).getTime() : 0;
 
           const serverIsNewer = serverDate > clientDate;
-          const shouldFetch = serverIsNewer || (hasNoRecords && serverDate > 0);
+          const countMismatch = (typeof serverCount === 'number') && (serverCount !== localCount);
+
+          // Fetch if server is newer, OR if counts don't match (strong consistency check)
+          // OR if we have no records but server does.
+          const shouldFetch = serverIsNewer || countMismatch || (hasNoRecords && (serverCount > 0 || serverDate > 0));
 
           if (shouldFetch) {
+            console.log(`[Sync] Fetching records. Reason: Newer=${serverIsNewer}, CountMismatch=${countMismatch} (${localCount} vs ${serverCount})`);
             const res = await fetch('/api/records', { cache: 'no-store' });
             const data = await res.json();
             if (data.records) {
@@ -257,9 +265,7 @@ export const useCRMStore = create<CRMStore>()(
       },
 
       addRecords: async (newRecords, upload) => {
-        // Optimistic update? No, let's wait for server for bulk add to ensure ID stability if server generated IDs (but here we generate IDs in client possibly? yes, in excel-upload).
-        // Actually excel-upload generates IDs.
-        // Optimistic:
+        // Optimistic update
         set((state) => ({
           records: [...state.records, ...newRecords],
           uploadHistory: [upload, ...state.uploadHistory],
@@ -267,17 +273,39 @@ export const useCRMStore = create<CRMStore>()(
 
         // Sync
         try {
-          await fetch('/api/records', {
+          const resRec = await fetch('/api/records', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ records: newRecords })
           });
-          await fetch('/api/upload-history', {
+
+          if (!resRec.ok) throw new Error(`Failed to save records: ${resRec.statusText}`);
+
+          const dataRec = await resRec.json();
+          // Vital: Update client's last-sync time to what the server reported.
+          // This prevents the immediate next "sync check" from thinking server is ahead 
+          // (because we just pushed data there) and re-fetching/overwriting our local state.
+          if (dataRec.serverTime) {
+            set({ lastServerSync: dataRec.serverTime });
+          }
+
+          const resHist = await fetch('/api/upload-history', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(upload)
           });
-        } catch (e) { console.error("Sync failed", e) }
+
+          if (!resHist.ok) console.warn("Failed to save upload history, but records saved.");
+
+        } catch (e) {
+          console.error("Sync failed", e);
+          // Revert optimistic update
+          set((state) => ({
+            records: state.records.filter((r) => !newRecords.some((nr) => nr.id === r.id)),
+            uploadHistory: state.uploadHistory.filter((h) => h.id !== upload.id),
+          }));
+          throw e;
+        }
       },
 
       updateRecord: async (id, updates) => {

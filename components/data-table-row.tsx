@@ -142,7 +142,7 @@ export const DataTableRow = memo(function DataTableRow({
                     <TableCell className="text-xs whitespace-nowrap">{(record as ProtectRecord).dateOpened}</TableCell>
                     <TableCell className="text-xs whitespace-nowrap">{(record as ProtectRecord).emiDate}</TableCell>
                     <TableCell className="text-xs whitespace-nowrap text-right font-mono">
-                        ₹{(record as ProtectRecord).emiAmount.toLocaleString()}
+                        ₹{((record as ProtectRecord).emiAmount || 0).toLocaleString()}
                     </TableCell>
                     <TableCell className="text-xs whitespace-nowrap text-center font-mono">
                         {(record as ProtectRecord).dpd}
@@ -217,8 +217,8 @@ export const DataTableRow = memo(function DataTableRow({
                     <TableCell className="text-center">
                         {(record as SettlementRecord).isLegalNotice ? <Badge variant="destructive" className="h-5 text-[10px]">Yes</Badge> : <span className="text-xs text-muted-foreground">No</span>}
                     </TableCell>
-                    <TableCell className="text-xs whitespace-nowrap text-right font-mono">₹{(record as SettlementRecord).recommendedAmt.toLocaleString()}</TableCell>
-                    <TableCell className="text-xs whitespace-nowrap text-right font-mono">₹{(record as SettlementRecord).customerWishAmt.toLocaleString()}</TableCell>
+                    <TableCell className="text-xs whitespace-nowrap text-right font-mono">₹{((record as SettlementRecord).recommendedAmt || 0).toLocaleString()}</TableCell>
+                    <TableCell className="text-xs whitespace-nowrap text-right font-mono">₹{((record as SettlementRecord).customerWishAmt || 0).toLocaleString()}</TableCell>
                     <TableCell className="text-xs whitespace-nowrap text-center font-mono">{(record as SettlementRecord).dpd}</TableCell>
 
                     <TableCell>
