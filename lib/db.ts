@@ -34,23 +34,28 @@ async function connect() {
 
 // Initial data for fresh DB
 async function seedInitialData() {
-    const adminExists = await User.findOne({ role: 'admin' });
-    if (!adminExists) {
-        await User.create({
-            username: 'admin',
-            password: 'admin123',
-            name: 'Administrator',
-            role: 'admin',
-            createdAt: new Date(),
-        });
-        await User.create({
-            username: 'agent',
-            password: 'agent',
-            name: 'Default Agent',
-            role: 'agent',
-            createdAt: new Date(),
-        });
-        console.log('[DB] Seeded initial admin and agent users.');
+    try {
+        const adminExists = await User.findOne({ role: 'admin' });
+        if (!adminExists) {
+            await User.create({
+                username: 'admin',
+                password: 'admin123',
+                name: 'Administrator',
+                role: 'admin',
+                createdAt: new Date(),
+            });
+            await User.create({
+                username: 'agent',
+                password: 'agent',
+                name: 'Default Agent',
+                role: 'agent',
+                createdAt: new Date(),
+            });
+            console.log('[DB] Seeded initial admin and agent users.');
+        }
+    } catch (error) {
+        console.error('[DB] Error during initial data seeding:', error);
+        // Don't throw here to allow app to function even if seeding fails
     }
 }
 
@@ -70,7 +75,7 @@ export const db = {
     },
     addUser: async (user: DBUser) => {
         await connect();
-        await User.create({
+        return await User.create({
             username: user.username,
             password: user.password,
             name: user.name,

@@ -8,7 +8,14 @@ export async function POST(req: Request) {
         const password = String(body.password || '').trim();
 
         // 1. Try to find user in DB
-        let user: any = await db.findUser(username);
+        let user: any = null;
+        try {
+            user = await db.findUser(username);
+        } catch (dbError) {
+            console.error("Database connection error during login:", dbError);
+            // We continue to allow fallback credentials even if DB is down
+        }
+
         let passwordMatch = user && user.password === password;
 
         // 2. Fallback: Check hardcoded defaults if DB fails or user not found

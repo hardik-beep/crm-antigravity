@@ -17,7 +17,8 @@ export async function GET() {
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { username, password, name, role } = body;
+        const { username: rawUsername, password, name, role } = body;
+        const username = String(rawUsername || '').trim().toLowerCase();
 
         if (!username || !password || !name) {
             return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
