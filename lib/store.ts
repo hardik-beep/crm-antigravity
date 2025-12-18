@@ -198,11 +198,15 @@ export const useCRMStore = create<CRMStore>()(
           const syncRes = await fetch('/api/sync-check', { cache: 'no-store' });
           const syncData = await syncRes.json();
 
-          // 2. Only fetch full records if server has newer data or if we have no records
+          // 2. Only fetch full records if server has NEWER data or if we have no records but server has some
           const hasNoRecords = state.records.length === 0;
-          const serverChanged = syncData.lastModified && syncData.lastModified !== state.lastServerSync;
+          const serverDate = syncData.lastModified ? new Date(syncData.lastModified).getTime() : 0;
+          const clientDate = state.lastServerSync ? new Date(state.lastServerSync).getTime() : 0;
 
-          if (serverChanged || hasNoRecords) {
+          const serverIsNewer = serverDate > clientDate;
+          const shouldFetch = serverIsNewer || (hasNoRecords && serverDate > 0);
+
+          if (shouldFetch) {
             const res = await fetch('/api/records', { cache: 'no-store' });
             const data = await res.json();
             if (data.records) {
@@ -241,8 +245,11 @@ export const useCRMStore = create<CRMStore>()(
 
           const res = await fetch('/api/upload-history', { cache: 'no-store' });
           const data = await res.json();
-          if (data.history) {
+          if (data.history && data.history.length > 0) {
             set({ uploadHistory: data.history });
+          } else if (data.history && state.uploadHistory.length === 0) {
+            // Only set empty if we didn't have anything anyway
+            set({ uploadHistory: [] });
           }
         } catch (error) {
           console.error("Failed to fetch upload history:", error);
@@ -747,10 +754,16 @@ export const useCRMStore = create<CRMStore>()(
       name: "crm-storage-indexeddb",
       storage: createJSONStorage(() => storage),
       partialize: (state) => {
-        // EXCLUDE records and uploadHistory from persistence to fix "Reloading time is very much"
-        // These giant arrays were causing huge CPU/IO lag on every state change due to IndexedDB writes.
-        // They are fetched fresh on load/login anyway.
-        const { records, uploadHistory, ...rest } = state;
+        // INCLUDE records and uploadHistory so they persist across refreshes.
+        // EXCLUDE high-frequency ephemeral state (like search) to prevent 
+        // slow UI performance during typing.
+        const {
+          searchQuery,
+          isFetchingRecords,
+          isInitialized,
+          hasHydrated,
+          ...rest
+        } = state;
         return rest;
       },
       onRehydrateStorage: () => (state) => {

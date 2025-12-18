@@ -63,7 +63,7 @@ const INITIAL_DATA: DBData = {
     sessions: [],
     records: [],
     uploadHistory: [],
-    lastModified: new Date().toISOString()
+    lastModified: new Date(0).toISOString()
 };
 
 function ensureDB() {
