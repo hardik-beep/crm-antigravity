@@ -21,8 +21,9 @@ export async function POST(req: Request) {
 
         if (Array.isArray(records)) {
             // Appending multiple records
-            const currentRecords = await db.getRecords();
-            await db.saveRecords([...currentRecords, ...records]);
+            // Appending multiple records
+            // Optimized to just search and insert instead of fetch-all-and-save
+            await (db as any).addManyRecords(records);
             return NextResponse.json({ success: true, count: records.length });
         } else {
             // Single record

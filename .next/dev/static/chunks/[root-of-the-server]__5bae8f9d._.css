@@ -388,6 +388,7 @@
     --color-yellow-800: #874b00;
     --color-green-50: #f0fdf4;
     --color-green-200: #b9f8cf;
+    --color-green-400: #05df72;
     --color-green-500: #00c758;
     --color-green-600: #00a544;
     --color-green-700: #008138;
@@ -440,6 +441,7 @@
     --radius-2xl: 1rem;
     --ease-in-out: cubic-bezier(.4, 0, .2, 1);
     --animate-spin: spin 1s linear infinite;
+    --animate-ping: ping 1s cubic-bezier(0, 0, .2, 1) infinite;
     --animate-pulse: pulse 2s cubic-bezier(.4, 0, .6, 1) infinite;
     --aspect-video: 16 / 9;
     --default-transition-duration: .15s;
@@ -471,6 +473,7 @@
       --color-yellow-800: lab(38.7484% 23.5833 51.4916);
       --color-green-50: lab(98.1563% -5.60117 2.75913);
       --color-green-200: lab(92.4222% -26.4702 12.9427);
+      --color-green-400: lab(78.503% -64.9265 39.7492);
       --color-green-500: lab(70.5521% -66.5147 45.8072);
       --color-green-600: lab(59.0978% -58.6621 41.2579);
       --color-green-700: lab(47.0329% -47.0239 31.4788);
@@ -1854,6 +1857,10 @@
     animation: enter var(--tw-animation-duration, var(--tw-duration, .15s)) var(--tw-ease, ease) var(--tw-animation-delay, 0s) var(--tw-animation-iteration-count, 1) var(--tw-animation-direction, normal) var(--tw-animation-fill-mode, forwards);
   }
 
+  .animate-ping {
+    animation: var(--animate-ping);
+  }
+
   .animate-pulse {
     animation: var(--animate-pulse);
   }
@@ -2380,6 +2387,16 @@
     border-color: var(--primary);
   }
 
+  .border-primary\/10 {
+    border-color: var(--primary);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-primary\/10 {
+      border-color: color-mix(in oklab, var(--primary) 10%, transparent);
+    }
+  }
+
   .border-primary\/20 {
     border-color: var(--primary);
   }
@@ -2586,6 +2603,14 @@
 
   .bg-green-50 {
     background-color: var(--color-green-50);
+  }
+
+  .bg-green-400 {
+    background-color: var(--color-green-400);
+  }
+
+  .bg-green-500 {
+    background-color: var(--color-green-500);
   }
 
   .bg-green-500\/5 {
@@ -3425,6 +3450,10 @@
 
   .opacity-70 {
     opacity: .7;
+  }
+
+  .opacity-75 {
+    opacity: .75;
   }
 
   .opacity-90 {
@@ -5949,6 +5978,12 @@
   }
 
   @media (min-width: 64rem) {
+    .lg\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
     .lg\:grid-cols-4 {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
@@ -7395,6 +7430,13 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    opacity: 0;
+    transform: scale(2);
   }
 }
 

@@ -9,8 +9,7 @@ export async function PUT(
     try {
         const { id } = await params;
         const updates = await req.json();
-        const records = await db.getRecords();
-        const record = records.find(r => r.id === id);
+        const record = await (db as any).getRecord(id);
 
         if (!record) {
             return NextResponse.json({ error: 'Record not found' }, { status: 404 });

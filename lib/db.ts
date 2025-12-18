@@ -153,9 +153,20 @@ export const db = {
             return {
                 ...rest,
                 ...data,
-                id: r.id, // Ensure we use the 'id' field from our schema, not _id
+                id: r.id,
             };
         }) as CRMRecord[];
+    },
+    getRecord: async (id: string) => {
+        await connect();
+        const r = await CRMRecordModel.findOne({ id });
+        if (!r) return null;
+        const { data, ...rest } = r.toObject();
+        return {
+            ...rest,
+            ...data,
+            id: r.id,
+        } as CRMRecord;
     },
     saveRecords: async (records: CRMRecord[]) => {
         await connect();
@@ -207,6 +218,20 @@ export const db = {
     deleteRecords: async (ids: string[]) => {
         await connect();
         await CRMRecordModel.deleteMany({ id: { $in: ids } });
+    },
+    addManyRecords: async (records: CRMRecord[]) => {
+        await connect();
+        const toInsert = records.map(r => {
+            const { id, type, partner, name, mobileNumber, status, stage, uploadedFrom, uploadedAt, updatedAt, remarks, activityLog, ...data } = r;
+            return {
+                id, type, partner, name, mobileNumber, status, stage, uploadedFrom,
+                uploadedAt: uploadedAt ? new Date(uploadedAt) : new Date(),
+                updatedAt: updatedAt ? new Date(updatedAt) : new Date(),
+                remarks, activityLog,
+                data
+            };
+        });
+        await CRMRecordModel.insertMany(toInsert);
     },
 
     // Upload History
