@@ -779,14 +779,18 @@ export const useCRMStore = create<CRMStore>()(
       setHasHydrated: (state: boolean) => set({ hasHydrated: state }),
     }),
     {
-      name: "crm-storage-indexeddb",
+      name: "crm-storage-indexeddb-v2", // Bump version to clear stale state
       storage: createJSONStorage(() => storage),
       partialize: (state) => {
         // INCLUDE records and uploadHistory so they persist across refreshes.
-        // EXCLUDE high-frequency ephemeral state (like search) to prevent 
-        // slow UI performance during typing.
+        // EXCLUDE high-frequency ephemeral state and filters that shouldn't persist
         const {
           searchQuery,
+          statusFilter,
+          partnerFilter,
+          lenderFilter,
+          dpdGroupFilter,
+          npaOnly, // EXPLICITLY exclude this so it doesn't get stuck
           isFetchingRecords,
           isInitialized,
           hasHydrated,
