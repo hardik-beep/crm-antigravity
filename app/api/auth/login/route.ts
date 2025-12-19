@@ -53,7 +53,7 @@ export async function POST(req: Request) {
             await db.createSession({
                 sessionId: `sess_${Date.now()}_${Math.random()}`,
                 userId: user.id || user._id?.toString(),
-                punchInTime: new Date().toISOString(),
+                punchInTime: null,
                 lastActiveTime: new Date().toISOString(),
                 isActive: true
             });

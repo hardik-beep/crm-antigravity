@@ -6,10 +6,12 @@ import { LoginScreen } from "./login-screen"
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { fadeIn } from "@/lib/animations"
+import { PunchInModal } from "./punch-in-modal"
 
 export function AuthWrapper({ children }: { children: React.ReactNode }) {
     const isAuthenticated = useAuthStore(state => state.isAuthenticated)
     const user = useAuthStore(state => state.user)
+    const logout = useAuthStore(state => state.logout)
     const fetchRecords = useCRMStore(state => state.fetchRecords)
     const fetchUploadHistory = useCRMStore(state => state.fetchUploadHistory)
     const [mounted, setMounted] = useState(false)
@@ -22,19 +24,28 @@ export function AuthWrapper({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         if (!isAuthenticated || !user?.id) return
 
-        const sendHeartbeat = () => {
-            fetch('/api/auth/heartbeat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: user.id })
-            }).catch(e => console.error("Heartbeat failed", e))
+        const sendHeartbeat = async () => {
+            try {
+                const res = await fetch('/api/auth/heartbeat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: user.id })
+                })
+
+                if (res.status === 401) {
+                    // Session invalid (logged out by admin)
+                    logout()
+                }
+            } catch (e) {
+                console.error("Heartbeat failed", e)
+            }
         }
 
         sendHeartbeat() // Send immediately
         const interval = setInterval(sendHeartbeat, 60000) // Then every 60s
 
         return () => clearInterval(interval)
-    }, [isAuthenticated, user?.id])
+    }, [isAuthenticated, user?.id, logout])
 
     // Fetch data on auth and poll for updates
     useEffect(() => {
@@ -44,7 +55,6 @@ export function AuthWrapper({ children }: { children: React.ReactNode }) {
             fetchUploadHistory()
 
             // Poll every 15 seconds to keep data in sync
-            // The polling is now more efficient as it checks for a timestamp change first
             const interval = setInterval(() => {
                 fetchRecords()
                 fetchUploadHistory()
@@ -63,16 +73,23 @@ export function AuthWrapper({ children }: { children: React.ReactNode }) {
             {!isAuthenticated ? (
                 <LoginScreen key="login" />
             ) : (
-                <motion.div
-                    key="app"
-                    initial="initial"
-                    animate="animate"
-                    exit="exit"
-                    variants={fadeIn}
-                    className="contents" // Use contents to avoid breaking layout
-                >
-                    {children}
-                </motion.div>
+                <>
+                    {/* Punch In Modal - Blocks access if not punched in */}
+                    {(!user?.punchInTime && user?.role !== 'admin') && (
+                        <PunchInModal />
+                    )}
+
+                    <motion.div
+                        key="app"
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                        variants={fadeIn}
+                        className="contents"
+                    >
+                        {children}
+                    </motion.div>
+                </>
             )}
         </AnimatePresence>
     )

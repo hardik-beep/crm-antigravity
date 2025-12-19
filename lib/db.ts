@@ -17,7 +17,7 @@ export interface DBUser {
 export interface DBSession {
     sessionId: string;
     userId: string;
-    punchInTime: string;
+    punchInTime?: string | null;
     lastActiveTime: string;
     isActive: boolean;
 }
@@ -128,7 +128,7 @@ export const db = {
         return sessions.map(s => ({
             sessionId: s.sessionId,
             userId: s.userId,
-            punchInTime: s.punchInTime.toISOString(),
+            punchInTime: s.punchInTime ? s.punchInTime.toISOString() : null,
             lastActiveTime: s.lastActiveTime.toISOString(),
             isActive: s.isActive,
         }));
@@ -140,17 +140,18 @@ export const db = {
         await Session.create({
             sessionId: session.sessionId,
             userId: session.userId,
-            punchInTime: new Date(session.punchInTime),
+            punchInTime: session.punchInTime ? new Date(session.punchInTime) : null,
             lastActiveTime: new Date(session.lastActiveTime),
             isActive: true,
         });
     },
     updateHeartbeat: async (userId: string) => {
         await connect();
-        await Session.findOneAndUpdate(
+        const result = await Session.findOneAndUpdate(
             { userId, isActive: true },
             { lastActiveTime: new Date() }
         );
+        return result;
     },
     logoutUser: async (userId: string) => {
         await connect();

@@ -8,6 +8,7 @@ export interface User {
     name: string
     email: string
     role: UserRole
+    punchInTime?: string | null
 }
 
 export interface AttendanceRecord {
@@ -27,6 +28,7 @@ interface AuthState {
     logout: () => void
     punchIn: () => void
     punchOut: () => void
+    setPunchInTime: (time: string) => void
     getLastPunch: (userId: string) => AttendanceRecord | undefined
 }
 
@@ -45,6 +47,13 @@ export const useAuthStore = create<AuthState>()(
             },
 
             logout: () => set({ user: null, isAuthenticated: false }),
+
+            setPunchInTime: (time) => {
+                const { user } = get()
+                if (user) {
+                    set({ user: { ...user, punchInTime: time } })
+                }
+            },
 
             punchIn: () => {
                 const { user, attendance } = get()
