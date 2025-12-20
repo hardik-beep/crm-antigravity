@@ -193,6 +193,7 @@ export default function ProtectPage() {
             onDeleteRecords={deleteRecords}
             customStatusOptions={[
               { value: "Part Payment", label: "Part Payment" },
+              { value: "EMI Paid", label: "EMI Paid" },
               { value: "Skip EMI", label: "Skip EMI" },
             ]}
           />

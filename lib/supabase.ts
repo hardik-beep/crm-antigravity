@@ -1,0 +1,19 @@
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+
+if (!supabaseUrl || !supabaseAnonKey) {
+    // We can't throw here comfortably because build time might fail if envs are missing
+    console.warn("Supabase credentials missing in environment variables.")
+}
+
+// Client for public access (respects RLS)
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+// Admin client for server-side operations (bypasses RLS)
+// Only use this in server-side API routes!
+export const supabaseAdmin = supabaseServiceKey
+    ? createClient(supabaseUrl, supabaseServiceKey)
+    : null

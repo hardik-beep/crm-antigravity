@@ -57,7 +57,7 @@ export function filterRecords(records: CRMRecord[], options: FilterOptions): CRM
         // Status Filter
         let matchesStatus = true
         if (statusFilter !== "all") {
-            if ((r.type === "protect") && (statusFilter === "Part Payment" || statusFilter === "Skip EMI")) {
+            if ((r.type === "protect") && (statusFilter === "Part Payment" || statusFilter === "EMI Paid" || statusFilter === "Skip EMI")) {
                 matchesStatus = (r as any).stage === statusFilter
             } else if (r.type === "nexus" && (statusFilter === "request-raised-yes" || statusFilter === "request-raised-no")) {
                 const hasFilledForm = !!(r as any).formFilledDate

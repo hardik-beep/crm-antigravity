@@ -43,7 +43,7 @@ export async function POST(req: Request) {
         return NextResponse.json({
             user: {
                 ...newUser,
-                id: createdUser._id.toString()
+                id: createdUser.id
             }
         });
     } catch (error) {

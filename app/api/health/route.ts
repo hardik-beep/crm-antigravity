@@ -1,33 +1,36 @@
 import { NextResponse } from 'next/server';
-import dbConnect from '@/lib/mongodb';
-import mongoose from 'mongoose';
+import { supabaseAdmin } from '@/lib/supabase';
 
 export async function GET() {
     try {
-        const conn = await dbConnect();
-
-        if (!conn) {
+        if (!supabaseAdmin) {
             return NextResponse.json({
                 status: 'error',
-                message: 'MongoDB URI is not defined or connection failed.',
-                readyState: 0
+                message: 'Supabase Admin Client not initialized',
             }, { status: 500 });
         }
 
-        const readyState = mongoose.connection.readyState;
-        const potentialStates = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+        const { error, count } = await supabaseAdmin
+            .from('users')
+            .select('*', { count: 'exact', head: true });
+
+        if (error) {
+            return NextResponse.json({
+                status: 'unhealthy',
+                message: error.message
+            }, { status: 503 });
+        }
 
         return NextResponse.json({
-            status: readyState === 1 ? 'healthy' : 'unhealthy',
-            message: `Database is ${potentialStates[readyState]}`,
-            readyState
-        }, { status: readyState === 1 ? 200 : 503 });
+            status: 'healthy',
+            message: 'Supabase connection active',
+            userCount: count
+        }, { status: 200 });
 
     } catch (error) {
         return NextResponse.json({
             status: 'error',
-            message: error instanceof Error ? error.message : 'Unknown error',
-            readyState: mongoose.connection.readyState
+            message: error instanceof Error ? error.message : 'Unknown error'
         }, { status: 500 });
     }
 }

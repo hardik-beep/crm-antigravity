@@ -50,7 +50,7 @@ const statusStyles: Record<Status, string> = {
   "Settled": "bg-green-600/10 text-green-600 border-green-600/20",
 }
 
-const protectStages = ["Part Payment", "Skip", "On Hold Awaiting Confirmation from Lender"]
+const protectStages = ["Part Payment", "EMI Paid", "Skip", "On Hold Awaiting Confirmation from Lender"]
 const settlementStages = [
   "Details Shared",
   "Negotiation",
@@ -284,8 +284,8 @@ export function RecordDetailModal({ recordId, open, onClose }: { recordId: strin
                     </div>
                   )}
 
-                  {/* PART PAYMENT Logic */}
-                  {record.stage === "Part Payment" && (
+                  {/* PART PAYMENT / EMI PAID Logic */}
+                  {(record.stage === "Part Payment" || record.stage === "EMI Paid") && (
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium">Number of payment parts</span>
