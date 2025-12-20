@@ -23,22 +23,22 @@ export async function POST(req: Request) {
         if (!user || !passwordMatch) {
             if (username === 'admin' && password === 'admin123') {
                 user = {
-                    id: 'admin-1',
+                    id: user?.id || 'admin-1',
                     username: 'admin',
                     password: 'admin123',
                     name: 'Administrator',
                     role: 'admin',
-                    createdAt: new Date().toISOString()
+                    createdAt: user?.createdAt || new Date().toISOString()
                 };
                 passwordMatch = true;
             } else if (username === 'agent' && password === 'agent') {
                 user = {
-                    id: 'agent-default',
+                    id: user?.id || 'agent-default',
                     username: 'agent',
                     password: 'agent',
                     name: 'Default Agent',
                     role: 'agent',
-                    createdAt: new Date().toISOString()
+                    createdAt: user?.createdAt || new Date().toISOString()
                 };
                 passwordMatch = true;
             }

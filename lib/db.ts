@@ -259,22 +259,35 @@ export const db = {
                 last_active_time: new Date(session.lastActiveTime).toISOString(),
                 is_active: true,
             });
-        } catch (e) {
-            console.error("[DB] createSession failed:", e);
+        } catch (e: any) {
+            console.error("[DB] createSession failed for user:", session.userId, "Error:", e?.message || e);
         }
     },
 
     updateHeartbeat: async (userId: string) => {
         const supabase = getClient();
-        if (!supabase) return null;
-        const { data, error } = await supabase
-            .from('sessions')
-            .update({ last_active_time: new Date().toISOString() })
-            .eq('user_id', userId)
-            .eq('is_active', true)
-            .select();
-        // The original contract returned "result", but usages just await usually.
-        return data;
+        if (!supabase) return true; // Fallback to success if DB is unavailable
+
+        try {
+            const { data, error } = await supabase
+                .from('sessions')
+                .update({ last_active_time: new Date().toISOString() })
+                .eq('user_id', userId)
+                .eq('is_active', true)
+                .select();
+
+            if (error) {
+                console.error("[DB] Heartbeat update error:", error.message);
+                return true; // Return true to avoid logging out the user on DB errors
+            }
+
+            // If no sessions were updated, it means the session was deactivated (e.g. by admin)
+            // or it never existed. In this case we return false to trigger logout.
+            return data && data.length > 0;
+        } catch (e) {
+            console.error("[DB] Heartbeat unexpected error:", e);
+            return true;
+        }
     },
 
     punchInUser: async (userId: string) => {

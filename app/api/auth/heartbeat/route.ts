@@ -8,9 +8,9 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Missing userId' }, { status: 400 });
         }
 
-        const validSession = await db.updateHeartbeat(userId);
+        const isValid = await db.updateHeartbeat(userId);
 
-        if (!validSession) {
+        if (isValid === false) {
             return NextResponse.json({ error: 'Session invalid' }, { status: 401 });
         }
 
