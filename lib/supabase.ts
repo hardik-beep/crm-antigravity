@@ -10,10 +10,12 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 // Client for public access (respects RLS)
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = (supabaseUrl && supabaseUrl.startsWith('http'))
+    ? createClient(supabaseUrl, supabaseAnonKey)
+    : null as any
 
 // Admin client for server-side operations (bypasses RLS)
 // Only use this in server-side API routes!
-export const supabaseAdmin = supabaseServiceKey
+export const supabaseAdmin = (supabaseUrl && supabaseUrl.startsWith('http') && supabaseServiceKey)
     ? createClient(supabaseUrl, supabaseServiceKey)
     : null

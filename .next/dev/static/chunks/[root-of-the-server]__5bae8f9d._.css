@@ -410,7 +410,6 @@
     --container-md: 28rem;
     --container-lg: 32rem;
     --container-2xl: 42rem;
-    --container-3xl: 48rem;
     --container-4xl: 56rem;
     --container-5xl: 64rem;
     --text-xs: .75rem;
@@ -1642,10 +1641,6 @@
     max-width: var(--container-2xl);
   }
 
-  .max-w-3xl {
-    max-width: var(--container-3xl);
-  }
-
   .max-w-4xl {
     max-width: var(--container-4xl);
   }
@@ -2438,28 +2433,8 @@
     border-color: var(--sidebar-border);
   }
 
-  .border-success\/20 {
-    border-color: var(--success);
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .border-success\/20 {
-      border-color: color-mix(in oklab, var(--success) 20%, transparent);
-    }
-  }
-
   .border-transparent {
     border-color: #0000;
-  }
-
-  .border-warning\/20 {
-    border-color: var(--warning);
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .border-warning\/20 {
-      border-color: color-mix(in oklab, var(--warning) 20%, transparent);
-    }
   }
 
   .border-yellow-500\/20 {
@@ -2820,26 +2795,6 @@
     background-color: var(--secondary);
   }
 
-  .bg-secondary\/30 {
-    background-color: var(--secondary);
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-secondary\/30 {
-      background-color: color-mix(in oklab, var(--secondary) 30%, transparent);
-    }
-  }
-
-  .bg-secondary\/50 {
-    background-color: var(--secondary);
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-secondary\/50 {
-      background-color: color-mix(in oklab, var(--secondary) 50%, transparent);
-    }
-  }
-
   .bg-sidebar {
     background-color: var(--sidebar);
   }
@@ -2848,28 +2803,8 @@
     background-color: var(--sidebar-border);
   }
 
-  .bg-success\/10 {
-    background-color: var(--success);
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-success\/10 {
-      background-color: color-mix(in oklab, var(--success) 10%, transparent);
-    }
-  }
-
   .bg-transparent {
     background-color: #0000;
-  }
-
-  .bg-warning\/10 {
-    background-color: var(--warning);
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-warning\/10 {
-      background-color: color-mix(in oklab, var(--warning) 10%, transparent);
-    }
   }
 
   .bg-white {
@@ -3417,14 +3352,6 @@
     .text-sidebar-foreground\/70 {
       color: color-mix(in oklab, var(--sidebar-foreground) 70%, transparent);
     }
-  }
-
-  .text-success {
-    color: var(--success);
-  }
-
-  .text-warning {
-    color: var(--warning);
   }
 
   .text-white {
@@ -4370,30 +4297,6 @@
   @media (hover: hover) {
     .hover\:bg-secondary:hover {
       background-color: var(--secondary);
-    }
-  }
-
-  @media (hover: hover) {
-    .hover\:bg-secondary\/30:hover {
-      background-color: var(--secondary);
-    }
-
-    @supports (color: color-mix(in lab, red, red)) {
-      .hover\:bg-secondary\/30:hover {
-        background-color: color-mix(in oklab, var(--secondary) 30%, transparent);
-      }
-    }
-  }
-
-  @media (hover: hover) {
-    .hover\:bg-secondary\/50:hover {
-      background-color: var(--secondary);
-    }
-
-    @supports (color: color-mix(in lab, red, red)) {
-      .hover\:bg-secondary\/50:hover {
-        background-color: color-mix(in oklab, var(--secondary) 50%, transparent);
-      }
     }
   }
 
@@ -5826,18 +5729,6 @@
   @media (min-width: 40rem) {
     .sm\:flex-row {
       flex-direction: row;
-    }
-  }
-
-  @media (min-width: 40rem) {
-    .sm\:items-center {
-      align-items: center;
-    }
-  }
-
-  @media (min-width: 40rem) {
-    .sm\:justify-between {
-      justify-content: space-between;
     }
   }
 

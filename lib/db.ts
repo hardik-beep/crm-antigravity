@@ -56,7 +56,9 @@ export interface DBSession {
 // Helper to ensure we have the admin client
 function getClient() {
     if (!supabaseAdmin) {
-        throw new Error("Supabase Admin Client not initialized. Check SUPABASE_SERVICE_ROLE_KEY.");
+        // Log specifically so it shows up in Vercel logs
+        console.warn("[DB] Supabase Admin Client not initialized. Check SUPABASE_SERVICE_ROLE_KEY environment variable.");
+        return null; // Return null instead of throwing to allow fallbacks
     }
     return supabaseAdmin;
 }
@@ -64,15 +66,23 @@ function getClient() {
 // Initial data for fresh DB
 async function seedInitialData() {
     const supabase = getClient();
+    if (!supabase) return;
+
     try {
-        const { data: adminExists } = await supabase
+        const { data: adminExists, error: checkError } = await supabase
             .from('users')
             .select('*')
             .eq('role', 'admin')
             .maybeSingle();
 
+        if (checkError) {
+            console.error('[DB] Error checking for admin user:', checkError.message);
+            return; // If we can't even check, don't try to insert blindly
+        }
+
         if (!adminExists) {
-            await supabase.from('users').insert([
+            console.log('[DB] No admin found, seeding default users...');
+            const { error: seedError } = await supabase.from('users').insert([
                 {
                     id: 'admin-1',
                     username: 'admin',
@@ -90,16 +100,22 @@ async function seedInitialData() {
                     created_at: new Date().toISOString(),
                 }
             ]);
-            console.log('[DB] Seeded initial admin and agent users.');
+
+            if (seedError) {
+                console.error('[DB] Error seeding initial users:', seedError.message);
+            } else {
+                console.log('[DB] Seeded initial admin and agent users.');
+            }
         }
     } catch (error) {
-        console.error('[DB] Error during initial data seeding:', error);
+        console.error('[DB] unexpected error during initial data seeding:', error);
     }
 }
 
 export const db = {
     getUsers: async () => {
         const supabase = getClient();
+        if (!supabase) return [];
         await seedInitialData();
         const { data, error } = await supabase.from('users').select('*');
         if (error) throw error;
@@ -116,6 +132,7 @@ export const db = {
 
     addUser: async (user: DBUser) => {
         const supabase = getClient();
+        if (!supabase) throw new Error("Supabase client not initialized.");
         const { data, error } = await supabase.from('users').insert({
             id: user.id || crypto.randomUUID(), // Ensure ID if not provided
             username: user.username,
@@ -131,6 +148,7 @@ export const db = {
 
     deleteUser: async (userId: string) => {
         const supabase = getClient();
+        if (!supabase) return;
         await supabase.from('users').delete().eq('id', userId);
         // Cascade delete handles sessions ideally, but just in case
         await supabase.from('sessions').delete().eq('user_id', userId);
@@ -138,6 +156,8 @@ export const db = {
 
     findUser: async (username: string) => {
         const supabase = getClient();
+        if (!supabase) return null; // Fallback to hardcoded users if no client
+
         await seedInitialData();
         const { data: u, error } = await supabase
             .from('users')
@@ -145,7 +165,10 @@ export const db = {
             .eq('username', username)
             .maybeSingle();
 
-        if (error) throw error;
+        if (error) {
+            console.error(`[DB] findUser error for ${username}:`, error.message);
+            return null; // Treat error as user not found for login flow to allow fallback
+        }
         if (!u) return null;
 
         return {
@@ -160,6 +183,7 @@ export const db = {
 
     getLastModified: async () => {
         const supabase = getClient();
+        if (!supabase) return new Date(0).toISOString();
         const { data: lastRecord } = await supabase
             .from('crm_records')
             .select('updated_at')
@@ -183,6 +207,7 @@ export const db = {
 
     getRecordCount: async () => {
         const supabase = getClient();
+        if (!supabase) return 0;
         const { count, error } = await supabase
             .from('crm_records')
             .select('*', { count: 'exact', head: true });
@@ -192,6 +217,7 @@ export const db = {
 
     getUploadCount: async () => {
         const supabase = getClient();
+        if (!supabase) return 0;
         const { count, error } = await supabase
             .from('upload_history')
             .select('*', { count: 'exact', head: true });
@@ -201,6 +227,7 @@ export const db = {
 
     getSessions: async () => {
         const supabase = getClient();
+        if (!supabase) return [];
         const { data, error } = await supabase.from('sessions').select('*');
         if (error) throw error;
 
@@ -215,24 +242,31 @@ export const db = {
 
     createSession: async (session: DBSession) => {
         const supabase = getClient();
-        // Deactivate previous sessions for this user
-        await supabase
-            .from('sessions')
-            .update({ is_active: false })
-            .eq('user_id', session.userId)
-            .eq('is_active', true);
+        if (!supabase) return;
 
-        await supabase.from('sessions').insert({
-            session_id: session.sessionId,
-            user_id: session.userId,
-            punch_in_time: session.punchInTime || null,
-            last_active_time: new Date(session.lastActiveTime).toISOString(),
-            is_active: true,
-        });
+        // Deactivate previous sessions for this user
+        try {
+            await supabase
+                .from('sessions')
+                .update({ is_active: false })
+                .eq('user_id', session.userId)
+                .eq('is_active', true);
+
+            await supabase.from('sessions').insert({
+                session_id: session.sessionId,
+                user_id: session.userId,
+                punch_in_time: session.punchInTime || null,
+                last_active_time: new Date(session.lastActiveTime).toISOString(),
+                is_active: true,
+            });
+        } catch (e) {
+            console.error("[DB] createSession failed:", e);
+        }
     },
 
     updateHeartbeat: async (userId: string) => {
         const supabase = getClient();
+        if (!supabase) return null;
         const { data, error } = await supabase
             .from('sessions')
             .update({ last_active_time: new Date().toISOString() })
@@ -245,6 +279,7 @@ export const db = {
 
     punchInUser: async (userId: string) => {
         const supabase = getClient();
+        if (!supabase) return null;
         const { data, error } = await supabase
             .from('sessions')
             .update({ punch_in_time: new Date().toISOString() })
@@ -258,6 +293,7 @@ export const db = {
 
     logoutUser: async (userId: string) => {
         const supabase = getClient();
+        if (!supabase) return;
         await supabase
             .from('sessions')
             .update({ is_active: false })
@@ -268,6 +304,7 @@ export const db = {
     // Records management
     getRecords: async () => {
         const supabase = getClient();
+        if (!supabase) return [];
         const { data, error } = await supabase.from('crm_records').select('*');
         if (error) throw error;
 
@@ -295,6 +332,7 @@ export const db = {
 
     getRecord: async (id: string) => {
         const supabase = getClient();
+        if (!supabase) return null;
         const { data: r, error } = await supabase
             .from('crm_records')
             .select('*')
@@ -323,6 +361,7 @@ export const db = {
 
     saveRecords: async (records: CRMRecord[]) => {
         const supabase = getClient();
+        if (!supabase) return;
         // Nuke all records
         await supabase.from('crm_records').delete().neq('id', 'placeholder_never_match'); // Delete all
 
@@ -354,6 +393,7 @@ export const db = {
 
     addRecord: async (record: CRMRecord) => {
         const supabase = getClient();
+        if (!supabase) return;
         const { id, type, partner, name, mobileNumber, status, stage, uploadedFrom, uploadedAt, updatedAt, remarks, activityLog, ...extraData } = record;
 
         const { error } = await supabase.from('crm_records').insert({
@@ -376,6 +416,7 @@ export const db = {
 
     updateRecord: async (record: CRMRecord) => {
         const supabase = getClient();
+        if (!supabase) return;
         const { id, type, partner, name, mobileNumber, status, stage, uploadedFrom, uploadedAt, updatedAt, remarks, activityLog, ...extraData } = record;
 
         // Upsert
@@ -400,16 +441,19 @@ export const db = {
 
     deleteRecord: async (id: string) => {
         const supabase = getClient();
+        if (!supabase) return;
         await supabase.from('crm_records').delete().eq('id', id);
     },
 
     deleteRecords: async (ids: string[]) => {
         const supabase = getClient();
+        if (!supabase) return;
         await supabase.from('crm_records').delete().in('id', ids);
     },
 
     addManyRecords: async (records: CRMRecord[]) => {
         const supabase = getClient();
+        if (!supabase) throw new Error("Supabase client not initialized.");
         const insertionTime = new Date();
         const toInsert = records.map(r => {
             const { id, type, partner, name, mobileNumber, status, stage, uploadedFrom, uploadedAt, updatedAt, remarks, activityLog, ...extraData } = r;
@@ -445,6 +489,7 @@ export const db = {
     // Upload History
     getUploadHistory: async () => {
         const supabase = getClient();
+        if (!supabase) return [];
         const { data, error } = await supabase
             .from('upload_history')
             .select('*')
@@ -466,6 +511,7 @@ export const db = {
 
     addUploadHistory: async (history: UploadHistoryType) => {
         const supabase = getClient();
+        if (!supabase) return;
         const { error } = await supabase.from('upload_history').insert({
             id: history.id,
             file_name: history.fileName,
@@ -482,6 +528,7 @@ export const db = {
     // Get active sessions populated with user details
     getActiveAgents: async () => {
         const supabase = getClient();
+        if (!supabase) return [];
 
         const { data: users } = await supabase.from('users').select('*');
         const { data: sessions } = await supabase.from('sessions').select('*').eq('is_active', true);

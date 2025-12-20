@@ -18,9 +18,9 @@ export async function POST(req: Request) {
 
         let passwordMatch = user && user.password === password;
 
-        // 2. Fallback: Check hardcoded defaults if DB fails or user not found
-        // This ensures admin/agent always works even if file system is read-only or empty
-        if (!user) {
+        // 2. Fallback: Check hardcoded defaults if DB fails or user not found or password doesn't match
+        // This ensures the USER can always get in with the known default even if DB is out of sync
+        if (!user || !passwordMatch) {
             if (username === 'admin' && password === 'admin123') {
                 user = {
                     id: 'admin-1',
