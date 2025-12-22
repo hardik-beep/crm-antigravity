@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
+import { db } from '@/lib/db';
 
 export async function GET() {
     try {
+        // Trigger seeding if needed
+        await db.getUsers().catch(() => { });
+
         if (!supabaseAdmin) {
             return NextResponse.json({
                 error: 'Supabase Admin Client not initialized',
@@ -13,7 +17,7 @@ export async function GET() {
             }, { status: 500 });
         }
 
-        const { data, error } = await supabaseAdmin.from('users').select('count', { count: 'exact', head: true });
+        const { data, error } = await supabaseAdmin.from('users').select('*').limit(1);
 
         if (error) {
             return NextResponse.json({
