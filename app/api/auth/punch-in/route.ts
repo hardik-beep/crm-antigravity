@@ -44,15 +44,20 @@ export async function POST(req: Request) {
         }
 
         console.log(`[PunchIn] Successfully updated existing session for user ${userId}`);
-        return NextResponse.json({
-            success: true,
-            punchInTime: result.punch_in_time
-        });
     } catch (error: any) {
         console.error("[PunchIn] Vital error:", error);
+
+        // Detect specific Supabase auth error
+        const isApiKeyError = error.message?.includes("Invalid API key") ||
+            JSON.stringify(error).includes("Invalid API key");
+
+        const userMessage = isApiKeyError
+            ? "Server Configuration Error: Invalid API Key. Please check SUPABASE_SERVICE_ROLE_KEY in Vercel Settings."
+            : (error.message || 'Punch-in failed');
+
         return NextResponse.json({
-            error: error.message || 'Punch-in failed',
-            details: error.toString()
+            error: userMessage,
+            details: typeof error === 'object' ? JSON.stringify(error) : String(error)
         }, { status: 500 });
     }
 }

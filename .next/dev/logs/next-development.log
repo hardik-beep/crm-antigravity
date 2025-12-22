@@ -177,3 +177,6 @@
 [00:27:35.998] Browser LOG     [Sync] Fetching records. Reason: Newer=false, CountMismatch=false (0 vs 0)
 [00:28:01.259] Server  LOG      ✓ Compiled in 138ms
 [00:28:09.745] Server  LOG      ✓ Compiled in 133ms
+[00:28:35.983] Browser LOG     [Sync] Fetching records. Reason: Newer=false, CountMismatch=false (0 vs 0)
+[00:29:35.997] Browser LOG     [Sync] Fetching records. Reason: Newer=false, CountMismatch=false (0 vs 0)
+[00:30:35.987] Browser LOG     [Sync] Fetching records. Reason: Newer=false, CountMismatch=false (0 vs 0)
