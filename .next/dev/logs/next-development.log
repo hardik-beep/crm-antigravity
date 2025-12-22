@@ -180,3 +180,4 @@
 [00:28:35.983] Browser LOG     [Sync] Fetching records. Reason: Newer=false, CountMismatch=false (0 vs 0)
 [00:29:35.997] Browser LOG     [Sync] Fetching records. Reason: Newer=false, CountMismatch=false (0 vs 0)
 [00:30:35.987] Browser LOG     [Sync] Fetching records. Reason: Newer=false, CountMismatch=false (0 vs 0)
+[00:39:07.220] Server  LOG      ✓ Compiled in 326ms
