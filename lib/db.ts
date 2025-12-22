@@ -237,21 +237,32 @@ export const db = {
 
         // Deactivate previous sessions for this user
         try {
-            await supabase
+            const { error: updateError } = await supabase
                 .from('sessions')
                 .update({ is_active: false })
                 .eq('user_id', session.userId)
                 .eq('is_active', true);
 
-            await supabase.from('sessions').insert({
+            if (updateError) {
+                console.error("[DB] createSession deactivate failed:", updateError.message);
+                throw updateError;
+            }
+
+            const { error: insertError } = await supabase.from('sessions').insert({
                 session_id: session.sessionId,
                 user_id: session.userId,
                 punch_in_time: session.punchInTime || null,
                 last_active_time: new Date(session.lastActiveTime).toISOString(),
                 is_active: true,
             });
+
+            if (insertError) {
+                console.error("[DB] createSession insert failed:", insertError.message);
+                throw insertError;
+            }
         } catch (e: any) {
-            console.error("[DB] createSession failed for user:", session.userId, "Error:", e?.message || e);
+            console.error("[DB] createSession caught error:", e?.message || e);
+            throw e; // Re-throw to let the API route handle the 500
         }
     },
 
@@ -291,7 +302,10 @@ export const db = {
             .eq('is_active', true)
             .select();
 
-        if (error) throw error;
+        if (error) {
+            console.error("[DB] punchInUser failed:", error.message);
+            throw error;
+        }
         return data && data.length > 0 ? data[0] : null;
     },
 
