@@ -18,9 +18,11 @@ export async function GET() {
         if (error) {
             return NextResponse.json({
                 error: 'Supabase Query Failed',
-                message: error.message,
-                code: error.code,
-                hint: error.hint
+                fullError: error,
+                envStatus: {
+                    url: process.env.NEXT_PUBLIC_SUPABASE_URL ? `PRESENT (${process.env.NEXT_PUBLIC_SUPABASE_URL.substring(0, 15)}...)` : 'MISSING',
+                    serviceKey: process.env.SUPABASE_SERVICE_ROLE_KEY ? `PRESENT (${process.env.SUPABASE_SERVICE_ROLE_KEY.substring(0, 10)}...)` : 'MISSING'
+                }
             }, { status: 500 });
         }
 
