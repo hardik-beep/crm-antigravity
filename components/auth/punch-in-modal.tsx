@@ -27,13 +27,22 @@ export function PunchInModal() {
             const data = await res.json()
 
             if (!res.ok) {
-                throw new Error(data.error || "Failed to punch in")
+                const errorMessage = data.details
+                    ? `${data.error} (${data.details})`
+                    : (data.error || "Failed to punch in");
+                throw new Error(errorMessage)
             }
 
             setPunchInTime(data.punchInTime)
             toast.success("Punched in successfully!")
         } catch (error: any) {
             console.error("Punch-in error:", error)
+            // Show detailed error if available from the API response error object thrown above
+            // The error object thrown above is just the message string if we did `throw new Error(...)`
+            // But we want to capture the details.
+            // Let's rely on the fact that we can't easily pass the full object to Error constructor standardly without custom class.
+            // Simpler: Just rely on the message. Back in the fetch block:
+            // We should format the error message there.
             toast.error(error.message || "Failed to punch in. Please try again.")
         } finally {
             setIsLoading(false)
