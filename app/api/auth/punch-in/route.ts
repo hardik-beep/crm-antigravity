@@ -35,8 +35,11 @@ export async function POST(req: Request) {
             success: true,
             punchInTime: result.punch_in_time
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error("Punch-in error:", error);
-        return NextResponse.json({ error: 'Punch-in failed' }, { status: 500 });
+        return NextResponse.json({
+            error: error.message || 'Punch-in failed',
+            details: error.toString()
+        }, { status: 500 });
     }
 }

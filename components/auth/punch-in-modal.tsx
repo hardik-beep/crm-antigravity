@@ -32,8 +32,9 @@ export function PunchInModal() {
 
             setPunchInTime(data.punchInTime)
             toast.success("Punched in successfully!")
-        } catch (error) {
-            toast.error("Failed to punch in. Please try again.")
+        } catch (error: any) {
+            console.error("Punch-in error:", error)
+            toast.error(error.message || "Failed to punch in. Please try again.")
         } finally {
             setIsLoading(false)
         }
