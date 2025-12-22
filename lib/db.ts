@@ -64,49 +64,40 @@ function getClient() {
 }
 
 // Initial data for fresh DB
+// Initial data for fresh DB
 async function seedInitialData() {
     const supabase = getClient();
     if (!supabase) return;
 
     try {
-        const { data: adminExists, error: checkError } = await supabase
-            .from('users')
-            .select('*')
-            .eq('role', 'admin')
-            .maybeSingle();
+        // Ensure default admin exists
+        const { error: adminError } = await supabase.from('users').upsert({
+            id: 'admin-1',
+            username: 'admin',
+            password: 'admin123',
+            name: 'Administrator',
+            role: 'admin',
+            created_at: new Date().toISOString(),
+        }, { onConflict: 'id', ignoreDuplicates: true });
 
-        if (checkError) {
-            console.error('[DB] Error checking for admin user:', checkError.message);
-            return; // If we can't even check, don't try to insert blindly
+        if (adminError) {
+            console.error('[DB] Error seeding default admin:', adminError.message);
         }
 
-        if (!adminExists) {
-            console.log('[DB] No admin found, seeding default users...');
-            const { error: seedError } = await supabase.from('users').insert([
-                {
-                    id: 'admin-1',
-                    username: 'admin',
-                    password: 'admin123',
-                    name: 'Administrator',
-                    role: 'admin',
-                    created_at: new Date().toISOString(),
-                },
-                {
-                    id: 'agent-default',
-                    username: 'agent',
-                    password: 'agent',
-                    name: 'Default Agent',
-                    role: 'agent',
-                    created_at: new Date().toISOString(),
-                }
-            ]);
+        // Ensure default agent exists
+        const { error: agentError } = await supabase.from('users').upsert({
+            id: 'agent-default',
+            username: 'agent',
+            password: 'agent',
+            name: 'Default Agent',
+            role: 'agent',
+            created_at: new Date().toISOString(),
+        }, { onConflict: 'id', ignoreDuplicates: true });
 
-            if (seedError) {
-                console.error('[DB] Error seeding initial users:', seedError.message);
-            } else {
-                console.log('[DB] Seeded initial admin and agent users.');
-            }
+        if (agentError) {
+            console.error('[DB] Error seeding default agent:', agentError.message);
         }
+
     } catch (error) {
         console.error('[DB] unexpected error during initial data seeding:', error);
     }

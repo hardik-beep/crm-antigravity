@@ -49,6 +49,7 @@ export async function POST(req: Request) {
         }
 
         // Create session
+        // Create session
         try {
             await db.createSession({
                 sessionId: `sess_${Date.now()}_${Math.random()}`,
@@ -58,8 +59,8 @@ export async function POST(req: Request) {
                 isActive: true
             });
         } catch (e) {
-            // Ignore session creation error on read-only systems
-            console.error("Session creation failed (likely read-only FS):", e);
+            console.error("Session creation failed:", e);
+            return NextResponse.json({ error: 'Failed to create active session' }, { status: 500 });
         }
 
         const { password: _, ...userWithoutPass } = user;
