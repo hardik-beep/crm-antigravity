@@ -289,10 +289,10 @@ export const db = {
             .update({ punch_in_time: new Date().toISOString() })
             .eq('user_id', userId)
             .eq('is_active', true)
-            .select()
-            .maybeSingle();
+            .select();
+
         if (error) throw error;
-        return data;
+        return data && data.length > 0 ? data[0] : null;
     },
 
     logoutUser: async (userId: string) => {

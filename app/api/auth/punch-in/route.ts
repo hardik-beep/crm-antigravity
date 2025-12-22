@@ -12,7 +12,23 @@ export async function POST(req: Request) {
         const result = await db.punchInUser(userId);
 
         if (!result) {
-            return NextResponse.json({ error: 'No active session found' }, { status: 404 });
+            console.log(`[PunchIn] No active session found for ${userId}, creating new session...`);
+
+            const punchInTime = new Date().toISOString();
+            const sessionId = `sess_${Date.now()}_${Math.random()}`;
+
+            await db.createSession({
+                sessionId,
+                userId,
+                punchInTime: punchInTime,
+                lastActiveTime: punchInTime,
+                isActive: true
+            });
+
+            return NextResponse.json({
+                success: true,
+                punchInTime: punchInTime
+            });
         }
 
         return NextResponse.json({
