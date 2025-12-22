@@ -56,9 +56,9 @@ export interface DBSession {
 // Helper to ensure we have the admin client
 function getClient() {
     if (!supabaseAdmin) {
-        // Log specifically so it shows up in Vercel logs
-        console.warn("[DB] Supabase Admin Client not initialized. Check SUPABASE_SERVICE_ROLE_KEY environment variable.");
-        return null; // Return null instead of throwing to allow fallbacks
+        const isProd = process.env.NODE_ENV === 'production';
+        console.warn(`[DB] Supabase Admin Client not initialized. ${isProd ? 'CRITICAL: Check SUPABASE_SERVICE_ROLE_KEY on Vercel.' : 'Note: Falling back to local/dummy data.'}`);
+        return null;
     }
     return supabaseAdmin;
 }
@@ -233,7 +233,16 @@ export const db = {
 
     createSession: async (session: DBSession) => {
         const supabase = getClient();
-        if (!supabase) return;
+        if (!supabase) {
+            // In production, we should NOT allow silent failures of session creation
+            if (process.env.NODE_ENV === 'production') {
+                throw new Error("Supabase Admin Client not initialized. Check environment variables.");
+            }
+            return;
+        }
+
+        // Ensure defaults exist (in case of fresh DB and restored session)
+        await seedInitialData();
 
         // Deactivate previous sessions for this user
         try {
@@ -294,7 +303,12 @@ export const db = {
 
     punchInUser: async (userId: string) => {
         const supabase = getClient();
-        if (!supabase) return null;
+        if (!supabase) {
+            if (process.env.NODE_ENV === 'production') {
+                throw new Error("Supabase Admin Client not initialized. Check environment variables.");
+            }
+            return null;
+        }
         const { data, error } = await supabase
             .from('sessions')
             .update({ punch_in_time: new Date().toISOString() })
@@ -303,10 +317,16 @@ export const db = {
             .select();
 
         if (error) {
-            console.error("[DB] punchInUser failed:", error.message);
+            console.error("[DB] punchInUser failed:", error.message, error);
             throw error;
         }
-        return data && data.length > 0 ? data[0] : null;
+
+        if (!data || data.length === 0) {
+            console.log(`[DB] No active session row found to update for ${userId}`);
+            return null;
+        }
+
+        return data[0];
     },
 
     logoutUser: async (userId: string) => {
