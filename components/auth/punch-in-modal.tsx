@@ -24,7 +24,16 @@ export function PunchInModal() {
                 body: JSON.stringify({ userId: user.id })
             })
 
-            const data = await res.json()
+            const text = await res.text()
+            console.log("[PunchIn] Response text:", text)
+
+            let data
+            try {
+                data = JSON.parse(text)
+            } catch (e) {
+                console.error("[PunchIn] Failed to parse JSON:", e)
+                throw new Error("Server returned an invalid response. Check console for details.")
+            }
 
             if (!res.ok) {
                 const errorMessage = data.details

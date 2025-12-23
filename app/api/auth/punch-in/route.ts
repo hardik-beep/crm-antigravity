@@ -57,7 +57,7 @@ export async function POST(req: Request) {
 
         return NextResponse.json({
             error: userMessage,
-            details: typeof error === 'object' ? JSON.stringify(error) : String(error)
+            details: error instanceof Error ? error.message + (error.stack ? `\n${error.stack}` : '') : (typeof error === 'object' ? JSON.stringify(error, null, 2) : String(error))
         }, { status: 500 });
     }
 }
