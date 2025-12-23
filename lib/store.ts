@@ -271,24 +271,45 @@ export const useCRMStore = create<CRMStore>()(
           uploadHistory: [upload, ...state.uploadHistory],
         }));
 
-        // Sync
+        // Sync in Chunks
+        const CHUNK_SIZE = 500;
+        const totalParams = newRecords.length;
+        const chunks = [];
+
+        for (let i = 0; i < totalParams; i += CHUNK_SIZE) {
+          chunks.push(newRecords.slice(i, i + CHUNK_SIZE));
+        }
+
+        console.log(`[Store] Uploading ${totalParams} records in ${chunks.length} chunks...`);
+
         try {
-          const resRec = await fetch('/api/records', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ records: newRecords })
-          });
+          // Upload sequentially to avoid flooding server DB connection pool
+          for (const [index, chunk] of chunks.entries()) {
+            try {
+              const resRec = await fetch('/api/records', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ records: chunk })
+              });
 
-          if (!resRec.ok) throw new Error(`Failed to save records: ${resRec.statusText}`);
+              if (!resRec.ok) throw new Error(`Chunk ${index + 1}/${chunks.length} failed: ${resRec.statusText}`);
 
-          const dataRec = await resRec.json();
-          // Vital: Update client's last-sync time to what the server reported.
-          // This prevents the immediate next "sync check" from thinking server is ahead 
-          // (because we just pushed data there) and re-fetching/overwriting our local state.
-          if (dataRec.serverTime) {
-            set({ lastServerSync: dataRec.serverTime });
+              const dataRec = await resRec.json();
+
+              // Update server sync time from the Last Chunk only (to be safe, or keep the latest)
+              if (dataRec.serverTime) {
+                set({ lastServerSync: dataRec.serverTime });
+              }
+
+              console.log(`[Store] Chunk ${index + 1}/${chunks.length} uploaded successfully.`);
+
+            } catch (chunkError) {
+              console.error(`[Store] Error uploading chunk ${index + 1}:`, chunkError);
+              throw chunkError; // Trigger restart/revert
+            }
           }
 
+          // Save history only after all records are safely up
           const resHist = await fetch('/api/upload-history', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -297,14 +318,17 @@ export const useCRMStore = create<CRMStore>()(
 
           if (!resHist.ok) console.warn("Failed to save upload history, but records saved.");
 
-        } catch (e) {
+        } catch (e: any) {
           console.error("Sync failed", e);
+          const errorMsg = e.message || String(e);
           // Revert optimistic update
           set((state) => ({
             records: state.records.filter((r) => !newRecords.some((nr) => nr.id === r.id)),
             uploadHistory: state.uploadHistory.filter((h) => h.id !== upload.id),
           }));
-          throw e;
+
+          // Re-throw with user friendly message
+          throw new Error(`Upload failed during sync: ${errorMsg}. All changes reverted.`);
         }
       },
 
