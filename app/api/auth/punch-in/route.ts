@@ -1,25 +1,44 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 
-export async function POST(req: Request) {
-    try {
-        const { userId } = await req.json();
+export const dynamic = 'force-dynamic';
 
+export async function POST(req: Request) {
+    // 1. Log Entry
+    console.log("[PunchIn API] Request received");
+
+    try {
+        // 2. Parse Body safely
+        let body;
+        try {
+            const text = await req.text();
+            if (!text) throw new Error("Empty request body");
+            body = JSON.parse(text);
+        } catch (e: any) {
+            console.error("[PunchIn API] Body parse error:", e.message);
+            return NextResponse.json({ error: 'Invalid JSON body', details: e.message }, { status: 400 });
+        }
+
+        const { userId } = body;
+
+        // 3. Validate Input
         if (!userId) {
-            console.error("[PunchIn] Missing userId in request body");
+            console.error("[PunchIn API] Missing userId");
             return NextResponse.json({ error: 'Missing userId' }, { status: 400 });
         }
 
-        console.log(`[PunchIn] Attempting punch-in for user: ${userId}`);
-        const result = await db.punchInUser(userId);
+        console.log(`[PunchIn API] Processing for user: ${userId}`);
 
-        if (!result) {
-            console.log(`[PunchIn] No active session found in DB for user ${userId}. Attempting to create one.`);
+        // 4. Perform DB Operation
+        // We wrap this in its own try-catch just in case db.punchInUser throws non-error object
+        try {
+            const result = await db.punchInUser(userId);
 
-            const punchInTime = new Date().toISOString();
-            const sessionId = `sess_${Date.now()}_${Math.random()}`;
+            if (!result) {
+                console.log(`[PunchIn API] No active session, creating new session for ${userId}`);
+                const punchInTime = new Date().toISOString();
+                const sessionId = `sess_${Date.now()}_${Math.random().toString(36).substring(7)}`;
 
-            try {
                 await db.createSession({
                     sessionId,
                     userId,
@@ -27,37 +46,27 @@ export async function POST(req: Request) {
                     lastActiveTime: punchInTime,
                     isActive: true
                 });
-                console.log(`[PunchIn] Created new active session ${sessionId} for user ${userId}`);
-            } catch (sessionError: any) {
-                console.error(`[PunchIn] Failed to create fallback session: ${sessionError.message}`);
-                // If createSession failed, it's likely a DB connection or constraint issue
-                return NextResponse.json({
-                    error: 'Database error while creating session',
-                    details: sessionError.message
-                }, { status: 500 });
+
+                console.log(`[PunchIn API] New session created: ${sessionId}`);
+                return NextResponse.json({ success: true, punchInTime });
             }
 
+            console.log(`[PunchIn API] Session updated for ${userId}`);
+            return NextResponse.json({ success: true, punchInTime: new Date().toISOString() });
+
+        } catch (dbError: any) {
+            console.error("[PunchIn API] Database operation failed:", dbError);
             return NextResponse.json({
-                success: true,
-                punchInTime: punchInTime
-            });
+                error: 'Database operation failed',
+                details: dbError.message || String(dbError)
+            }, { status: 500 });
         }
 
-        console.log(`[PunchIn] Successfully updated existing session for user ${userId}`);
-    } catch (error: any) {
-        console.error("[PunchIn] Vital error:", error);
-
-        // Detect specific Supabase auth error
-        const isApiKeyError = error.message?.includes("Invalid API key") ||
-            JSON.stringify(error).includes("Invalid API key");
-
-        const userMessage = isApiKeyError
-            ? "Server Configuration Error: Invalid API Key. Please check SUPABASE_SERVICE_ROLE_KEY in Vercel Settings."
-            : (error.message || 'Punch-in failed');
-
+    } catch (globalError: any) {
+        console.error("[PunchIn API] Catastrophic error:", globalError);
         return NextResponse.json({
-            error: userMessage,
-            details: error instanceof Error ? error.message + (error.stack ? `\n${error.stack}` : '') : (typeof error === 'object' ? JSON.stringify(error, null, 2) : String(error))
+            error: 'Server Internal Error',
+            details: globalError.message || String(globalError)
         }, { status: 500 });
     }
 }
