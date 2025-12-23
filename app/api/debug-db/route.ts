@@ -1,45 +1,42 @@
+
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
-import { db } from '@/lib/db';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
-    try {
-        // Trigger seeding if needed
-        await db.getUsers().catch(() => { });
+    const soupUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-        if (!supabaseAdmin) {
-            return NextResponse.json({
-                error: 'Supabase Admin Client not initialized',
-                envStatus: {
-                    url: process.env.NEXT_PUBLIC_SUPABASE_URL ? `PRESENT (${process.env.NEXT_PUBLIC_SUPABASE_URL.substring(0, 15)}...)` : 'MISSING',
-                    serviceKey: process.env.SUPABASE_SERVICE_ROLE_KEY ? `PRESENT (${process.env.SUPABASE_SERVICE_ROLE_KEY.substring(0, 10)}...)` : 'MISSING'
-                }
-            }, { status: 500 });
+    const checks = {
+        url_exists: !!soupUrl,
+        url_valid: soupUrl?.startsWith('http'),
+        key_exists: !!serviceKey,
+        key_length: serviceKey?.length || 0,
+        client_initialized: !!supabaseAdmin
+    };
+
+    let dbCheck = "Pending";
+    let dbError = null;
+
+    if (supabaseAdmin) {
+        try {
+            const { data, error } = await supabaseAdmin.from('users').select('count').limit(1);
+            if (error) throw error;
+            dbCheck = "Success - Connected to Supabase";
+        } catch (e: any) {
+            dbCheck = "Failed";
+            dbError = e.message || String(e);
         }
-
-        const { data, error } = await supabaseAdmin.from('users').select('*').limit(1);
-
-        if (error) {
-            return NextResponse.json({
-                error: 'Supabase Query Failed',
-                fullError: error,
-                envStatus: {
-                    url: process.env.NEXT_PUBLIC_SUPABASE_URL ? `PRESENT (${process.env.NEXT_PUBLIC_SUPABASE_URL.substring(0, 15)}...)` : 'MISSING',
-                    serviceKey: process.env.SUPABASE_SERVICE_ROLE_KEY ? `PRESENT (${process.env.SUPABASE_SERVICE_ROLE_KEY.substring(0, 10)}...)` : 'MISSING'
-                }
-            }, { status: 500 });
-        }
-
-        return NextResponse.json({
-            success: true,
-            message: 'Supabase Connection OK',
-            userCount: data
-        });
-    } catch (error: any) {
-        return NextResponse.json({
-            error: 'Unexpected Error',
-            message: error.message,
-            stack: error.stack
-        }, { status: 500 });
+    } else {
+        dbCheck = "Skipped - Client is null";
     }
+
+    return NextResponse.json({
+        status: "Debug Report",
+        environment: checks,
+        database_connection: dbCheck,
+        last_error: dbError,
+        timestamp: new Date().toISOString()
+    }, { status: 200 });
 }
