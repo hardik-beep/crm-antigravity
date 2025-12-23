@@ -57,7 +57,12 @@ export interface DBSession {
 function getClient() {
     if (!supabaseAdmin) {
         const isProd = process.env.NODE_ENV === 'production';
-        console.warn(`[DB] Supabase Admin Client not initialized. ${isProd ? 'CRITICAL: Check SUPABASE_SERVICE_ROLE_KEY on Vercel.' : 'Note: Falling back to local/dummy data.'}`);
+        console.error(`[DB] Supabase Admin Client CRITICAL FAILURE. Missing SUPABASE_SERVICE_ROLE_KEY or NEXT_PUBLIC_SUPABASE_URL. Env check: URL=${!!process.env.NEXT_PUBLIC_SUPABASE_URL}, ServiceKey=${!!process.env.SUPABASE_SERVICE_ROLE_KEY}`);
+
+        if (isProd) {
+            // We can't fix this from code, but we can log it clearly so the 500 isn't empty
+            throw new Error("Server Misconfiguration: Missing Supabase Environment Variables");
+        }
         return null;
     }
     return supabaseAdmin;
