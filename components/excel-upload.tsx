@@ -398,15 +398,29 @@ export function ExcelUpload() {
                   <CheckCircle className="mr-1 h-3 w-3" /> {validCount} Valid
                 </Badge>
                 {invalidCount > 0 && (
-                  <Badge variant="outline" className="bg-red-500/10 text-red-500 border-red-500/20">
-                    <AlertCircle className="mr-1 h-3 w-3" /> {invalidCount} Invalid
-                  </Badge>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="bg-red-500/10 text-red-500 border-red-500/20">
+                      <AlertCircle className="mr-1 h-3 w-3" /> {invalidCount} Invalid (Will be Skipped)
+                    </Badge>
+                    <span className="text-xs text-muted-foreground hidden sm:inline-block">
+                      (Check "Issues" column below)
+                    </span>
+                  </div>
                 )}
                 <Button variant="ghost" size="icon" onClick={handleClear}>
                   <X className="h-4 w-4" />
                 </Button>
               </div>
             </div>
+            {invalidCount > 0 && parsedData.length > 0 && (
+              <div className="w-full mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-800 flex items-center gap-2">
+                <AlertCircle className="h-4 w-4" />
+                <span>
+                  <strong>Attention:</strong> Only the {validCount} valid records will be uploaded. The {invalidCount} invalid records (marked in red) will be ignored.
+                  Common issues: Missing Name, Missing/Short Mobile Number.
+                </span>
+              </div>
+            )}
           </CardHeader>
           <CardContent>
             <div className="rounded-lg border border-border overflow-hidden max-h-[400px] overflow-auto">
